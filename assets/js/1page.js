@@ -121,7 +121,7 @@ document
 document
   .getElementById("world-forge")
   .addEventListener("click", () =>
-    window.open("https://bloxdforge.com/studio", "_blank")
+    window.open("./studio", "_blank")
   );
 document.getElementById("bigbutton").addEventListener("click", () => {
   const name = featuredWorldName.dataset.name;
