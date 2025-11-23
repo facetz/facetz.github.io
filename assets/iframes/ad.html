@@ -4,34 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ads</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 10px;
+            background: #141313;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-container {
+            background: linear-gradient(145deg, #262525, #212020);
+            border: 1px solid #444343;
+            border-radius: 18px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .ad-header {
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2c2b2b;
+            margin-bottom: 10px;
+        }
+
+        .ad-header h3 {
+            margin: 0;
+            color: #ff6b39;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .ad-label {
+            font-size: 0.7rem;
+            color: #a0a0a0;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        #ad1-container, #ad2-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
-    <!-- Ad 1 -->
-    <div id="ad1-container">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '2546e09950359015faa6030a9d820a97',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/2546e09950359015faa6030a9d820a97/invoke.js"></script>
+    <div class="ad-container">
+        <!-- Ad 1 -->
+        <div id="ad1-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '2546e09950359015faa6030a9d820a97',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/2546e09950359015faa6030a9d820a97/invoke.js"></script>
+        </div>
+        <div class="ad-label">Advertisement</div>
     </div>
 
-    <!-- Ad 2 -->
-    <div id="ad2-container">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '712027dee77da870bf038904c32bbfc5',
-                'format' : 'iframe',
-                'height' : 600,
-                'width' : 160,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/712027dee77da870bf038904c32bbfc5/invoke.js"></script>
+    <div class="ad-container">
+        <!-- Ad 2 -->
+        <div id="ad2-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '712027dee77da870bf038904c32bbfc5',
+                    'format' : 'iframe',
+                    'height' : 600,
+                    'width' : 160,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/712027dee77da870bf038904c32bbfc5/invoke.js"></script>
+        </div>
+        <div class="ad-label">Advertisement</div>
     </div>
 </body>
 </html>
