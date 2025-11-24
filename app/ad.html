@@ -1,258 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ads</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 10px;
-            background: #141313;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #e0e0e0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-            justify-content: center;
-        }
+  <meta charset="UTF-8">
+  <title>Safe Ads</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #181818;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      min-height: 100vh;
+    }
 
-        .ad-container {
-            background: linear-gradient(145deg, #262525, #212020);
-            border: 1px solid #444343;
-            border-radius: 18px;
-            padding: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            width: 100%;
-            max-width: 320px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .ad-header {
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #2c2b2b;
-            margin-bottom: 10px;
-        }
-
-        .ad-header h3 {
-            margin: 0;
-            color: #ff6b39;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .ad-label {
-            font-size: 0.7rem;
-            color: #a0a0a0;
-            text-align: center;
-            margin-top: 5px;
-        }
-
-        #ad1-container, #ad2-container {
-            display: flex;
-            justify-content: center;
-            min-height: 50px;
-        }
-        
-        #ad2-container {
-            min-height: 600px;
-        }
-        
-        .ad-fallback {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            color: #a0a0a0;
-            font-style: italic;
-        }
-        
-        iframe {
-            border: none;
-            width: 100%;
-            /* Additional security: prevent pointer events */
-            pointer-events: none;
-        }
-        
-        /* Re-enable pointer events only on hover for interaction */
-        iframe:hover {
-            pointer-events: auto;
-        }
-    </style>
+    iframe {
+      border: none;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="ad-container">
-        <!-- Ad 1 -->
-        <div id="ad1-container">
-            <iframe id="ad1-iframe" width="320" height="50" 
-                sandbox="allow-scripts" 
-                srcdoc="
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <base target='_blank'>
-                    <style>
-                        body {
-                            margin: 0;
-                            overflow: hidden;
-                            /* Prevent any resizing attempts */
-                            width: 320px;
-                            height: 50px;
-                        }
-                        /* Block all external links */
-                        a[href] {
-                            pointer-events: none;
-                        }
-                    </style>
-                </head>
-                <body style='margin:0;overflow:hidden;width:320px;height:50px;'>
-                    <script type='text/javascript'>
-                        var atOptions = {
-                            'key': 'a41c3792a1aeedc1a9cdf3ea2fa4d4cb',
-                            'format': 'iframe',
-                            'height': 50,
-                            'width': 320,
-                            'params': {}
-                        };
-                        
-                        // Prevent any attempts to modify the parent
-                        window.parent = null;
-                        window.top = null;
-                        window.frameElement = null;
-                        
-                        // Block navigation attempts
-                        window.onbeforeunload = function() {
-                            return false;
-                        };
-                    </script>
-                    <script type='text/javascript' src='//www.highperformanceformat.com/a41c3792a1aeedc1a9cdf3ea2fa4d4cb/invoke.js'></script>
-                </body>
-                </html>
-            "></iframe>
-        </div>
-        <div class="ad-label">Advertisement</div>
-    </div>
 
-    <div class="ad-container">
-        <!-- Ad 2 -->
-        <div id="ad2-container">
-            <iframe id="ad2-iframe" width="160" height="600" 
-                sandbox="allow-scripts" 
-                srcdoc="
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <base target='_blank'>
-                    <style>
-                        body {
-                            margin: 0;
-                            overflow: hidden;
-                            /* Prevent any resizing attempts */
-                            width: 160px;
-                            height: 600px;
-                        }
-                        /* Block all external links */
-                        a[href] {
-                            pointer-events: none;
-                        }
-                    </style>
-                </head>
-                <body style='margin:0;overflow:hidden;width:160px;height:600px;'>
-                    <script type='text/javascript'>
-                        var atOptions = {
-                            'key': 'a41c3792a1aeedc1a9cdf3ea2fa4d4cb',
-                            'format': 'iframe',
-                            'height': 600,
-                            'width': 160,
-                            'params': {}
-                        };
-                        
-                        // Prevent any attempts to modify the parent
-                        window.parent = null;
-                        window.top = null;
-                        window.frameElement = null;
-                        
-                        // Block navigation attempts
-                        window.onbeforeunload = function() {
-                            return false;
-                        };
-                    </script>
-                    <script type='text/javascript' src='//www.highperformanceformat.com/a41c3792a1aeedc1a9cdf3ea2fa4d4cb/invoke.js'></script>
-                </body>
-                </html>
-            "></iframe>
-        </div>
-        <div class="ad-label">Advertisement</div>
-    </div>
-    
-    <script>
-        // Enhanced security: Reset iframes if they try to resize or reposition
-        function monitorIframes() {
-            const iframes = document.querySelectorAll('iframe');
-            iframes.forEach(iframe => {
-                // Store original dimensions
-                const originalWidth = iframe.width;
-                const originalHeight = iframe.height;
-                
-                // Monitor for changes
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.type === 'attributes') {
-                            if (mutation.attributeName === 'width' || mutation.attributeName === 'height') {
-                                // Reset to original dimensions
-                                iframe.width = originalWidth;
-                                iframe.height = originalHeight;
-                            }
-                        }
-                    });
-                });
-                
-                observer.observe(iframe, {
-                    attributes: true,
-                    attributeFilter: ['width', 'height', 'style']
-                });
-            });
-        }
-        
-        // Run monitoring after page loads
-        window.addEventListener('load', monitorIframes);
-        
-        // Refresh ads frequently to prevent persistent attacks
-        function refreshAd(id) {
-            try {
-                const iframe = document.getElementById(id);
-                if (iframe) {
-                    const srcdoc = iframe.getAttribute('srcdoc');
-                    iframe.srcdoc = '';
-                    setTimeout(() => { 
-                        iframe.srcdoc = srcdoc; 
-                    }, 50);
-                }
-            } catch(e) {
-                console.error('Failed to refresh ad ' + id + ':', e);
-            }
-        }
+  <iframe id="tallAd" width="160" height="600" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="
+    <html>
+      <head>
+        <base target='_blank'>
+      </head>
+      <body style='margin:0;'>
+        <script type='text/javascript'>
+          atOptions = {
+            'key': 'ad3947e867b6f05de07231d510257667',
+            'format': 'iframe',
+            'height': 600,
+            'width': 160,
+            'params': {}
+          };
+        </script>
+        <script type='text/javascript' src='//www.highperformanceformat.com/ad3947e867b6f05de07231d510257667/invoke.js'></script>
+      </body>
+    </html>
+  "></iframe>
 
-        // Refresh ads every 15 seconds (more frequent)
-        setInterval(() => refreshAd('ad1-iframe'), 15000);
-        setInterval(() => refreshAd('ad2-iframe'), 15000);
-        
-        // Error handling for ad scripts
-        window.onerror = function(message, source, lineno, colno, error) {
-            console.error('Ad script error:', message, source, lineno, colno, error);
-            return true; // Prevent error propagation
-        };
-        
-        // Handle unhandled rejections
-        window.onunhandledrejection = function(event) {
-            console.error('Unhandled rejection:', event.reason);
-            event.preventDefault();
-        };
-    </script>
+  <iframe id="bottomAd" width="468" height="60" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="
+    <html>
+      <head>
+        <base target='_blank'>
+      </head>
+      <body style='margin:0;'>
+        <script async='async' data-cfasync='false' src='//pl27524901.effectivegatecpm.com/025a28ee6ce5c5514fa0aa0a6e1a65c8/invoke.js'></script>
+        <div id='container-025a28ee6ce5c5514fa0aa0a6e1a65c8'></div>
+      </body>
+    </html>
+  "></iframe>
+
+  <script>
+    function refreshAd(id) {
+      const iframe = document.getElementById(id);
+      const srcdoc = iframe.srcdoc;
+      iframe.srcdoc = '';
+      setTimeout(() => { iframe.srcdoc = srcdoc; }, 50);
+    }
+
+    setInterval(() => refreshAd('tallAd'), 30000);
+    setInterval(() => refreshAd('bottomAd'), 30000);
+  </script>
+
 </body>
+
 </html>
