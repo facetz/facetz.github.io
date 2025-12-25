@@ -6,9 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Workshop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="workshop_styles.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://js.puter.com/v2/"></script>
+    <script>
+        // Load Puter SDK with error handling
+        (function() {
+            const script = document.createElement('script');
+            script.src = 'https://js.puter.com/v2/';
+            script.onload = function() {
+                console.log('Puter SDK loaded successfully');
+            };
+            script.onerror = function() {
+                console.error('Failed to load Puter SDK');
+                // Define a mock puter object to prevent errors
+                window.puter = {
+                    auth: {
+                        signIn: function() { return Promise.reject(new Error('Puter SDK not loaded')); },
+                        signOut: function() { console.log('Puter sign out called but SDK not loaded'); }
+                    }
+                };
+            };
+            document.head.appendChild(script);
+        })();
+    </script>
     <style>
         :root {
             --primary-color: #ff6b39;
@@ -1257,9 +1276,6 @@
         }
 
         .cancel-btn {
-        }
-
-        .cancel-btn {
             background: linear-gradient(145deg, #3a3939, #2a2929);
             border: 1px solid #4a4949;
             border-radius: var(--radius-md);
@@ -1934,9 +1950,26 @@
         </div>
     </div>
     <script>
-        const SUPABASE_URL = 'https://eytqkzsqauvgbeblgtuz.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_E9VC8Pk2_P6psmFPhu_t9w_8MolXBDi';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        try {
+            const SUPABASE_URL = 'https://eytqkzsqauvgbeblgtuz.supabase.co';
+            const SUPABASE_KEY = 'sb_publishable_E9VC8Pk2_P6psmFPhu_t9w_8MolXBDi';
+            window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        } catch (error) {
+            console.error('Supabase initialization error:', error);
+            // Create a mock supabase object with stub methods to prevent crashes
+            window.supabase = {
+                from: function() {
+                    return {
+                        select: function() {
+                            return { data: [], error: null };
+                        },
+                        insert: function() {
+                            return { data: [], error: { message: 'Supabase not initialized' } };
+                        }
+                    };
+                }
+            };
+        }
         const swearWords = [
             'fuck', 'fucking', 'fucked', 'fuckin', 'fucker', 'fucks',
             'shit', 'shitting', 'shitty', 'shat',
@@ -2305,143 +2338,262 @@
             container.appendChild(inputGroup);
         }
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('DOM loaded, initializing app...');
-            initializeDOMElements();
-            checkAuthStatus();
-            await loadSubmissions();
-            initializeTexturePackData();
-            setupEventListeners();
-            setupUploadForm();
-            setupIconSelector();
-            initHeroCarousel();
-            console.log('App initialized successfully');
+            try {
+                console.log('DOM loaded, initializing app...');
+                initializeDOMElements();
+                checkAuthStatus();
+                initializeTexturePackData();
+                setupEventListeners();
+                setupUploadForm();
+                setupIconSelector();
+                initHeroCarousel();
+                // Ensure create button is hidden if Puter is not available
+                if (createBtn && (typeof puter === 'undefined' || !puter.auth)) {
+                    createBtn.style.display = 'none';
+                }
+                await loadSubmissions();
+                updateTabView(); // Make sure to update the tab view after loading
+                console.log('App initialized successfully');
+            } catch (error) {
+                console.error('Error during DOMContentLoaded:', error);
+            }
         });
         function initializeDOMElements() {
-            searchInput = document.getElementById('searchInput');
-            signInBtn = document.getElementById('signInBtn');
-            signOutBtn = document.getElementById('signOutBtn');
-            userProfile = document.getElementById('userProfile');
-            usernameDisplay = document.getElementById('usernameDisplay');
-            usernameInput = document.getElementById('username');
-            createBtn = document.getElementById('createBtn');
-            modal = document.getElementById('createModal');
-            closeBtn = document.querySelector('.close');
-            uploadForm = document.getElementById('upload-form');
-            openIconSelectorBtn = document.getElementById('openIconSelector');
-            iconSelectorModal = document.getElementById('iconSelectorModal');
-            closeIconSelector = document.querySelector('.close-icon-selector');
-            iconGrid = document.getElementById('iconGrid');
-            iconSearch = document.getElementById('iconSearch');
-            selectedIconDisplay = document.getElementById('selectedIcon');
-            presetIconInput = document.getElementById('preset-icon');
-            sharePopup = document.getElementById('sharePopup');
-            closeSharePopup = document.querySelector('.close-share-popup');
-            sharePackImage = document.getElementById('sharePackImage');
-            sharePackTitle = document.getElementById('sharePackTitle');
-            sharePackAuthor = document.getElementById('sharePackAuthor');
-            sharePackDescription = document.getElementById('sharePackDescription');
-            shareUrlInput = document.getElementById('shareUrlInput');
-            copyShareUrlBtn = document.getElementById('copyShareUrlBtn');
-            shareDownloadBtn = document.getElementById('shareDownloadBtn');
-            detailsModal = document.getElementById('detailsModal');
-            detailsTitle = document.getElementById('detailsTitle');
-            detailsContent = document.getElementById('detailsContent');
-            copyScriptBtn = document.getElementById('copyScriptBtn');
-            detailsClose = document.getElementById('detailsClose');
-            textureSection = document.getElementById('texture-section');
-            creationSection = document.getElementById('creation-section');
-            textureGrid = document.getElementById('textureGrid');
-            creationGrid = document.getElementById('creationGrid');
-            textureCount = document.getElementById('textureCount');
-            creationCount = document.getElementById('creationCount');
-            textureSort = document.getElementById('textureSort');
-            creationSort = document.getElementById('creationSort');
-            tabButtons = document.querySelectorAll('.tab-btn');
-            exploreBtn = document.getElementById('exploreBtn');
-            createHeroBtn = document.getElementById('createHeroBtn');
-            navButtons = document.querySelectorAll('.nav-btn');
-            carouselItems = document.querySelectorAll('.carousel-item');
-            packsCount = document.getElementById('packsCount');
-            creationsCount = document.getElementById('creationsCount');
+            try {
+                searchInput = document.getElementById('searchInput');
+                signInBtn = document.getElementById('signInBtn');
+                signOutBtn = document.getElementById('signOutBtn');
+                userProfile = document.getElementById('userProfile');
+                usernameDisplay = document.getElementById('usernameDisplay');
+                usernameInput = document.getElementById('username');
+                createBtn = document.getElementById('createBtn');
+                modal = document.getElementById('createModal');
+                closeBtn = document.querySelector('.close');
+                uploadForm = document.getElementById('upload-form');
+                openIconSelectorBtn = document.getElementById('openIconSelector');
+                iconSelectorModal = document.getElementById('iconSelectorModal');
+                closeIconSelector = document.querySelector('.close-icon-selector');
+                iconGrid = document.getElementById('iconGrid');
+                iconSearch = document.getElementById('iconSearch');
+                selectedIconDisplay = document.getElementById('selectedIcon');
+                presetIconInput = document.getElementById('preset-icon');
+                sharePopup = document.getElementById('sharePopup');
+                closeSharePopup = document.querySelector('.close-share-popup');
+                sharePackImage = document.getElementById('sharePackImage');
+                sharePackTitle = document.getElementById('sharePackTitle');
+                sharePackAuthor = document.getElementById('sharePackAuthor');
+                sharePackDescription = document.getElementById('sharePackDescription');
+                shareUrlInput = document.getElementById('shareUrlInput');
+                copyShareUrlBtn = document.getElementById('copyShareUrlBtn');
+                shareDownloadBtn = document.getElementById('shareDownloadBtn');
+                detailsModal = document.getElementById('detailsModal');
+                detailsTitle = document.getElementById('detailsTitle');
+                detailsContent = document.getElementById('detailsContent');
+                copyScriptBtn = document.getElementById('copyScriptBtn');
+                detailsClose = document.getElementById('detailsClose');
+                textureSection = document.getElementById('texture-section');
+                creationSection = document.getElementById('creation-section');
+                textureGrid = document.getElementById('textureGrid');
+                creationGrid = document.getElementById('creationGrid');
+                textureCount = document.getElementById('textureCount');
+                creationCount = document.getElementById('creationCount');
+                textureSort = document.getElementById('textureSort');
+                creationSort = document.getElementById('creationSort');
+                tabButtons = document.querySelectorAll('.tab-btn');
+                exploreBtn = document.getElementById('exploreBtn');
+                createHeroBtn = document.getElementById('createHeroBtn');
+                navButtons = document.querySelectorAll('.nav-btn');
+                carouselItems = document.querySelectorAll('.carousel-item');
+                packsCount = document.getElementById('packsCount');
+                creationsCount = document.getElementById('creationsCount');
+                
+                // Log which elements were not found to help with debugging
+                const missingElements = [];
+                if (!searchInput) missingElements.push('searchInput');
+                if (!signInBtn) missingElements.push('signInBtn');
+                if (!signOutBtn) missingElements.push('signOutBtn');
+                if (!userProfile) missingElements.push('userProfile');
+                if (!usernameDisplay) missingElements.push('usernameDisplay');
+                if (!usernameInput) missingElements.push('usernameInput');
+                if (!createBtn) missingElements.push('createBtn');
+                if (!modal) missingElements.push('modal');
+                if (!closeBtn) missingElements.push('closeBtn');
+                if (!uploadForm) missingElements.push('uploadForm');
+                if (!openIconSelectorBtn) missingElements.push('openIconSelectorBtn');
+                if (!iconSelectorModal) missingElements.push('iconSelectorModal');
+                if (!closeIconSelector) missingElements.push('closeIconSelector');
+                if (!iconGrid) missingElements.push('iconGrid');
+                if (!iconSearch) missingElements.push('iconSearch');
+                if (!selectedIconDisplay) missingElements.push('selectedIconDisplay');
+                if (!presetIconInput) missingElements.push('presetIconInput');
+                if (!sharePopup) missingElements.push('sharePopup');
+                if (!closeSharePopup) missingElements.push('closeSharePopup');
+                if (!sharePackImage) missingElements.push('sharePackImage');
+                if (!sharePackTitle) missingElements.push('sharePackTitle');
+                if (!sharePackAuthor) missingElements.push('sharePackAuthor');
+                if (!sharePackDescription) missingElements.push('sharePackDescription');
+                if (!shareUrlInput) missingElements.push('shareUrlInput');
+                if (!copyShareUrlBtn) missingElements.push('copyShareUrlBtn');
+                if (!shareDownloadBtn) missingElements.push('shareDownloadBtn');
+                if (!detailsModal) missingElements.push('detailsModal');
+                if (!detailsTitle) missingElements.push('detailsTitle');
+                if (!detailsContent) missingElements.push('detailsContent');
+                if (!copyScriptBtn) missingElements.push('copyScriptBtn');
+                if (!detailsClose) missingElements.push('detailsClose');
+                if (!textureSection) missingElements.push('textureSection');
+                if (!creationSection) missingElements.push('creationSection');
+                if (!textureGrid) missingElements.push('textureGrid');
+                if (!creationGrid) missingElements.push('creationGrid');
+                if (!textureCount) missingElements.push('textureCount');
+                if (!creationCount) missingElements.push('creationCount');
+                if (!textureSort) missingElements.push('textureSort');
+                if (!creationSort) missingElements.push('creationSort');
+                if (!exploreBtn) missingElements.push('exploreBtn');
+                if (!createHeroBtn) missingElements.push('createHeroBtn');
+                if (!packsCount) missingElements.push('packsCount');
+                if (!creationsCount) missingElements.push('creationsCount');
+                
+                if (missingElements.length > 0) {
+                    console.warn('Missing elements in workshop:', missingElements);
+                }
+                
+                console.log('DOM elements initialized. Found:', {
+                    tabButtons: tabButtons.length,
+                    navButtons: navButtons.length,
+                    carouselItems: carouselItems.length
+                });
+            } catch (error) {
+                console.error('Error initializing DOM elements:', error);
+            }
         }
         function setupEventListeners() {
-            if (signInBtn) signInBtn.addEventListener('click', handleSignIn);
-            if (signOutBtn) signOutBtn.addEventListener('click', handleSignOut);
-            if (createBtn) createBtn.addEventListener('click', () => {
-                console.log('Create button clicked');
-                if (modal) modal.style.display = 'block';
-            });
-            if (closeBtn) closeBtn.addEventListener('click', () => {
-                console.log('Close button clicked');
-                if (modal) modal.style.display = 'none';
-            });
-            const cancelBtn = document.getElementById('cancelUpload');
-            if (cancelBtn) {
-                cancelBtn.addEventListener('click', () => {
-                    if (modal) modal.style.display = 'none';
-                });
-            }
-            if (uploadForm) uploadForm.addEventListener('submit', handleFormSubmit);
-            window.addEventListener('click', (event) => {
-                if (modal && event.target === modal) {
-                    console.log('Clicked outside modal');
-                    modal.style.display = 'none';
+            try {
+                if (signInBtn) {
+                    signInBtn.addEventListener('click', handleSignIn);
+                    console.log('Sign in button listener attached');
                 }
-                if (iconSelectorModal && event.target === iconSelectorModal) {
-                    iconSelectorModal.style.display = 'none';
+                if (signOutBtn) {
+                    signOutBtn.addEventListener('click', handleSignOut);
+                    console.log('Sign out button listener attached');
                 }
-                if (detailsModal && event.target === detailsModal) {
-                    detailsModal.style.display = 'none';
-                }
-                if (sharePopup && event.target === sharePopup) {
-                    sharePopup.style.display = 'none';
-                }
-            });
-            if (searchInput) searchInput.addEventListener('input', handleSearch);
-            if (closeSharePopup) closeSharePopup.addEventListener('click', () => {
-                if (sharePopup) sharePopup.style.display = 'none';
-            });
-            if (copyShareUrlBtn) copyShareUrlBtn.addEventListener('click', () => {
-                if (shareUrlInput) {
-                    shareUrlInput.select();
-                    document.execCommand('copy');
-                    const originalText = copyShareUrlBtn.textContent;
-                    copyShareUrlBtn.textContent = 'Copied!';
-                    setTimeout(() => {
-                        copyShareUrlBtn.textContent = originalText;
-                    }, 2000);
-                }
-            });
-            if (detailsClose) detailsClose.addEventListener('click', () => {
-                if (detailsModal) detailsModal.style.display = 'none';
-            });
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    currentTab = button.dataset.tab;
-                    updateTabView();
-                });
-            });
-            if (textureSort) textureSort.addEventListener('change', () => {
-                renderTexturePacks();
-            });
-            if (creationSort) creationSort.addEventListener('change', () => {
-                renderCreations();
-            });
-            if (exploreBtn) exploreBtn.addEventListener('click', () => {
-                document.querySelector('.content-sections').scrollIntoView({ behavior: 'smooth' });
-            });
-            if (createHeroBtn) createHeroBtn.addEventListener('click', () => {
-                if (createBtn) createBtn.click();
-            });
-            if (navButtons) {
-                navButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const slideIndex = parseInt(button.dataset.slide);
-                        showSlide(slideIndex);
+                if (createBtn) {
+                    createBtn.addEventListener('click', () => {
+                        console.log('Create button clicked');
+                        if (modal) modal.style.display = 'block';
                     });
+                    console.log('Create button listener attached');
+                }
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        console.log('Close button clicked');
+                        if (modal) modal.style.display = 'none';
+                    });
+                    console.log('Close button listener attached');
+                }
+                const cancelBtn = document.getElementById('cancelUpload');
+                if (cancelBtn) {
+                    cancelBtn.addEventListener('click', () => {
+                        if (modal) modal.style.display = 'none';
+                    });
+                    console.log('Cancel button listener attached');
+                }
+                if (uploadForm) {
+                    uploadForm.addEventListener('submit', handleFormSubmit);
+                    console.log('Upload form listener attached');
+                }
+                window.addEventListener('click', (event) => {
+                    if (modal && event.target === modal) {
+                        console.log('Clicked outside modal');
+                        modal.style.display = 'none';
+                    }
+                    if (iconSelectorModal && event.target === iconSelectorModal) {
+                        iconSelectorModal.style.display = 'none';
+                    }
+                    if (detailsModal && event.target === detailsModal) {
+                        detailsModal.style.display = 'none';
+                    }
+                    if (sharePopup && event.target === sharePopup) {
+                        sharePopup.style.display = 'none';
+                    }
                 });
+                if (searchInput) {
+                    searchInput.addEventListener('input', handleSearch);
+                    console.log('Search input listener attached');
+                }
+                if (closeSharePopup) {
+                    closeSharePopup.addEventListener('click', () => {
+                        if (sharePopup) sharePopup.style.display = 'none';
+                    });
+                    console.log('Close share popup listener attached');
+                }
+                if (copyShareUrlBtn) {
+                    copyShareUrlBtn.addEventListener('click', () => {
+                        if (shareUrlInput) {
+                            shareUrlInput.select();
+                            document.execCommand('copy');
+                            const originalText = copyShareUrlBtn.textContent;
+                            copyShareUrlBtn.textContent = 'Copied!';
+                            setTimeout(() => {
+                                copyShareUrlBtn.textContent = originalText;
+                            }, 2000);
+                        }
+                    });
+                    console.log('Copy share URL button listener attached');
+                }
+                if (detailsClose) {
+                    detailsClose.addEventListener('click', () => {
+                        if (detailsModal) detailsModal.style.display = 'none';
+                    });
+                    console.log('Details close button listener attached');
+                }
+                if (tabButtons) {
+                    tabButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            tabButtons.forEach(btn => btn.classList.remove('active'));
+                            button.classList.add('active');
+                            currentTab = button.dataset.tab;
+                            updateTabView();
+                        });
+                    });
+                    console.log('Tab buttons listeners attached');
+                }
+                if (textureSort) {
+                    textureSort.addEventListener('change', () => {
+                        renderTexturePacks();
+                    });
+                    console.log('Texture sort listener attached');
+                }
+                if (creationSort) {
+                    creationSort.addEventListener('change', () => {
+                        renderCreations();
+                    });
+                    console.log('Creation sort listener attached');
+                }
+                if (exploreBtn) {
+                    exploreBtn.addEventListener('click', () => {
+                        document.querySelector('.content-sections').scrollIntoView({ behavior: 'smooth' });
+                    });
+                    console.log('Explore button listener attached');
+                }
+                if (createHeroBtn) {
+                    createHeroBtn.addEventListener('click', () => {
+                        if (createBtn) createBtn.click();
+                    });
+                    console.log('Create hero button listener attached');
+                }
+                if (navButtons) {
+                    navButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const slideIndex = parseInt(button.dataset.slide);
+                            showSlide(slideIndex);
+                        });
+                    });
+                    console.log('Navigation buttons listeners attached');
+                }
+                
+                console.log('All event listeners have been set up');
+            } catch (error) {
+                console.error('Error setting up event listeners:', error);
             }
         }
         function initHeroCarousel() {
@@ -2594,8 +2746,19 @@
         }
         async function handleSignIn() {
             try {
+                // Check if Puter SDK is available
+                if (typeof puter === 'undefined' || !puter.auth) {
+                    console.error('Puter SDK not loaded. Please check the CDN link.');
+                    alert('Authentication service is not available. Please try again later.');
+                    return;
+                }
                 console.log('Signing in with Puter...');
                 const user = await puter.auth.signIn();
+                if (user instanceof Error) {
+                    console.error('Puter SDK not loaded properly:', user);
+                    alert('Authentication service is not available. Please try again later.');
+                    return;
+                }
                 console.log('Signed in user:', user);
                 if (signInBtn) signInBtn.style.display = 'none';
                 if (createBtn) createBtn.style.display = 'flex';
@@ -2606,13 +2769,39 @@
                     usernameInput.readOnly = true;
                 }
                 localStorage.setItem('puterUser', JSON.stringify(user));
+                
+                // Update UI to reflect successful sign-in
+                if (createBtn) createBtn.style.display = 'flex';
+                if (signInBtn) signInBtn.style.display = 'none';
+                if (userProfile) {
+                    userProfile.style.display = 'flex';
+                    if (usernameDisplay) usernameDisplay.textContent = user.username;
+                }
+                
+                // Show success notification
+                showNotification('Successfully signed in!', 'success');
             } catch (error) {
                 console.error('Sign in error:', error);
-                alert('Sign in failed. Please try again.');
+                alert('Sign in failed. Please try again. Error: ' + error.message);
+                
+                // Show error notification
+                showNotification('Sign in failed: ' + error.message, 'error');
             }
         }
         function handleSignOut() {
             try {
+                // Check if Puter SDK is available
+                if (typeof puter === 'undefined' || !puter.auth) {
+                    console.error('Puter SDK not loaded. Cannot sign out.');
+                    localStorage.removeItem('puterUser');
+                    if (signInBtn) signInBtn.style.display = 'flex';
+                    if (createBtn) createBtn.style.display = 'none';
+                    if (userProfile) userProfile.style.display = 'none';
+                    
+                    // Show notification
+                    showNotification('Successfully signed out.', 'success');
+                    return;
+                }
                 puter.auth.signOut();
                 if (signInBtn) signInBtn.style.display = 'flex';
                 if (createBtn) createBtn.style.display = 'none';
@@ -2622,36 +2811,67 @@
                     usernameInput.readOnly = false;
                 }
                 localStorage.removeItem('puterUser');
+                
+                // Update UI to reflect successful sign-out
+                if (createBtn) createBtn.style.display = 'none';
+                if (signInBtn) signInBtn.style.display = 'flex';
+                if (userProfile) {
+                    userProfile.style.display = 'none';
+                    if (usernameDisplay) usernameDisplay.textContent = '';
+                }
+                
+                // Show notification
+                showNotification('Successfully signed out.', 'success');
             } catch (error) {
                 console.error('Sign out error:', error);
-                alert('Sign out failed. Please try again.');
+                alert('Sign out failed. Please try again. Error: ' + error.message);
+                
+                // Show error notification
+                showNotification('Sign out failed: ' + error.message, 'error');
             }
         }
         function checkAuthStatus() {
             try {
                 const storedUser = localStorage.getItem('puterUser');
-                if (storedUser) {
+                // Check if Puter SDK is available
+                const puterAvailable = typeof puter !== 'undefined' && puter.auth;
+                if (storedUser && puterAvailable) {
                     const user = JSON.parse(storedUser);
-                    if (signInBtn) signInBtn.style.display = 'none';
+                    // Update UI to reflect authenticated state
                     if (createBtn) createBtn.style.display = 'flex';
-                    if (userProfile) userProfile.style.display = 'flex';
-                    if (usernameDisplay) usernameDisplay.textContent = user.username;
+                    if (signInBtn) signInBtn.style.display = 'none';
+                    if (userProfile) {
+                        userProfile.style.display = 'flex';
+                        if (usernameDisplay) usernameDisplay.textContent = user.username;
+                    }
                     if (usernameInput) {
                         usernameInput.value = user.username;
                         usernameInput.readOnly = true;
                     }
                 } else {
+                    // Update UI to reflect non-authenticated state
                     if (signInBtn) signInBtn.style.display = 'flex';
                     if (createBtn) createBtn.style.display = 'none';
                     if (userProfile) userProfile.style.display = 'none';
+                    // Clear any stored user if puter is not available
+                    if (!puterAvailable) {
+                        localStorage.removeItem('puterUser');
+                    }
                 }
                 const storedFollows = localStorage.getItem('followedCreators');
                 if (storedFollows) {
                     followedCreators = new Set(JSON.parse(storedFollows));
                 }
+                
+                console.log('Authentication status checked:', {
+                    hasStoredUser: !!storedUser,
+                    puterAvailable: !!puterAvailable,
+                    isAuthed: !!(storedUser && puterAvailable)
+                });
             } catch (error) {
                 console.error('Error checking auth status:', error);
                 localStorage.removeItem('puterUser');
+                // Update UI to reflect non-authenticated state
                 if (signInBtn) signInBtn.style.display = 'flex';
                 if (createBtn) createBtn.style.display = 'none';
                 if (userProfile) userProfile.style.display = 'none';
@@ -2732,6 +2952,14 @@
                 submitButton.disabled = false;
                 return;
             }
+            // Check if Puter SDK is available
+            if (typeof puter === 'undefined' || !puter.auth) {
+                console.error('Puter SDK not loaded. Cannot upload creations.');
+                alert('Authentication service is not available. Cannot upload creations.');
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+                return;
+            }
             const storedUser = localStorage.getItem('puterUser');
             if (!storedUser) {
                 alert('You must be signed in to upload creations.');
@@ -2756,6 +2984,11 @@
                 user_id: user.uuid
             };
             try {
+                // Check if supabase client is properly initialized
+                if (!supabase) {
+                    throw new Error('Supabase client is not initialized');
+                }
+                
                 const { data, error } = await supabase
                     .from('submissions')
                     .insert([submission])
@@ -2765,20 +2998,10 @@
                     throw error;
                 }
                 lastUploadTime = Date.now();
-                alert(`Submission uploaded successfully! ${data ? `(ID: ${data[0]?.id})` : ''}`);
-                const successNotification = document.createElement('div');
-                successNotification.innerHTML = `
-            <div style="position: fixed; top: 20px; right: 20px; background: linear-gradient(90deg, #ff6b39 0%, #ff8c5a 100%); color: white; padding: 16px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); z-index: 10000; display: flex; align-items: center; gap: 8px;">
-                <i class="fas fa-check-circle"></i>
-                <span>Creation published successfully!</span>
-            </div>
-        `;
-                document.body.appendChild(successNotification);
-                setTimeout(() => {
-                    if (successNotification.parentNode) {
-                        successNotification.parentNode.removeChild(successNotification);
-                    }
-                }, 3000);
+                
+                // Show success notification
+                showNotification('Creation published successfully!', 'success');
+                
                 if (modal) modal.style.display = 'none';
                 uploadForm.reset();
                 selectedIcon = null;
@@ -2800,11 +3023,19 @@
             } catch (error) {
                 console.error('Error uploading submission:', error);
                 let errorMessage = error.message || error;
-                if (errorMessage.includes('row-level security policy')) {
+                if (errorMessage.includes('row-level security policy') || errorMessage.includes('permission')) {
                     errorMessage = 'Database access error: You need to enable proper permissions in Supabase. ' +
                         'Go to your Supabase dashboard > Authentication > Policies > submissions table ' +
                         'and enable INSERT access for everyone (public).';
+                } else if (errorMessage.includes('connection') || errorMessage.includes('network')) {
+                    errorMessage = 'Network error: Unable to connect to database. Please check your internet connection.';
+                } else if (errorMessage.includes('auth')) {
+                    errorMessage = 'Authentication error: Unable to access database. Please try refreshing the page.';
                 }
+                
+                // Show error notification
+                showNotification('Error uploading submission: ' + errorMessage, 'error');
+                
                 alert(`Error uploading submission: ${errorMessage}`);
             } finally {
                 submitButton.textContent = originalButtonText;
@@ -2818,27 +3049,47 @@
             }
             try {
                 console.log('Attempting to connect to Supabase...');
+                // Check if supabase client is properly initialized
+                if (!supabase) {
+                    console.error('Supabase client is not initialized');
+                    throw new Error('Supabase client is not initialized');
+                }
+                
                 const { data, error } = await supabase
                     .from('submissions')
                     .select('*')
                     .order('created_at', { ascending: false });
+                
                 console.log('Supabase response:', { data, error });
+                
                 if (error) {
+                    console.error('Supabase error details:', error);
                     throw error;
                 }
+                
                 allSubmissions = data || [];
                 console.log('Found', allSubmissions.length, 'submissions');
                 updateCounts();
-                renderTexturePacks();
                 renderCreations();
             } catch (error) {
                 console.error('Error loading submissions:', error);
+                allSubmissions = []; // Reset to empty array if there's an error
+                
                 let errorMessage = error.message || 'Please try again later.';
-                if (errorMessage.includes('row-level security policy')) {
+                if (errorMessage.includes('row-level security policy') || errorMessage.includes('permission')) {
                     errorMessage = 'Database access error: You need to enable proper permissions in Supabase. ' +
                         'Go to your Supabase dashboard > Authentication > Policies > submissions table ' +
                         'and enable SELECT access for everyone (public).';
+                } else if (errorMessage.includes('connection') || errorMessage.includes('network')) {
+                    errorMessage = 'Network error: Unable to connect to database. Please check your internet connection.';
+                } else if (errorMessage.includes('auth')) {
+                    errorMessage = 'Authentication error: Unable to access database. Please try refreshing the page.';
                 }
+                
+                // Show error notification
+                showNotification('Error loading creations: ' + errorMessage, 'error');
+                
+                // Still render the texture packs even if creations fail to load
                 renderTexturePacks();
                 renderCreations();
             }
@@ -3016,7 +3267,13 @@
                 <h3 class="item-title">${creation.title}</h3>
                 <p class="item-author">by ${creation.username}</p>
                 <div class="item-description-wrapper">
+                    <p class="item-description">JavaScript Creation</p>
                 </div>  
+                <div class="item-footer">
+                    <button class="download-btn" style="width: 100%;">
+                        <i class="fas fa-eye"></i> View Details
+                    </button>
+                </div>
             </div>
         `;
                 card.addEventListener('click', (e) => {
@@ -3024,6 +3281,15 @@
                         showSubmissionDetails(creation.id);
                     }
                 });
+                
+                // Add specific handler for the download button
+                const downloadBtn = card.querySelector('.download-btn');
+                if (downloadBtn) {
+                    downloadBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        showSubmissionDetails(creation.id);
+                    });
+                }
                 creationGrid.appendChild(card);
             });
         }
@@ -3046,7 +3312,8 @@
                         script.code.toLowerCase().includes(searchTerm)
                     );
                 } catch (e) {
-                    return creation.script && creation.script.toLowerCase().includes(searchTerm);
+                    // Handle case where creation doesn't have scripts or script property
+                    return false;
                 }
             });
             if (textureCount) textureCount.textContent = `(${filteredTpacks.length})`;
@@ -3130,7 +3397,7 @@
                 return;
             }
             creationGrid.innerHTML = '';
-            sortedCreations.forEach((creation, index) => {
+            creations.forEach((creation, index) => {
                 const card = document.createElement('div');
                 card.className = 'item-card';
                 card.style.animationDelay = `${index * 0.05}s`;
@@ -3161,6 +3428,11 @@
                 <div class="item-description-wrapper">
                     <p class="item-description">JavaScript Creation</p>
                 </div>  
+                <div class="item-footer">
+                    <button class="download-btn" style="width: 100%;">
+                        <i class="fas fa-eye"></i> View Details
+                    </button>
+                </div>
             </div>
         `;
                 card.addEventListener('click', (e) => {
@@ -3168,6 +3440,16 @@
                         showSubmissionDetails(creation.id);
                     }
                 });
+                
+                // Add specific handler for the download button
+                const downloadBtn = card.querySelector('.download-btn');
+                if (downloadBtn) {
+                    downloadBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        showSubmissionDetails(creation.id);
+                    });
+                }
+                
                 setTimeout(() => {
                     const followBtn = card.querySelector('.follow-btn');
                     if (followBtn) {
@@ -3273,7 +3555,7 @@
                         });
                     };
                 }
-                
+
                 // Keep the original copy button functionality for individual scripts
                 if (copyScriptBtn) {
                     copyScriptBtn.onclick = () => {
@@ -3312,6 +3594,45 @@
         function displayIcon(iconClass) {
             return `<i class="${iconClass}" style="font-size: 150px; color: #f78c5a;"></i>`;
         }
+        
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 10000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transform: translateX(120%);
+                transition: transform 0.3s ease;
+                background: ${type === 'error' ? '#ef4444' : type === 'success' ? '#10b981' : '#3b82f6'};
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(120%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
         function showSharePopup(pack) {
             if (sharePackImage) sharePackImage.src = pack.imageUrl;
             if (sharePackImage) sharePackImage.alt = `${pack.title} preview`;

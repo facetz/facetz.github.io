@@ -598,6 +598,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .auth-popup.show {
+      opacity: 1;
+      visibility: visible;
     }
 
     .auth-popup-content {
@@ -609,6 +617,12 @@
       max-width: 400px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+    }
+
+    .auth-popup.show .auth-popup-content {
+      transform: scale(1);
     }
 
     .auth-popup-header {
@@ -1068,7 +1082,7 @@
           </div>
         </div>
 
-        <div class="auth-popup" id="auth-popup" style="display: none;">
+        <div class="auth-popup" id="auth-popup">
           <div class="auth-popup-content">
             <div class="auth-popup-header">
               <h3>Settings</h3>
@@ -1471,7 +1485,7 @@
           profileData.textContent = 'No saved profile found.';
         }
 
-        document.getElementById('auth-popup').style.display = 'none';
+        document.getElementById('auth-popup').classList.remove('show');
         authMenuBtn.classList.remove('active');
 
         showNotification(`Welcome back, ${user.username}!`);
@@ -1479,7 +1493,7 @@
         clearLocalStorage('bloxdforge-user');
 
         authUserInfo.style.display = 'flex';
-        document.getElementById('auth-popup').style.display = 'none';
+        document.getElementById('auth-popup').classList.remove('show');
         authMenuBtn.classList.remove('active');
         authUsername.textContent = 'Not signed in';
         authUserRank.style.display = 'none';
@@ -1518,6 +1532,12 @@
         return;
       }
 
+      // Cancel check: ensure form values are valid
+      if (!profileDescription || !profileSection) {
+        showNotification('Form elements not found');
+        return;
+      }
+
       const payload = {
         description: profileDescription.value.trim(),
         section: profileSection.value,
@@ -1531,6 +1551,12 @@
       }
 
       try {
+        // Cancel check: verify puter.fs is available
+        if (!puter?.fs) {
+          showNotification('File system not available');
+          return;
+        }
+        
         await puter.fs.write(filenameForUser(), JSON.stringify(payload, null, 2));
         showNotification('Profile saved successfully!');
 
@@ -2107,24 +2133,24 @@
       }
 
       const authPopup = document.getElementById('auth-popup');
-      const isOpen = authPopup.style.display === 'flex';
+      const isOpen = authPopup.classList.contains('show');
 
       if (isOpen) {
-        authPopup.style.display = 'none';
+        authPopup.classList.remove('show');
         authMenuBtn.classList.remove('active');
       } else {
-        authPopup.style.display = 'flex';
+        authPopup.classList.add('show');
         authMenuBtn.classList.add('active');
       }
     });
 
     document.getElementById('auth-popup-close').addEventListener('click', () => {
-      document.getElementById('auth-popup').style.display = 'none';
+      document.getElementById('auth-popup').classList.remove('show');
       authMenuBtn.classList.remove('active');
     });
 
     document.getElementById('show-walkthrough-btn').addEventListener('click', () => {
-      document.getElementById('auth-popup').style.display = 'none';
+      document.getElementById('auth-popup').classList.remove('show');
       authMenuBtn.classList.remove('active');
       document.getElementById('walkthrough-overlay').style.display = 'block';
 
@@ -2140,7 +2166,7 @@
 
     document.getElementById('auth-popup').addEventListener('click', (e) => {
       if (e.target.id === 'auth-popup') {
-        e.target.style.display = 'none';
+        e.target.classList.remove('show');
         authMenuBtn.classList.remove('active');
       }
     });
