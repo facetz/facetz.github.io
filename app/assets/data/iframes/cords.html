@@ -1,148 +1,456 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coordinate Saver Grid</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body {
-      background: linear-gradient(145deg, #262525, #212020);
+<!-- Coordinate Saver - App Section -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    /* App-integrated styling */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .coords-app {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: white;
+    }
+
+    .coords-content {
+      padding: 15px;
+      flex: 1;
       display: flex;
+      flex-direction: column;
+      height: calc(100% - 30px); /* Account for padding */
+    }
+
+    .coords-header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #3a3939;
+    }
+
+    .coords-header h1 {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+      background: linear-gradient(45deg, #ff6b39, #ff8c5a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      align-items: flex-start;
-      padding: 40px;
-      min-height: 100vh;
+      gap: 8px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 25px;
+    .coords-header p {
+      color: #a0a0a0;
+      font-size: 0.85rem;
     }
 
-    .grid {
+    .coords-form-container {
+      background: linear-gradient(145deg, #262525, #212020);
+      border: 1px solid #3a3939;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .coords-header {
+      background: linear-gradient(90deg, #2e2d2d, #2a2a2a);
+      border: 1px solid #444343;
+      padding: 12px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .coords-header h1 {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+      background: linear-gradient(45deg, #ff6b39, #ff8c5a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .coords-header p {
+      color: #a0a0a0;
+      font-size: 0.85rem;
+    }
+
+    .form-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 15px;
     }
 
-    .grid input,
-    .grid button {
-      border-radius: 15px;
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: #e8e8e8;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
       border: 1px solid #3a3939;
-      background: #262525;
+      background: #2f2e2e;
       color: white;
-      font-size: 1rem;
-      cursor: pointer;
-      padding: 4vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .grid input {
-      padding: 3vh;
-      text-align: center;
-    }
-
-    .orange-btn {
-      background: linear-gradient(45deg, #ff6b39, #ff8c5a) !important;
-      border: none;
-      font-weight: bold;
+      font-size: 0.95rem;
       transition: all 0.3s ease;
     }
 
-    .orange-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(255, 107, 57, 0.3);
+    .form-group input:focus {
+      outline: none;
+      border-color: #ff6b39;
+      box-shadow: 0 0 0 2px rgba(255, 107, 57, 0.2);
     }
 
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(15, 15, 15, 0.95);
-      display: none;
-      justify-content: center;
+    .form-group input::placeholder {
+      color: #aaa;
+    }
+
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 5px;
+    }
+
+    .btn {
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
       align-items: center;
-      z-index: 10000;
+      justify-content: center;
+      gap: 6px;
     }
 
-    .modal-content {
-      width: 90%;
-      max-width: 700px;
-      background: linear-gradient(145deg, #1f1e1e, #181818);
-      border: 1px solid #2a2929;
-      border-radius: 25px;
-      padding: 30px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-      max-height: 90vh;
+    .btn-primary {
+      background: linear-gradient(45deg, #ff6b39, #ff8c5a);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(255, 107, 57, 0.4);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(145deg, #2e2d2d, #262525);
+      color: white;
+      border: 1px solid #444343;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      border-color: #ff6b39;
+      box-shadow: 0 6px 15px rgba(255, 107, 57, 0.2);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Remove modal styling since we're in an app context */
+    .coords-modal {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      padding: 0;
       overflow-y: auto;
+    }
+
+    .coords-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #3a3939;
+      background: linear-gradient(90deg, #2e2d2d, #2a2a2a);
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 1px solid #444343;
+    }
+
+
+
+    .coords-modal-header h2 {
+      font-size: 1.2rem;
+      color: #ff6b39;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .coords-close-btn {
+      background: linear-gradient(145deg, #2e2d2d, #262525);
+      border: 1px solid #444343;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      margin-left: 15px;
+    }
+
+    .coords-close-btn:hover {
+      background: linear-gradient(145deg, #3a3939, #302f2f);
+      border-color: #ff6b39;
     }
 
     .coord-item {
       background: linear-gradient(145deg, #262525, #212020);
       border: 1px solid #3a3939;
-      border-radius: 15px;
-      padding: 10px;
-      margin-bottom: 10px;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: all 0.3s ease;
     }
 
-    .coord-item span {
-      font-size: 0.95rem;
-      color: #ddd;
+    .coord-item:hover {
+      border-color: #ff6b39;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 107, 57, 0.2);
+    }
+
+    .coord-info {
+      flex: 1;
+    }
+
+    .coord-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #e8e8e8;
+      margin-bottom: 3px;
+    }
+
+    .coord-values {
+      font-size: 0.9rem;
+      color: #bbb;
+      display: flex;
+      gap: 12px;
+    }
+
+    .coord-value {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .coord-value i {
+      color: #ff6b39;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .copy-btn {
+      background: linear-gradient(145deg, #2e2d2d, #262525);
+      color: white;
+      border: 1px solid #444343;
+    }
+
+    .copy-btn:hover {
+      background: linear-gradient(145deg, #3a3939, #302f2f);
+      border-color: #ff6b39;
     }
 
     .delete-btn {
-      background: #ff4b4b;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 0.8rem;
+      background: linear-gradient(145deg, #d32f2f, #b71c1c);
       color: white;
     }
 
     .delete-btn:hover {
-      opacity: 0.8;
+      background: linear-gradient(145deg, #e53935, #c62828);
     }
 
-    @media (max-width: 500px) {
-      .grid {
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #aaa;
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: #444;
+    }
+
+    .empty-state h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #ddd;
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #262525, #212020);
+      border: 1px solid #3a3939;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 10001;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.3s ease;
+    }
+
+    .notification.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .notification.success {
+      border-left: 4px solid #4CAF50;
+    }
+
+    .notification.error {
+      border-left: 4px solid #f44336;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .form-grid {
         grid-template-columns: 1fr;
+      }
+      
+      .button-group {
+        grid-template-columns: 1fr;
+      }
+      
+      .coord-values {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
       }
     }
 
     ::-webkit-scrollbar {
-      display: none;
+      width: 8px;
     }
-  </style>
-</head>
 
-<body>
+    ::-webkit-scrollbar-track {
+      background: #2a2929;
+      border-radius: 4px;
+    }
 
-  <div class="container">
-    <div class="grid">
-      <input type="text" id="coordName" placeholder="Name">
-      <input type="number" id="coordX" placeholder="X">
-      <input type="number" id="coordY" placeholder="Y">
-      <input type="number" id="coordZ" placeholder="Z">
-      <button class="orange-btn" id="saveBtn">Save</button>
-      <button class="orange-btn" id="showBtn">Cords</button>
+    ::-webkit-scrollbar-thumb {
+      background: #444343;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+ </style>
+  <div class="coords-app">
+    <div class="coords-content">
+
+      
+      <div class="coords-form-container">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="coordName">Location Name</label>
+            <input type="text" id="coordName" placeholder="e.g., Spawn, Base, etc.">
+          </div>
+          <div class="form-group">
+            <label for="coordX">X Coordinate</label>
+            <input type="number" id="coordX" placeholder="X value">
+          </div>
+          <div class="form-group">
+            <label for="coordY">Y Coordinate</label>
+            <input type="number" id="coordY" placeholder="Y value">
+          </div>
+          <div class="form-group">
+            <label for="coordZ">Z Coordinate</label>
+            <input type="number" id="coordZ" placeholder="Z value">
+          </div>
+          <div class="button-group">
+            <button class="btn btn-primary" id="saveBtn">
+              <i class="fas fa-save"></i> Save Location
+            </button>
+            <button class="btn btn-secondary" id="showBtn">
+              <i class="fas fa-list"></i> View Saved
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="coords-modal" id="coordsModal" style="display: none; flex: 1; flex-direction: column;">
+        <div class="coords-modal-header">
+          <h2><i class="fas fa-map-marked-alt"></i> Saved Locations</h2>
+          <button class="coords-close-btn" id="closeModal">&times;</button>
+        </div>
+        <div id="coordsList" style="flex: 1; overflow-y: auto; margin-top: 15px;"></div>
+      </div>
     </div>
-  </div>
-
-  <div class="modal-overlay" id="coordsModal">
-    <div class="modal-content" id="coordsList"></div>
+    
+    <div class="notification" id="notification"></div>
   </div>
 
   <script>
@@ -150,35 +458,86 @@
     const showBtn = document.getElementById('showBtn');
     const modal = document.getElementById('coordsModal');
     const coordsList = document.getElementById('coordsList');
+    const closeModal = document.getElementById('closeModal');
+    const notification = document.getElementById('notification');
+
+    // Show notification function
+    function showNotification(message, type = 'success') {
+      notification.textContent = message;
+      notification.className = `notification ${type} show`;
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
 
     function loadCoords() {
       coordsList.innerHTML = '';
       const coords = JSON.parse(localStorage.getItem('coords') || '[]');
+      
       if (coords.length === 0) {
-        coordsList.innerHTML = '<p>No coordinates saved yet.</p>';
+        coordsList.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-map-pin"></i>
+            <h3>No Saved Locations</h3>
+            <p>Save your first location using the form above</p>
+          </div>
+        `;
         return;
       }
+      
       coords.forEach((c, index) => {
         const div = document.createElement('div');
         div.className = 'coord-item';
-        div.innerHTML = `<span>${c.name}: X=${c.x}, Y=${c.y}, Z=${c.z}</span>
-                     <button class="delete-btn">Delete</button>`;
+        
+        div.innerHTML = `
+          <div class="coord-info">
+            <div class="coord-name">${c.name}</div>
+            <div class="coord-values">
+              <div class="coord-value"><i class="fas fa-arrows-alt"></i> X: ${c.x}</div>
+              <div class="coord-value"><i class="fas fa-arrows-alt-v"></i> Y: ${c.y}</div>
+              <div class="coord-value"><i class="fas fa-arrows-alt-h"></i> Z: ${c.z}</div>
+            </div>
+          </div>
+          <div class="action-buttons">
+            <button class="action-btn copy-btn" data-clipboard-text="${c.x}, ${c.y}, ${c.z}">Copy</button>
+            <button class="action-btn delete-btn">Delete</button>
+          </div>
+        `;
+        
+        // Add event listener to delete button
         div.querySelector('.delete-btn').addEventListener('click', () => {
           coords.splice(index, 1);
           localStorage.setItem('coords', JSON.stringify(coords));
           loadCoords();
+          showNotification('Location deleted successfully', 'success');
         });
+        
+        // Add event listener to copy button
+        div.querySelector('.copy-btn').addEventListener('click', () => {
+          const coordsText = `${c.x}, ${c.y}, ${c.z}`;
+          navigator.clipboard.writeText(coordsText).then(() => {
+            showNotification('Coordinates copied to clipboard', 'success');
+          }).catch(err => {
+            showNotification('Failed to copy coordinates', 'error');
+            console.error('Failed to copy: ', err);
+          });
+        });
+        
         coordsList.appendChild(div);
       });
     }
 
     saveBtn.addEventListener('click', () => {
       const name = document.getElementById('coordName').value.trim();
-      const x = document.getElementById('coordX').value;
-      const y = document.getElementById('coordY').value;
-      const z = document.getElementById('coordZ').value;
+      const x = document.getElementById('coordX').value.trim();
+      const y = document.getElementById('coordY').value.trim();
+      const z = document.getElementById('coordZ').value.trim();
 
-      if (!name || x === '' || y === '' || z === '') return alert('Fill all fields');
+      if (!name || x === '' || y === '' || z === '') {
+        showNotification('Please fill in all fields', 'error');
+        return;
+      }
 
       const coords = JSON.parse(localStorage.getItem('coords') || '[]');
       coords.push({ name, x, y, z });
@@ -188,18 +547,40 @@
       document.getElementById('coordX').value = '';
       document.getElementById('coordY').value = '';
       document.getElementById('coordZ').value = '';
+      
+      showNotification('Location saved successfully', 'success');
     });
 
     showBtn.addEventListener('click', () => {
       loadCoords();
+      document.querySelector('.coords-form-container').style.display = 'none';
       modal.style.display = 'flex';
     });
-
+    
+    // Add functionality to return to the main form
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+      document.querySelector('.coords-form-container').style.display = 'block';
+    });
+    
+    // Also handle the 'Escape' key to return to main form
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        modal.style.display = 'none';
+        document.querySelector('.coords-form-container').style.display = 'block';
+      }
+    });
+    
+    // Handle clicking outside the modal to return to main form
     modal.addEventListener('click', e => {
-      if (e.target === modal) modal.style.display = 'none';
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        document.querySelector('.coords-form-container').style.display = 'block';
+      }
+    });
+    
+    // Prevent modal from closing when clicking inside the content
+    document.querySelector('.coords-modal').addEventListener('click', (e) => {
+      e.stopPropagation();
     });
   </script>
-
-</body>
-
-</html>

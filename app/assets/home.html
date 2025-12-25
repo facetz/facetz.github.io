@@ -467,12 +467,22 @@
     .window-content:has(iframe:only-child),
     .window-content.iframe-only {
       padding: 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .window-content iframe:only-child {
       width: 100%;
       height: 100%;
       border: none;
+      min-height: 400px; /* Ensure minimum height for content */
+      flex: 1; /* Make iframe take available space in flex container */
+    }
+
+    .window-content.iframe-only {
+      height: 100%;
+      min-height: 400px;
+      flex: 1;
     }
 
     .floating-window.tall {
@@ -870,7 +880,7 @@
       }
     }
 
-    function createFloatingWindow(title, content) {
+    function createFloatingWindow(title, content, iframeOnly = false) {
       const windowId = 'window-' + Math.random().toString(36).substr(2, 9);
       const window = document.createElement('div');
       window.className = 'floating-window';
@@ -885,7 +895,8 @@
         window.style.left = '100px';
       }
 
-      const isIframeOnly = content.trim().startsWith('<iframe') && content.trim().endsWith('></iframe>');
+      // Check if iframeOnly was explicitly passed as true OR detect if content is iframe-only
+      const isIframeOnly = iframeOnly || (content.trim().startsWith('<iframe') && content.trim().endsWith('></iframe>'));
       const contentClass = isIframeOnly ? 'window-content iframe-only' : 'window-content';
 
       window.innerHTML = `
@@ -1215,6 +1226,7 @@
 
           if (item.dataset.url) {
             content = `<iframe src="${item.dataset.url}" style="width:100%; height:100%; border:none;"></iframe>`;
+            createFloatingWindow(title, content, true); // Pass iframeOnly flag
           } else {
             content = `
               <div style="text-align:center; padding:20px;">
@@ -1223,9 +1235,8 @@
                 <p>${item.querySelector('.modal-desc').textContent}</p>
               </div>
             `;
+            createFloatingWindow(title, content);
           }
-
-          createFloatingWindow(title, content);
           modal.style.display = 'none';
         });
       }
