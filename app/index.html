@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>BloxdForge 3.0</title>
+  <title>Facet 3.0</title>
   <link rel="icon" href="/favicon.ico" type="image/png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://js.puter.com/v2/"></script>
@@ -1005,7 +1005,7 @@
 <div class="ban-popup" id="banPopup" style="display: none;">
   <div class="ban-popup-content">
     <h2>Access Denied</h2>
-    <p>Your account has been restricted from accessing BloxdForge.</p>
+    <p>Your account has been restricted from accessing Facet.</p>
     <p>This restriction is due to violation of our Terms of Service.</p>
     <p>If you believe this is an error, please contact our support team.</p>
     <div style="margin: 20px 0;">
@@ -1013,18 +1013,14 @@
         style="color: #ff6b39; text-decoration: none; display: inline-block; margin: 10px;">
         <i class="fab fa-discord"></i> Discord Support
       </a>
-      <a href="mailto:support@bloxdforge.github.io"
-        style="color: #ff6b39; text-decoration: none; display: inline-block; margin: 10px;">
-        <i class="fas fa-envelope"></i> Email Support
-      </a>
     </div>
   </div>
 </div>
 
 <div class="showpop" id="showpop">
   <button class="showpop-close" id="showpopClose">&times;</button>
-  <h3>Try BloxdForge Pro!</h3>
-  <p>No more ads and support the developers of BloxdForge, Its free!</p>
+  <h3>Try Facet Pro!</h3>
+  <p>No more ads and support the developers of Facet, Its free!</p>
   <div class="showpop-buttons">
     <button class="showpop-btn" id="showpopDismiss">Dismiss</button>
     <button class="showpop-btn try" id="showpopTry">Try Pro</button>
@@ -1037,12 +1033,12 @@
       style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 9999;"></iframe>
   </div>
 
-  <div class="notification" id="notification">Welcome to BloxdForge 3.0!</div>
+  <div class="notification" id="notification">Welcome to Facet 3.0!</div>
 
   <div class="container">
     <div class="sidebar">
       <div class="logo">
-        <h1>BLOXDFORGE</h1>
+        <h1>Facet/</h1>
         <span>THE BEST.</span>
       </div>
 
@@ -1055,12 +1051,12 @@
           <span class="card-title">Workshop</span>
           <div class="card-icon"><i class="fas fa-toolbox"></i></div>
         </div>
-        <div class="card tooltip" data-url="./assets/wiki.html" data-tooltip="Learn how to use BloxdForge">
+        <div class="card tooltip" data-url="./assets/wiki.html" data-tooltip="Learn how to use Facet">
           <span class="card-title">Wiki</span>
           <div class="card-icon"><i class="fas fa-book"></i></div>
         </div>
-        <div class="card tooltip" data-url="./assets/worldforge.html" data-tooltip="Learn how to use BloxdForge">
-          <span class="card-title">WorldForge</span>
+        <div class="card tooltip" data-url="./assets/worldforge.html" data-tooltip="Learn how to use Facet">
+          <span class="card-title">WorldFace</span>
           <div class="card-icon"><i class="fas fa-layer-group"></i></div>
         </div>
       </div>
@@ -1150,12 +1146,7 @@
                       <div class="credit-item">
                         <div class="credit-name">A_I_X</div>
                         <div class="credit-role">Owner & Creator</div>
-                        <div class="credit-desc">Creator of BloxdForge</div>
-                      </div>
-                      <div class="credit-item">
-                        <div class="credit-name">KHROTU</div>
-                        <div class="credit-role">Co-Owner & Dev</div>
-                        <div class="credit-desc">Head developer, helped with everything</div>
+                        <div class="credit-desc">Creator of Facet</div>
                       </div>
                       <div class="credit-item">
                         <div class="credit-name">GEORGECR</div>
@@ -1181,14 +1172,14 @@
   </div>
 
   <script>
-    if (!localStorage.getItem('bloxdforge-walkthrough-completed')) {
+    if (!localStorage.getItem('Facet-walkthrough-completed')) {
       document.getElementById('walkthrough-overlay').style.display = 'block';
     }
 
     window.addEventListener('message', function (event) {
       if (event.data && event.data.action === 'walkthroughComplete') {
         document.getElementById('walkthrough-overlay').style.display = 'none';
-        localStorage.setItem('bloxdforge-walkthrough-completed', 'true');
+        localStorage.setItem('Facet-walkthrough-completed', 'true');
       }
 
       if (event.data && event.data.action === 'userSignedIn') {
@@ -1215,7 +1206,7 @@
     const upgradeProBtn = document.getElementById('upgrade-pro-btn');
 
     function filenameForUser() {
-      return 'bloxdforge-userdata.json';
+      return 'Facet-userdata.json';
     }
 
     function saveToLocalStorage(key, data) {
@@ -1246,7 +1237,7 @@
 
     function getOrCreateGradient(username) {
       if (!username) return 'linear-gradient(135deg, #ff6b39, #ff8c5a)';
-      const key = 'bloxdforge-gradient:' + username;
+      const key = 'Facet-gradient:' + username;
       let v = localStorage.getItem(key);
       if (v) return v;
       const colors = ['#ff6b39', '#ff8c5a', '#e55a2e', '#ff7849', '#f7834a'];
@@ -1309,7 +1300,7 @@
 
         if (CURRENT_USER) {
           CURRENT_USER.userType = section;
-          saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+          saveToLocalStorage('Facet-user', CURRENT_USER);
         }
 
         manageAdsForUserType(section === 'Free' ? 'Free' : 'Pro');
@@ -1337,7 +1328,7 @@
           console.log('YT Pro status expired, downgrading to Free');
           CURRENT_USER.userType = 'Free';
           delete CURRENT_USER.proExpiration;
-          saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+          saveToLocalStorage('Facet-user', CURRENT_USER);
           updateUserRank('Free');
           return 'Free';
         }
@@ -1356,7 +1347,7 @@
           console.log('Pro status expired, downgrading to Free');
           CURRENT_USER.userType = 'Free';
           delete CURRENT_USER.proExpiration;
-          saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+          saveToLocalStorage('Facet-user', CURRENT_USER);
           updateUserRank('Free');
           return 'Free';
         }
@@ -1371,12 +1362,12 @@
         console.log('User type from profileSection:', profileSection.value);
         if (CURRENT_USER) {
           CURRENT_USER.userType = profileSection.value;
-          saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+          saveToLocalStorage('Facet-user', CURRENT_USER);
         }
         return profileSection.value;
       }
 
-      const storedUser = loadFromLocalStorage('bloxdforge-user');
+      const storedUser = loadFromLocalStorage('Facet-user');
       console.log('Stored user data:', storedUser);
       if (storedUser && storedUser.userType) {
         console.log('User type from stored data:', storedUser.userType);
@@ -1460,7 +1451,7 @@
       CURRENT_USER = user || null;
 
       if (user && user.username) {
-        saveToLocalStorage('bloxdforge-user', user);
+        saveToLocalStorage('Facet-user', user);
 
         authUserInfo.style.display = 'flex';
         authUsername.textContent = user.username;
@@ -1490,7 +1481,7 @@
 
         showNotification(`Welcome back, ${user.username}!`);
       } else {
-        clearLocalStorage('bloxdforge-user');
+        clearLocalStorage('Facet-user');
 
         authUserInfo.style.display = 'flex';
         document.getElementById('auth-popup').classList.remove('show');
@@ -1542,7 +1533,7 @@
         description: profileDescription.value.trim(),
         section: profileSection.value,
         savedAt: new Date().toISOString(),
-        app: 'BloxdForge'
+        app: 'Facet'
       };
 
       if (!payload.description) {
@@ -1566,7 +1557,7 @@
 
         if (CURRENT_USER) {
           CURRENT_USER.userType = payload.section;
-          saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+          saveToLocalStorage('Facet-user', CURRENT_USER);
         }
 
         const expirationText = payload.section === 'Pro' && payload.proExpiration ? ' (Expires in 1 hour)' : '';
@@ -1617,7 +1608,7 @@
           description: profileDescription.value.trim() || 'Pro User',
           section: 'Pro',
           savedAt: new Date().toISOString(),
-          app: 'BloxdForge',
+          app: 'Facet',
           upgradedAt: new Date().toISOString(),
           proExpiration: expirationTime.toISOString()
         };
@@ -1631,7 +1622,7 @@
         if (CURRENT_USER) {
           CURRENT_USER.userType = 'Pro';
           CURRENT_USER.proExpiration = expirationTime.toISOString();
-          saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+          saveToLocalStorage('Facet-user', CURRENT_USER);
         }
 
         manageAdsForUserType('Pro');
@@ -1669,7 +1660,7 @@
           description: profileDescription.value.trim() || 'Pro User',
           section: 'Pro',
           savedAt: new Date().toISOString(),
-          app: 'BloxdForge',
+          app: 'Facet',
           upgradedAt: new Date().toISOString(),
           proExpiration: expirationTime.toISOString()
         };
@@ -1683,7 +1674,7 @@
         if (CURRENT_USER) {
           CURRENT_USER.userType = 'Pro';
           CURRENT_USER.proExpiration = expirationTime.toISOString();
-          saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+          saveToLocalStorage('Facet-user', CURRENT_USER);
         }
 
         manageAdsForUserType('Pro');
@@ -1721,7 +1712,7 @@
           description: profileDescription.value.trim() || 'Pro User',
           section: 'Pro',
           savedAt: new Date().toISOString(),
-          app: 'BloxdForge',
+          app: 'Facet',
           upgradedAt: new Date().toISOString(),
           proExpiration: 'forever'
         };
@@ -1735,7 +1726,7 @@
         if (CURRENT_USER) {
           CURRENT_USER.userType = 'Pro';
           CURRENT_USER.proExpiration = 'forever';
-          saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+          saveToLocalStorage('Facet-user', CURRENT_USER);
         }
 
         manageAdsForUserType('Pro');
@@ -1774,7 +1765,7 @@
           description: profileDescription.value.trim() || 'YT Pro User',
           section: 'YT Pro',
           savedAt: new Date().toISOString(),
-          app: 'BloxdForge',
+          app: 'Facet',
           upgradedAt: new Date().toISOString(),
           proExpiration: expirationTime.toISOString()
         };
@@ -1794,7 +1785,7 @@
         if (CURRENT_USER) {
           CURRENT_USER.userType = 'YT Pro';
           CURRENT_USER.proExpiration = expirationTime.toISOString();
-          saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+          saveToLocalStorage('Facet-user', CURRENT_USER);
         }
 
         manageAdsForUserType('Pro');
@@ -1854,7 +1845,7 @@
               } else {
                 delete CURRENT_USER.proExpiration;
               }
-              saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+              saveToLocalStorage('Facet-user', CURRENT_USER);
             }
 
             manageAdsForUserType(userSection);
@@ -1905,7 +1896,7 @@
                 } else {
                   delete CURRENT_USER.proExpiration;
                 }
-                saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+                saveToLocalStorage('Facet-user', CURRENT_USER);
               }
 
               manageAdsForUserType(userSection);
@@ -1974,7 +1965,7 @@
 
 
     async function initializeAuth() {
-      const storedUser = loadFromLocalStorage('bloxdforge-user');
+      const storedUser = loadFromLocalStorage('Facet-user');
       if (storedUser) {
         if (storedUser.userType === 'Pro' && storedUser.proExpiration) {
           if (storedUser.proExpiration !== 'forever') {
@@ -1982,7 +1973,7 @@
             if (Date.now() > expirationTime.getTime()) {
               storedUser.userType = 'Free';
               delete storedUser.proExpiration;
-              saveToLocalStorage('bloxdforge-user', storedUser);
+              saveToLocalStorage('Facet-user', storedUser);
             }
           }
         }
@@ -2022,7 +2013,7 @@
     }
 
     async function initializeAuth() {
-      const storedUser = loadFromLocalStorage('bloxdforge-user');
+      const storedUser = loadFromLocalStorage('Facet-user');
       if (storedUser) {
         if (storedUser.username && checkIfUserIsBanned(storedUser.username)) {
           setTimeout(showBanPopup, 1000);
@@ -2035,7 +2026,7 @@
             if (Date.now() > expirationTime.getTime()) {
               storedUser.userType = 'Free';
               delete storedUser.proExpiration;
-              saveToLocalStorage('bloxdforge-user', storedUser);
+              saveToLocalStorage('Facet-user', storedUser);
             }
           }
         }
@@ -2426,7 +2417,7 @@
         if (Date.now() > expirationTime.getTime()) {
           CURRENT_USER.userType = 'Free';
           delete CURRENT_USER.proExpiration;
-          saveToLocalStorage('bloxdforge-user', CURRENT_USER);
+          saveToLocalStorage('Facet-user', CURRENT_USER);
           updateUserRank('Free');
           manageAdsForUserType('Free');
           showNotification('Your Pro status has expired. You have been downgraded to Free.');
@@ -2553,7 +2544,7 @@
     window.addEventListener('message', function (event) {
       if (event.data && event.data.action === 'walkthroughComplete') {
         document.getElementById('walkthrough-overlay').style.display = 'none';
-        localStorage.setItem('bloxdforge-walkthrough-completed', 'true');
+        localStorage.setItem('Facet-walkthrough-completed', 'true');
       }
 
       if (event.data && event.data.action === 'userSignedIn') {
