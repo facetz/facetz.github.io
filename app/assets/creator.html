@@ -193,23 +193,19 @@
 <body>
 
   <div class="container">
-    <div id="desktop" style="flex: 1; position: relative;"></div>
-
-    <div class="ad-container">
-      <div class="ad">
-        <iframe src="../../assets/iframes/ad.html" alt="Ad"></iframe>
-      </div>
-      <div class="ad">
-        <iframe src="../../assets/iframes/ad.html" alt="Ad"></iframe>
+    <div id="desktop" style="flex: 1; position: relative;">
+      <div id="fullScreenIframeContainer" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10000; background: #000;">
+        <iframe id="fullScreenIframe" style="width: 100%; height: 100%; border: none;" src=""></iframe>
       </div>
     </div>
+
 
     <div class="sidebar">
       <div class="card" data-url="./data/iframes/editor.html">
         <span class="card-title">Editor</span>
         <div class="card-icon"><i class="fas fa-paint-brush"></i></div>
       </div>
-      <div class="card" data-url="https://imagetoschem-production.up.railway.app/">
+      <div class="card" data-url="./data/iframes/imgtobloxd.html">
         <span class="card-title">Image to bloxd</span>
         <div class="card-icon"><i class="fas fa-image"></i></div>
       </div>
@@ -221,22 +217,7 @@
     </div>
   </div>
   </div>
-  <div class="ad-container">
-    <div class="ad">
-      <iframe src="../../assets/iframes/ad.html" alt="Ad"></iframe>
-    </div>
-    <div class="ad">
-      <iframe src="../../assets/iframes/ad.html" alt="Ad"></iframe>
-    </div>
-  </div>
-  <div class="ad-container">
-    <div class="ad">
-      <iframe src="../../assets/iframes/ad.html" alt="Ad"></iframe>
-    </div>
-    <div class="ad">
-      <iframe src="../../assets/iframes/ad.html" alt="Ad"></iframe>
-    </div>
-  </div>
+
 
 
   <script>
@@ -260,149 +241,36 @@
       }
     });
 
-    const windowSizes = {
-      'Editor': { width: 68, height: 50, unit: 'vw' },
-      'Creator': { width: 70, height: 70, unit: 'vw' },
-      'Wiki': { width: 70, height: 70, unit: 'vw' }
-    };
-
+    // Add click event listeners to cards
     cards.forEach(card => {
       card.addEventListener('click', () => {
         const url = card.getAttribute('data-url');
-        const title = card.querySelector('.card-title').textContent;
-        const size = windowSizes[title] || { width: 60, height: 60, unit: 'vw' };
-        spawnWindow(url, size.width, size.height, title, size.unit || 'vw');
+        showFullScreenIframe(url);
       });
     });
 
-    function makeResizable(element) {
-      const resizer = document.createElement('div');
-      resizer.className = 'resize-handle resize-handle-se';
-      element.appendChild(resizer);
+    function showFullScreenIframe(url) {
+      const container = document.getElementById('fullScreenIframeContainer');
+      const iframe = document.getElementById('fullScreenIframe');
+      
+      iframe.src = url;
+      container.style.display = 'block';
+    }
 
-      const cover = document.createElement('div');
-      cover.className = 'resize-cover';
-      cover.style.display = 'none';
-      cover.style.position = 'absolute';
-      cover.style.top = '0';
-      cover.style.left = '0';
-      cover.style.width = '100%';
-      cover.style.height = '100%';
-      cover.style.zIndex = '1001';
-      cover.style.pointerEvents = 'none';
-      element.appendChild(cover);
-
-      resizer.addEventListener('mousedown', initResize, false);
-
-      function initResize(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        cover.style.display = 'block';
-        const iframe = element.querySelector('iframe');
-        if (iframe) {
-          iframe.style.pointerEvents = 'none';
-        }
-
-        window.addEventListener('mousemove', resize, false);
-        window.addEventListener('mouseup', stopResize, { once: true });
-
-        const startX = e.clientX;
-        const startY = e.clientY;
-        const startWidth = parseInt(document.defaultView.getComputedStyle(element).width, 10);
-        const startHeight = parseInt(document.defaultView.getComputedStyle(element).height, 10);
-
-        function resize(e) {
-          const newWidth = startWidth + e.clientX - startX;
-          const newHeight = startHeight + e.clientY - startY;
-
-          if (newWidth > 300) {
-            element.style.width = newWidth + 'px';
-          }
-
-          if (newHeight > 200) {
-            element.style.height = newHeight + 'px';
-          }
-        }
-
-        function stopResize() {
-          cover.style.display = 'none';
-          const iframe = element.querySelector('iframe');
-          if (iframe) {
-            iframe.style.pointerEvents = 'auto';
-          }
-          window.removeEventListener('mousemove', resize, false);
-        }
+    // Add escape key to close fullscreen
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const container = document.getElementById('fullScreenIframeContainer');
+        container.style.display = 'none';
       }
-    }
+    });
 
-    function spawnWindow(url, width = 60, height = 60, title = 'Window', unit = 'vw') {
-      const win = document.createElement('div');
-      win.className = 'window';
-      win.style.width = `${width}${unit}`;
-      win.style.height = `${height}${unit}`;
-      win.innerHTML = `
-        <div class="window-header">
-          <span>${title}</span>
-          <div class="window-controls">
-            <button class="fullscreen-btn" title="Toggle Fullscreen">
-              <i class="fas fa-expand"></i>
-            </button>
-            <button class="close-btn" title="Close">&times;</button>
-          </div>
-        </div>
-        <iframe src="${url}"></iframe>
-      `;
-
-      const closeBtn = win.querySelector('.close-btn');
-      const fullscreenBtn = win.querySelector('.fullscreen-btn');
-
-      closeBtn.addEventListener('click', () => win.remove());
-
-      fullscreenBtn.addEventListener('click', () => {
-        win.classList.toggle('fullscreen');
-        const icon = fullscreenBtn.querySelector('i');
-        if (win.classList.contains('fullscreen')) {
-          icon.classList.replace('fa-expand', 'fa-compress');
-          win.style.width = '100vw';
-          win.style.height = '100vh';
-          win.style.top = '0';
-          win.style.left = '0';
-          win.style.margin = '0';
-          win.style.maxWidth = 'none';
-          win.style.maxHeight = 'none';
-        } else {
-          icon.classList.replace('fa-compress', 'fa-expand');
-          win.style.width = `${width}${unit}`;
-          win.style.height = `${height}${unit}`;
-          win.style.top = '';
-          win.style.left = '';
-          win.style.margin = '';
-          win.style.maxWidth = '';
-          win.style.maxHeight = '';
-        }
-      });
-
-      let offsetX, offsetY, isDragging = false;
-      const header = win.querySelector('.window-header');
-
-      header.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - win.offsetLeft;
-        offsetY = e.clientY - win.offsetTop;
-      });
-
-      document.addEventListener('mouseup', () => isDragging = false);
-      document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-          win.style.left = `${e.clientX - offsetX}px`;
-          win.style.top = `${e.clientY - offsetY}px`;
-        }
-      });
-
-      desktop.appendChild(win);
-      makeResizable(win);
-    }
+    // Allow clicking on the container to close it
+    document.getElementById('fullScreenIframeContainer').addEventListener('click', (e) => {
+      if (e.target.id === 'fullScreenIframeContainer') {
+        e.target.style.display = 'none';
+      }
+    });
   </script>
 
 </body>
