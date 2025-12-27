@@ -226,15 +226,34 @@
       padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 12px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       height: 100%;
+    }
+    
+    .color-section h3 {
+      text-align: center;
+      margin: 0 0 15px 0;
+      color: #e8e8e8;
+      font-weight: 600;
+      font-size: 1.3rem;
+      letter-spacing: 0.5px;
+    }
+    
+    .color-section h4 {
+      text-align: center;
+      margin: 15px 0 10px 0;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
     }
 
     .color-picker-container {
       display: flex;
       flex-direction: column;
       gap: 15px;
+      margin-bottom: 10px;
     }
 
     #color-picker {
@@ -256,6 +275,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      margin-top: 5px;
     }
 
     .color-text-input {
@@ -281,8 +301,8 @@
     #custom-colors {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 10px;
+      gap: 8px;
+      margin-top: 5px;
     }
 
     .color-box {
@@ -290,14 +310,15 @@
       aspect-ratio: 1;
       cursor: pointer;
       border: 2px solid #444343;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-      border-radius: 12px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
       transition: all 0.2s ease;
     }
 
     .color-box:hover {
       transform: scale(1.05);
-      border: 2px solid #fff;
+      border: 2px solid #ff6b39;
+      box-shadow: 0 0 8px rgba(255, 107, 57, 0.5);
     }
 
     .file-list-container {
@@ -305,6 +326,30 @@
       overflow-y: auto;
       padding: 5px;
       margin: 15px 0;
+      position: relative;
+    }
+
+    .no-textures-message {
+      text-align: center;
+      color: #777;
+      padding: 40px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    #no-textures-message {
+      display: none;
+    }
+    
+    #file-list:has(> li) + #no-textures-message {
+      display: none;
+    }
+    
+    #file-list:empty + #no-textures-message {
+      display: flex;
     }
 
     .file-list-container::-webkit-scrollbar {
@@ -458,6 +503,125 @@
       display: none;
     }
 
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-content {
+      background: linear-gradient(180deg, #1b1a1a 0%, #191818 100%);
+      border: 1px solid #2c2b2b;
+      border-radius: 35px;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content h3 {
+      margin: 0 0 15px 0;
+      color: #e8e8e8;
+      text-align: center;
+    }
+
+    .modal-body {
+      margin-bottom: 20px;
+    }
+
+    .modal-body p {
+      color: #e8e8e8;
+      margin: 0 0 20px 0;
+      text-align: center;
+    }
+
+    .modal-options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .modal-btn {
+      background: linear-gradient(145deg, #262525, #212020);
+      border: 1px solid #444343;
+      border-radius: 18px;
+      padding: 15px;
+      color: #e8e8e8;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .modal-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      color: #ff8c5a;
+      border-color: #ff6b39;
+    }
+
+    .cancel-btn {
+      background: linear-gradient(145deg, #3a3939, #313030);
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: center;
+    }
+    
+    .palette-group {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #3a3939;
+    }
+    
+    .palette-group h4 {
+      margin: 0 0 10px 0;
+      color: #e8e8e8;
+      font-size: 1.1em;
+    }
+    
+    .palette {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    
+    .palette-colors {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 2px;
+      width: 100%;
+    }
+    
+    .palette-color {
+      height: 30px;
+      cursor: pointer;
+      border: 1px solid #444;
+      transition: all 0.2s ease;
+    }
+    
+    .palette-color:hover {
+      transform: scale(1.05);
+      border-color: #fff;
+    }
+    
+    #palettes-container {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
     .tooltip {
       position: relative;
     }
@@ -495,8 +659,9 @@
     .section-title {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     .section-title i {
@@ -512,6 +677,39 @@
   <div id="error-message">
     An error occurred. Please try again.
   </div>
+  
+  <div id="palettes-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content" style="max-width: 600px;">
+      <h3>Preset Color Palettes</h3>
+      <div class="modal-body">
+        <div id="palettes-container">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="close-palettes-btn" class="modal-btn cancel-btn">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="save-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <h3>Save Textures</h3>
+      <div class="modal-body">
+        <p>Choose how you want to save your textures:</p>
+        <div class="modal-options">
+          <button id="save-current-btn" class="modal-btn">
+            <i class="fas fa-download"></i> Download Current Texture
+          </button>
+          <button id="save-all-btn" class="modal-btn">
+            <i class="fas fa-box"></i> Download All Edited Textures
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="close-modal-btn" class="modal-btn cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
     <div class="sidebar">
@@ -526,6 +724,10 @@
 
       <div class="file-list-container">
         <ul id="file-list"></ul>
+        <div id="no-textures-message" class="no-textures-message">
+          <i class="fas fa-images" style="font-size: 2em; margin-bottom: 10px; color: #555;"></i>
+          <p>No textures uploaded</p>
+        </div>
       </div>
 
       <button id="upload-folder-btn" class="upload-btn tooltip" data-tooltip="Upload texture images">
@@ -579,7 +781,7 @@
 
     <div class="color-section">
       <div class="section-title">
-        <h3>Color Palette</h3>
+        <h3>Color:</h3>
       </div>
 
       <div class="color-picker-container">
@@ -590,11 +792,14 @@
         </div>
       </div>
 
-      <h4>Custom Colors</h4>
+      <h4>Quick Colors:</h4>
       <div id="custom-colors"></div>
 
       <button id="add-color-btn" class="upload-btn tooltip" data-tooltip="Add current color to palette">
         <i class="fas fa-plus"></i>&nbsp; Add Color
+      </button>
+      <button id="preset-palettes-btn" class="upload-btn tooltip" data-tooltip="Browse preset color palettes">
+        <i class="fas fa-palette"></i>&nbsp; Preset Palettes
       </button>
     </div>
   </div>
@@ -622,11 +827,17 @@
     const eraserBtn = document.getElementById('eraser-tool');
     const eyedropperBtn = document.getElementById('eyedropper-tool');
     const saveBtn = document.getElementById('save-btn');
+    
+    const saveModal = document.getElementById('save-modal');
+    const saveCurrentBtn = document.getElementById('save-current-btn');
+    const saveAllBtn = document.getElementById('save-all-btn');
+    const closeModalBtn = document.getElementById('close-modal-btn');
 
     const fullscreenBtn = document.getElementById('fullscreenBtn');
 
     let currentTool = 'pencil';
     let selectedColor = '#ff6b39';
+    let lastValidColor = '#ff6b39'; 
     let customColors = [];
 
     const undoStack = [];
@@ -634,7 +845,11 @@
 
     let currentImage = null;
     let textureSize = 16;
-    let currentFileName = 'texture.png';
+    let currentFileName = null;
+    
+  
+    const editedTextures = {};
+    const modifiedTextures = new Set();
 
     const CANVAS_SIZE = 500;
     let pixelScale = CANVAS_SIZE / textureSize;
@@ -662,6 +877,11 @@
       if (!currentImage) return;
       if (undoStack.length >= MAX_UNDO) undoStack.shift();
       undoStack.push(new ImageData(new Uint8ClampedArray(currentImage.data), currentImage.width, currentImage.height));
+      
+      if (currentFileName) {
+        modifiedTextures.add(currentFileName);
+        updateFileListDisplay();
+      }
     }
 
     function undo() {
@@ -829,6 +1049,7 @@
         if (px[3] !== 0) {
           selectedColor = rgbaToHex(px);
           updateColorInputs(selectedColor);
+          updateFileListDisplay(); 
         }
         setActiveTool('pencil');
         return;
@@ -859,6 +1080,7 @@
         colorPicker.value = hex;
         colorTextInput.value = hex.toUpperCase();
         colorTextInput.classList.remove('invalid');
+        lastValidColor = hex; 
       } else {
         colorTextInput.classList.add('invalid');
       }
@@ -903,7 +1125,12 @@
       offCtx.clearRect(0, 0, textureSize, textureSize);
       offCtx.drawImage(img, 0, 0);
 
-      currentImage = offCtx.getImageData(0, 0, textureSize, textureSize);
+      if (currentFileName && editedTextures[currentFileName]) {
+        currentImage = editedTextures[currentFileName].data;
+      } else {
+        currentImage = offCtx.getImageData(0, 0, textureSize, textureSize);
+      }
+      
       undoStack.length = 0;
       drawTexture(currentImage);
     }
@@ -928,9 +1155,21 @@
       li.textContent = name;
       li.title = `Load ${name}`;
       li.addEventListener('click', () => {
-        loadTexture(img);
+        if (currentFileName && currentImage) {
+          editedTextures[currentFileName] = {
+            data: new ImageData(new Uint8ClampedArray(currentImage.data), currentImage.width, currentImage.height),
+            size: textureSize
+          };
+          
+          if (!modifiedTextures.has(currentFileName)) {
+            modifiedTextures.add(currentFileName);
+          }
+        }
+        
         currentFileName = name;
+        loadTexture(img);
         highlightActiveFile(li);
+        updateFileListDisplay();
       });
       fileList.appendChild(li);
     }
@@ -938,6 +1177,32 @@
     function highlightActiveFile(activeLi) {
       [...fileList.children].forEach(li => li.classList.remove('active-btn'));
       activeLi.classList.add('active-btn');
+    }
+    
+    function updateFileListDisplay() {
+      [...fileList.children].forEach(li => {
+        const fileName = li.textContent;
+        if (modifiedTextures.has(fileName)) {
+          if (!li.querySelector('.modified-indicator')) {
+            const indicator = document.createElement('span');
+            indicator.className = 'modified-indicator';
+            indicator.innerHTML = ' <i class="fas fa-edit" style="color: #ff6b39; font-size: 0.8em; margin-left: 5px;"></i>';
+            li.appendChild(indicator);
+          }
+        } else {
+          const indicator = li.querySelector('.modified-indicator');
+          if (indicator) {
+            indicator.remove();
+          }
+        }
+      });
+      
+      const noTexturesMessage = document.getElementById('no-textures-message');
+      if (fileList.children.length === 0) {
+        noTexturesMessage.style.display = 'flex';
+      } else {
+        noTexturesMessage.style.display = 'none';
+      }
     }
 
     const toolButtons = {
@@ -970,8 +1235,18 @@
       }
     }
 
-    function saveTexture() {
+    function saveCurrentTexture() {
       if (!currentImage) return;
+      
+      if (currentFileName) {
+        editedTextures[currentFileName] = {
+          data: new ImageData(new Uint8ClampedArray(currentImage.data), currentImage.width, currentImage.height),
+          size: textureSize
+        };
+        modifiedTextures.add(currentFileName);
+        updateFileListDisplay();
+      }
+      
       const off = document.createElement('canvas');
       off.width = textureSize;
       off.height = textureSize;
@@ -989,6 +1264,47 @@
         a.remove();
         URL.revokeObjectURL(url);
       }, 'image/png');
+    }
+    
+    function saveAllEditedTextures() {
+      if (modifiedTextures.size === 0) {
+        alert('No textures have been modified to save.');
+        return;
+      }
+      
+      const zip = new JSZip();
+      
+      let processedCount = 0;
+      
+      modifiedTextures.forEach(filename => {
+        if (editedTextures[filename]) {
+          const textureData = editedTextures[filename];
+          const canvas = document.createElement('canvas');
+          canvas.width = textureData.size;
+          canvas.height = textureData.size;
+          const ctx = canvas.getContext('2d');
+          
+          ctx.putImageData(textureData.data, 0, 0);
+          
+          canvas.toBlob(blob => {
+            zip.file(filename, blob);
+            processedCount++;
+            
+            if (processedCount === modifiedTextures.size) {
+              zip.generateAsync({type: "blob"}).then(function(content) {
+                const url = URL.createObjectURL(content);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'edited_textures.zip';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(url);
+              });
+            }
+          }, 'image/png');
+        }
+      });
     }
 
     fullscreenBtn.addEventListener('click', () => {
@@ -1025,7 +1341,7 @@
     });
 
     saveBtn.addEventListener('click', () => {
-      saveTexture();
+      saveModal.style.display = 'flex';
     });
 
     colorPicker.addEventListener('input', e => {
@@ -1042,6 +1358,14 @@
         colorTextInput.classList.remove('invalid');
       } else {
         colorTextInput.classList.add('invalid');
+      }
+    });
+    
+    colorTextInput.addEventListener('blur', e => {
+      const val = e.target.value;
+      if (!isValidHex(val)) {
+        selectedColor = lastValidColor;
+        updateColorInputs(lastValidColor);
       }
     });
 
@@ -1074,13 +1398,143 @@
       setActiveTool('pencil');
       updateColorInputs(selectedColor);
       renderCustomColors();
+      
+      currentFileName = null;
+      
+      updateFileListDisplay();
     }
 
+    const presetPalettes = {
+      "H31": [
+        "#636663", "#87857c", "#bcad9f", "#f2b888", "#eb9661", "#b55945", "#734c44", "#3d3333",
+        "#593e47", "#7a5859", "#a57855", "#de9f47", "#fdd179", "#fee1b8", "#d4c692", "#a6b04f",
+        "#819447", "#44702d", "#2f4d2f", "#546756", "#89a477", "#a4c5af", "#cae6d9", "#f1f6f0",
+        "#d5d6db", "#bbc3d0", "#96a9c1", "#6c81a1", "#405273", "#303843", "#14233a"
+      ],
+      "Steam Lords": [
+        "#213b25", "#3a604a", "#4f7754", "#a19f7c", "#77744f", "#775c4f", "#603b3a", "#3b2137",
+        "#170e19", "#2f213b", "#433a60", "#4f5277", "#65738c", "#7c94a1", "#a0b9ba", "#c0d1cc"
+      ],
+      "Gold Rust": [
+        "#f6cd26", "#ac6b26", "#563226", "#331c17", "#bb7f57", "#725956", "#393939", "#202020"
+      ],
+      "Diao": [
+        "#ffffff", "#0ce6f2", "#0098db", "#1e579c", "#203562", "#252446", "#201533"
+      ],
+      "Ammo": [
+        "#040c06", "#112318", "#1e3a29", "#305d42", "#4d8061", "#89a257", "#bedc7f", "#eeffcc"
+      ],
+      "Pastel": [
+        "#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFC9", "#BAE1FF", "#DDBDF1", "#F1DDBF", "#BFDDBF"
+      ]
+    };
+    
+    function populatePalettesModal() {
+      const container = document.getElementById('palettes-container');
+      container.innerHTML = '';
+      
+      for (const [groupName, palettes] of Object.entries(presetPalettes)) {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'palette-group';
+        
+        const groupTitle = document.createElement('h4');
+        groupTitle.textContent = groupName;
+        groupDiv.appendChild(groupTitle);
+        
+        const paletteDiv = document.createElement('div');
+        paletteDiv.className = 'palette';
+        
+        const colorsContainer = document.createElement('div');
+        colorsContainer.className = 'palette-colors';
+        
+        for (const color of palettes) {
+          const colorBox = document.createElement('div');
+          colorBox.className = 'palette-color';
+          colorBox.style.backgroundColor = color;
+          colorBox.title = color;
+          colorBox.addEventListener('click', () => {
+            selectedColor = color;
+            updateColorInputs(selectedColor);
+            document.getElementById('palettes-modal').style.display = 'none';
+          });
+          
+          colorsContainer.appendChild(colorBox);
+        }
+        
+        paletteDiv.appendChild(colorsContainer);
+        groupDiv.appendChild(paletteDiv);
+        
+        const addToQuickColorsBtn = document.createElement('button');
+        addToQuickColorsBtn.className = 'modal-btn';
+        addToQuickColorsBtn.style.marginTop = '10px';
+        addToQuickColorsBtn.style.width = '100%';
+        addToQuickColorsBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add to Quick Colors';
+        addToQuickColorsBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          palettes.forEach(color => {
+            if (!customColors.includes(color.toUpperCase())) {
+              customColors.push(color.toUpperCase());
+            }
+          });
+          renderCustomColors();
+          
+          addToQuickColorsBtn.innerHTML = '<i class="fas fa-check"></i> Added!';
+          setTimeout(() => {
+            addToQuickColorsBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add to Quick Colors';
+          }, 1500);
+        });
+        
+        groupDiv.appendChild(addToQuickColorsBtn);
+        
+        container.appendChild(groupDiv);
+      }
+    }
+    
+    const palettesModal = document.getElementById('palettes-modal');
+    const presetPalettesBtn = document.getElementById('preset-palettes-btn');
+    const closePalettesBtn = document.getElementById('close-palettes-btn');
+    
+    presetPalettesBtn.addEventListener('click', () => {
+      populatePalettesModal();
+      palettesModal.style.display = 'flex';
+    });
+    
+    closePalettesBtn.addEventListener('click', () => {
+      palettesModal.style.display = 'none';
+    });
+    
+    palettesModal.addEventListener('click', (e) => {
+      if (e.target === palettesModal) {
+        palettesModal.style.display = 'none';
+      }
+    });
+    
+    saveCurrentBtn.addEventListener('click', () => {
+      saveCurrentTexture();
+      saveModal.style.display = 'none';
+    });
+    
+    saveAllBtn.addEventListener('click', () => {
+      saveAllEditedTextures();
+      saveModal.style.display = 'none';
+    });
+    
+    closeModalBtn.addEventListener('click', () => {
+      saveModal.style.display = 'none';
+    });
+    
+    saveModal.addEventListener('click', (e) => {
+      if (e.target === saveModal) {
+        saveModal.style.display = 'none';
+      }
+    });
+    
     init();
 
   })();
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </body>
 
 </html>
