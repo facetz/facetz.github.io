@@ -2711,6 +2711,9 @@
                 await loadSubmissions();
                 updateTabView(); 
                 console.log('App initialized successfully');
+                
+                // Check for shared pack after all data is loaded
+                checkForSharedPack();
             } catch (error) {
                 console.error('Error during DOMContentLoaded:', error);
             }
@@ -3910,16 +3913,7 @@
         }
         
         function showSharePopup(pack) {
-            if (sharePackImage) sharePackImage.src = pack.imageUrl;
-            if (sharePackImage) sharePackImage.alt = `${pack.title} preview`;
-            if (sharePackTitle) sharePackTitle.textContent = pack.title;
-            if (sharePackAuthor) sharePackAuthor.textContent = `by ${pack.author}`;
-            if (sharePackDescription) sharePackDescription.textContent = pack.description;
-            const baseUrl = window.location.origin + window.location.pathname;
-            const shareUrl = `${baseUrl}?packname=${encodeURIComponent(pack.id)}`;
-            if (shareUrlInput) shareUrlInput.value = shareUrl;
-            if (shareDownloadBtn) shareDownloadBtn.href = pack.downloadUrl;
-            if (sharePopup) sharePopup.style.display = 'flex';
+            showTpackPopup(pack); // Use the new tpack popup instead of the old one
         }
         
         function showTpackPopup(pack) {
@@ -4114,7 +4108,6 @@
                 }
             }
         }
-        checkForSharedPack();
         document.addEventListener('DOMContentLoaded', function () {
             const statItems = document.querySelectorAll('.stat-item');
             statItems.forEach((item, index) => {
