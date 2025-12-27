@@ -774,6 +774,15 @@
       text-decoration: underline;
     }
     
+    /* Search highlighting */
+    .highlight-search {
+      background-color: rgba(255, 179, 64, 0.3);
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-weight: 600;
+      color: #ffd58f;
+    }
+    
     /* Additional modal styles for guides */
     #guidesModal .modal-content {
       background: linear-gradient(145deg, #262525, #212020);
@@ -923,16 +932,116 @@
           initArticleOfTheDay(); 
 
           const searchInput = document.getElementById('searchInput');
+          let searchTimeout;
+          
           searchInput.addEventListener('input', e => {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredItems = itemsData.filter(item =>
-              (item.title && item.title.toLowerCase().includes(searchTerm)) ||
-              (item.tag && item.tag.toLowerCase().includes(searchTerm)) ||
-              (item.description && item.description.toLowerCase().includes(searchTerm)) ||
-              (item.content && item.content.toLowerCase().includes(searchTerm))
-            );
-            renderItems(filteredItems);
+            const searchTerm = e.target.value;
+            
+            // Clear previous timeout
+            clearTimeout(searchTimeout);
+            
+            // Add a small delay to prevent excessive filtering while typing
+            searchTimeout = setTimeout(() => {
+              const filteredItems = performSearch(searchTerm);
+              renderItems(filteredItems, searchTerm);
+            }, 150);
           });
+          
+          // Cache for search results to improve performance
+          let searchCache = {};
+          
+          // Fuzzy search function
+          function performSearch(searchTerm) {
+            if (!searchTerm) return itemsData;
+            
+            const term = searchTerm.toLowerCase().trim();
+            if (!term) return itemsData;
+            
+            // Check if we already have results for this search term
+            if (searchCache[term]) {
+              return searchCache[term];
+            }
+            
+            // Calculate fuzzy match scores for each item
+            const scoredItems = itemsData.map(item => {
+              let score = 0;
+              
+              // Title matching gets higher score
+              if (item.title) {
+                const titleMatch = fuzzyMatch(item.title.toLowerCase(), term);
+                if (titleMatch.score > 0) score += titleMatch.score * 3; // Weight title matches higher
+              }
+              
+              // Tag matching
+              if (item.tag) {
+                const tagMatch = fuzzyMatch(item.tag.toLowerCase(), term);
+                if (tagMatch.score > 0) score += tagMatch.score * 2; // Weight tag matches medium
+              }
+              
+              // Description matching
+              if (item.description) {
+                const descMatch = fuzzyMatch(item.description.toLowerCase(), term);
+                if (descMatch.score > 0) score += descMatch.score;
+              }
+              
+              // Content matching (only for shorter content to improve performance)
+              if (item.content) {
+                // Limit content search to first 500 characters to improve performance
+                const contentToSearch = item.content.length > 500 ? item.content.substring(0, 500) : item.content;
+                const contentMatch = fuzzyMatch(contentToSearch.toLowerCase(), term);
+                if (contentMatch.score > 0) score += contentMatch.score * 0.5; // Weight content matches lower
+              }
+              
+              return { item, score };
+            });
+            
+            // Filter items with score > 0 and sort by score
+            const results = scoredItems
+              .filter(result => result.score > 0)
+              .sort((a, b) => b.score - a.score)
+              .map(result => result.item);
+              
+            // Cache the results (limit cache size to prevent memory issues)
+            if (Object.keys(searchCache).length > 50) {
+              // Clear cache if it gets too large
+              searchCache = {};
+            }
+            searchCache[term] = results;
+            
+            return results;
+          }
+          
+          // Fuzzy matching algorithm
+          function fuzzyMatch(str, pattern) {
+            if (!pattern || !str) return { score: 0, matchedIndices: [] };
+            
+            let score = 0;
+            let patternIdx = 0;
+            let strIdx = 0;
+            let matches = [];
+            let consecutiveMatches = 0;
+            
+            while (strIdx < str.length && patternIdx < pattern.length) {
+              const strChar = str[strIdx];
+              const patternChar = pattern[patternIdx];
+              
+              if (strChar === patternChar) {
+                matches.push(strIdx);
+                score += 1 + consecutiveMatches; // Bonus for consecutive matches
+                consecutiveMatches++;
+                patternIdx++;
+              } else {
+                consecutiveMatches = 0; // Reset consecutive counter
+              }
+              
+              strIdx++;
+            }
+            
+            // Only return a score if we matched the entire pattern
+            return patternIdx === pattern.length 
+              ? { score: score, matchedIndices: matches } 
+              : { score: 0, matchedIndices: [] };
+          }
         }, 500);
       });
 
@@ -954,7 +1063,7 @@
       });
     }
     
-    function renderItems(items) {
+    function renderItems(items, searchTerm = '') {
       const grid = document.getElementById('itemGrid');
 
       if (!items || items.length === 0) {
@@ -987,31 +1096,43 @@
         itemElement.className = 'item-card';
         itemElement.style.animationDelay = `${index * 0.1}s`;
         
+        // Highlight search terms in content
         let shortContent = item.content;
         if (item.content.length > 200) {
           shortContent = item.content.substring(0, 200) + '...';
         }
+        
+        // Highlight search terms if applicable
+        let highlightedTitle = item.title;
+        let highlightedDescription = item.description;
+        let highlightedContent = shortContent;
+        
+        if (searchTerm) {
+          highlightedTitle = highlightSearchTerms(item.title, searchTerm);
+          highlightedDescription = highlightSearchTerms(item.description, searchTerm);
+          highlightedContent = highlightSearchTerms(shortContent, searchTerm);
+        }
 
         itemElement.innerHTML = `
           <div class="item-header">
-            <h3 class="item-title">${item.title}</h3>
+            <h3 class="item-title">${highlightedTitle}</h3>
             <span class="item-tag">${item.tag}</span>
           </div>
-          <p class="item-description">${item.description}</p>
-          <div class="item-content-limited">${shortContent}</div>
+          <p class="item-description">${highlightedDescription}</p>
+          <div class="item-content-limited">${highlightedContent}</div>
           <div class="read-more">Read more</div>
         `;
         
         itemElement.addEventListener('click', function(e) {
           if (!e.target.classList.contains('read-more')) {
-            openArticleModal(item);
+            openArticleModal(item, searchTerm);
           }
         });
         
         const readMore = itemElement.querySelector('.read-more');
         if (readMore) {
           readMore.addEventListener('click', function() {
-            openArticleModal(item);
+            openArticleModal(item, searchTerm);
           });
         }
 
@@ -1046,11 +1167,30 @@
       return formattedContent;
     }
     
-    function openArticleModal(item) {
-      document.getElementById('modalTitle').textContent = item.title;
+    // Function to highlight search terms in text
+    function highlightSearchTerms(text, searchTerm) {
+      if (!searchTerm || !text) return text;
+      
+      // Escape special regex characters in the search term
+      const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\$&');
+      
+      // Create a case-insensitive regex to find the search term
+      const regex = new RegExp(`(${escapedTerm})`, 'gi');
+      
+      // Replace matches with highlighted spans
+      return text.replace(regex, '<span class="highlight-search">$1</span>');
+    }
+    
+    function openArticleModal(item, searchTerm = '') {
+      // Highlight search terms in the modal if a search term is provided
+      const modalTitle = searchTerm ? highlightSearchTerms(item.title, searchTerm) : item.title;
+      const modalDescription = searchTerm ? highlightSearchTerms(item.description, searchTerm) : item.description;
+      const modalContent = searchTerm ? highlightSearchTerms(formatContent(item.content), searchTerm) : formatContent(item.content);
+      
+      document.getElementById('modalTitle').innerHTML = modalTitle;
       document.getElementById('modalCategory').textContent = item.tag;
-      document.getElementById('modalDescription').textContent = item.description;
-      document.getElementById('modalContent').innerHTML = formatContent(item.content);
+      document.getElementById('modalDescription').innerHTML = modalDescription;
+      document.getElementById('modalContent').innerHTML = modalContent;
       
       const imageContainer = document.getElementById('modalImageContainer');
       const imageElement = document.getElementById('modalImage');
@@ -1168,6 +1308,19 @@
           }
         }, 100);
       }
+    }
+    
+    // Debounced search function for performance
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
     }
     
     document.addEventListener('DOMContentLoaded', initArticleOfTheDay);
