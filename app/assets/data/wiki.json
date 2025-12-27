@@ -1954,5 +1954,29 @@
         "tag": "Hang Glider",
         "description": "Used for gliding through the air. Fastest Hang Glider.",
         "content": "Crafting Materials: 4 Diamonds, 4 Wood Planks, 4 Cotton\nMax Stack: 1\nStackable: No"
+    },
+    {
+        "title": "Beginner's Guide to Mining",
+        "tag": "Guide",
+        "description": "Learn the basics of mining in Bloxd.io, including which tools to use and where to find valuable resources.",
+        "content": "Getting Started with Mining:\n1. Start with a Wood Pickaxe to mine Stone and Coal\n2. Progress to Stone Pickaxe to mine Iron Ore\n3. Use an Iron Pickaxe to mine all ores including Gold and Diamond\n4. Moonstone Pickaxe gives exact block drops\n\nBest Mining Locations:\n- Coal Ore: Y-levels 60 to -70\n- Iron Ore: Y-levels 0 to -80\n- Gold Ore: Y-levels -55 to -99\n- Diamond Ore: Y-levels -85 to -99\n- Moonstone Ore: Y-level -85\n\nPro Tips:\n- Always bring torches (Coal + Stick)\n- Build shafts at 45-degree angles for efficiency\n- Use a Moonstone Pickaxe to preserve block integrity"
+    },
+    {
+        "title": "Combat Essentials Guide",
+        "tag": "Guide",
+        "description": "Master the art of combat with this comprehensive guide covering weapons, armor, and tactics.",
+        "content": "Combat Basics:\n1. Start with a Wood Sword (22 damage)\n2. Progress through Stone (27), Iron (34), Gold (37), and Diamond (40)\n3. Bows provide ranged combat options\n\nWeapon Types:\n- Swords: Standard melee weapons\n- Bows: Ranged weapons with various damage levels\n- Crossbows: Charged ranged weapons\n\nArmor Protection:\n- Wood Armor: 40% damage reduction\n- Iron Armor: 54% damage reduction\n- Gold Armor: 70% damage reduction\n- Diamond Armor: 80% damage reduction\n\nCombat Tips:\n- Always wear armor when fighting\n- Use potions for temporary advantages\n- Practice timing your attacks and dodging"
+    },
+    {
+        "title": "Building and Construction Guide",
+        "tag": "Guide",
+        "description": "Learn how to create amazing structures with different building materials and techniques.",
+        "content": "Building Fundamentals:\n1. Choose appropriate materials for your build\n2. Plan your structure before starting\n3. Use utility blocks like doors, ladders, and chests\n\nPopular Building Materials:\n- Wood Planks: Various types (Maple, Pine, Cedar, etc.)\n- Stone variants: Smooth, Messy, Engraved, Bricks\n- Colored options: Wool, Concrete, Dyed glass\n\nUtility Blocks:\n- Doors and Trapdoors for access control\n- Ladders for vertical movement\n- Chests for storage\n- Workbench and Artisan Bench for crafting\n\nAdvanced Building:\n- Use slabs for more detailed construction\n- Create multi-story buildings with proper support\n- Add decorative elements like carpets and flowers\n- Protect your builds with Protectors"
+    },
+    {
+        "title": "Resource Farming Guide",
+        "tag": "Guide",
+        "description": "Maximize your resource collection with efficient farming techniques for food, materials, and ores.",
+        "content": "Food Farming:\n- Apple Trees: Break Maple, Aspen, Pine, Cedar, or Elm leaves\n- Wheat: Found in Plains biomes\n- Rice: Found in Plains biomes\n- Fruit Trees: Plum, Pear, Cherry trees in respective forests\n\nMaterial Farming:\n- Wood: Chop down trees in appropriate biomes\n- Stone: Mine in Mountains and Stony Caves\n- Clay: Found in Riverbeds\n- Cotton: Harvest from Plains\n\nOre Farming:\n- Coal: Shallow mining (Y-levels 60 to -70)\n- Iron: Mid-level mining (Y-levels 0 to -80)\n- Gold: Deep mining (Y-levels -55 to -99)\n- Diamond: Deepest mining (Y-levels -85 to -99)\n\nEfficiency Tips:\n- Use appropriate tools for each resource\n- Build farms in convenient locations\n- Store excess resources in chests\n- Consider creating resource-specific areas"
     }
 ]

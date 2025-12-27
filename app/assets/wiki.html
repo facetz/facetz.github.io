@@ -169,6 +169,10 @@
       height: 100%;
     }
 
+    .item-card .item-content {
+      padding: 8px 0;
+    }
+
     .item-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
@@ -216,6 +220,41 @@
       white-space: pre-wrap;
       margin: 0;
       flex-grow: 1;
+      padding: 8px 0;
+    }
+    
+    /* Enhanced styling for item content to better format structured data */
+    .item-content p {
+      margin: 8px 0;
+      line-height: 1.6;
+    }
+    
+    .item-content strong {
+      color: #f78c5a;
+      font-weight: 600;
+    }
+    
+    /* Better spacing for key-value pairs in item content */
+    .item-content br {
+      line-height: 1.8;
+    }
+    
+    /* Style for specific item properties */
+    .item-property {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+      padding: 4px 0;
+    }
+    
+    .property-key {
+      font-weight: bold;
+      color: #f78c5a;
+    }
+    
+    .property-value {
+      color: #d8d8d8;
+      text-align: right;
     }
 
     .item-footer {
@@ -319,10 +358,520 @@
     .item-card {
       animation: fadeIn 0.5s ease forwards;
     }
+    
+    .hero-showcase {
+      display: flex;
+      gap: 32px;
+      background: linear-gradient(135deg, #262525 0%, #242323 100%);
+      border: 1px solid #3a3939;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .hero-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+    }
+    
+    .article-of-day {
+      flex: 0 0 400px; 
+      background: linear-gradient(145deg, #2a2929, #262525);
+      border: 1px solid #444343;
+      border-radius: 24px;
+      padding: 24px;
+      margin-right: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: fit-content;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .aot-title {
+      color: #f78c5a;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0 0 16px 0;
+      text-align: center;
+      border-bottom: 1px solid #3a3939;
+      padding-bottom: 12px;
+    }
+    
+    .aot-item {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .aot-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .aot-title-item {
+      margin: 0;
+      font-size: 1.3rem;
+      color: #f78c5a;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    
+    .aot-tag {
+      font-size: 0.85rem;
+      background: linear-gradient(90deg, #ff6b39, #ff8c5a);
+      padding: 6px 12px;
+      border-radius: 16px;
+      color: #fff;
+      user-select: none;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    
+    .aot-description {
+      font-size: 1rem;
+      color: #c0bebe;
+      line-height: 1.5;
+      font-weight: 500;
+      margin: 0;
+    }
+    
+    .aot-content {
+      font-size: 0.9rem;
+      color: #bbb;
+      line-height: 1.6;
+      margin: 0;
+      padding: 8px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+    }
+    
+    .aot-read-more {
+      color: #ff6b39;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 10px;
+      text-align: center;
+    }
+    
+    .aot-read-more:hover {
+      text-decoration: underline;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #ff8c5a;
+      margin: 0;
+      line-height: 1.2;
+      background: linear-gradient(45deg, #ff6b39, #ff8c5a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: #c0bebe;
+      margin: 0;
+      line-height: 1.6;
+      max-width: 90%;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin: 16px 0;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      max-width: 120px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .stat-item.animate-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+      color: #ff6b39;
+      background: rgba(255, 107, 57, 0.1);
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 107, 57, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover .stat-icon {
+      transform: scale(1.1);
+      background: rgba(255, 107, 57, 0.2);
+      box-shadow: 0 0 15px rgba(255, 107, 57, 0.3);
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #e0e0e0;
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover .stat-number {
+      color: #ff6b39;
+      text-shadow: 0 0 10px rgba(255, 107, 57, 0.5);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .hero-btn {
+      padding: 14px 28px;
+      border-radius: 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+    }
+
+    .hero-btn.primary {
+      background: linear-gradient(90deg, #ff6b39 0%, #ff8c5a 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 107, 57, 0.3);
+    }
+
+    .hero-btn.primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(255, 107, 57, 0.4);
+    }
+
+    .hero-btn.secondary {
+      background: linear-gradient(145deg, #3a3939, #2a2929);
+      color: #e0e0e0;
+      border: 1px solid #4a4949;
+    }
+
+    .hero-btn.secondary:hover {
+      background: linear-gradient(145deg, #4a4949, #3a3939);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    @media (max-width: 968px) {
+      .hero-showcase {
+        flex-direction: column;
+      }
+
+      .hero-content {
+        text-align: center;
+        align-items: center;
+      }
+
+      .hero-subtitle {
+        max-width: 100%;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+    }
+    
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+    }
+    
+    .modal-content {
+      background: linear-gradient(145deg, #262525, #212020);
+      margin: 5% auto;
+      padding: 0;
+      border: 1px solid #3a3939;
+      border-radius: 24px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 85vh;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      animation: modalopen 0.3s ease;
+    }
+    
+    @keyframes modalopen {
+      from {
+        opacity: 0;
+        transform: translateY(-60px);
+      }
+      
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px;
+      border-bottom: 1px solid #3a3939;
+      flex-shrink: 0;
+    }
+    
+    .modal-header h2 {
+      margin: 0;
+      color: #f78c5a;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .close {
+      color: #888;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .close:hover {
+      color: #ff6b39;
+      background: rgba(255, 107, 57, 0.1);
+    }
+    
+    .modal-body {
+      padding: 24px;
+      max-height: calc(85vh - 120px);
+      overflow-y: auto;
+      background: #1f1e1e;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .modal-category {
+      margin-bottom: 15px;
+    }
+    
+    .modal-description {
+      font-size: 1.05rem;
+      color: #c0bebe;
+      line-height: 1.5;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    
+    .modal-content#modalContent {
+      font-size: 0.95rem;
+      color: #bbb;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      padding: 15px 24px;
+      border-top: 1px solid #3a3939;
+      margin-top: 15px;
+    }
+    
+    .modal-content#modalContent p {
+      margin: 10px 0;
+    }
+    
+    .modal-content#modalContent br {
+      line-height: 1.8;
+    }
+    
+    /* Specific formatting for structured content */
+    .modal-content#modalContent strong {
+      color: #f78c5a;
+      font-weight: 600;
+    }
+    
+    .modal-content#modalContent ul, .modal-content#modalContent ol {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+    
+    .modal-content#modalContent li {
+      margin: 5px 0;
+    }
+    
+    /* Limited text in card */
+    .item-content-limited {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.6;
+      margin: 0;
+      flex-grow: 1;
+      padding: 8px 0;
+    }
+    
+    .read-more {
+      color: #ff6b39;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 10px;
+      display: inline-block;
+    }
+    
+    .read-more:hover {
+      text-decoration: underline;
+    }
+    
+    /* Additional modal styles for guides */
+    #guidesModal .modal-content {
+      background: linear-gradient(145deg, #262525, #212020);
+      margin: 5% auto;
+      padding: 0;
+      border: 1px solid #3a3939;
+      border-radius: 24px;
+      width: 90%;
+      max-width: 900px;
+      max-height: 85vh;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      animation: modalopen 0.3s ease;
+    }
   </style>
+  
+  <!-- Article Details Modal -->
+  <div id="articleModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Article Title</h2>
+        <span class="close" id="closeArticleModal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="modal-category">
+          <span id="modalCategory" class="item-tag">Category</span>
+        </div>
+        <div class="modal-image" id="modalImageContainer" style="display: none;">
+          <img id="modalImage" src="" alt="Article Image" style="width: 100%; border-radius: 12px; margin-bottom: 20px;">
+        </div>
+        <div class="modal-description" id="modalDescription">
+          <!-- Description will be inserted here -->
+        </div>
+        <div class="modal-content" id="modalContent">
+          <!-- Full content will be inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Guides Modal -->
+  <div id="guidesModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Guides</h2>
+        <span class="close" id="closeGuidesModal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div id="guidesContent">
+          <!-- Guides will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </head>
 
 <body>
+  <div class="hero-showcase">
+    <div class="hero-content">
+      <h1 class="hero-title">Need help?</h1>
+      <p class="hero-subtitle">Explore comprehensive guides and information about the game</p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <i class="fas fa-book stat-icon"></i>
+          <div class="stat-number" id="articlesCount">0</div>
+          <div class="stat-label">Articles</div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-file-alt stat-icon"></i>
+          <div class="stat-number" id="guidesCount">0</div>
+          <div class="stat-label">Guides</div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-layer-group stat-icon"></i>
+          <div class="stat-number" id="categoriesCount">0</div>
+          <div class="stat-label">Categories</div>
+        </div>
+      </div>
+      <div class="hero-buttons">
+        <button class="hero-btn primary" id="exploreBtn">
+          <i class="fas fa-compass"></i> Explore Articles
+        </button>
+        <button class="hero-btn secondary" id="guidesBtn">
+          <i class="fas fa-book-open"></i> View Guides
+        </button>
+      </div>
+    </div>
+    <div class="article-of-day">
+      <h2 class="aot-title"><i class="fas fa-star"></i> Article of the Day</h2>
+      <div id="articleOfTheDayContent">
+        <p style="text-align: center; color: #888; padding: 20px;">Loading...</p>
+      </div>
+    </div>
+  </div>
+
   <div class="header">
     <div class="logo">
       <div class="logo-text">Facet Wiki</div>
@@ -371,6 +920,7 @@
 
         setTimeout(() => {
           renderItems(itemsData);
+          initArticleOfTheDay(); 
 
           const searchInput = document.getElementById('searchInput');
           searchInput.addEventListener('input', e => {
@@ -386,6 +936,24 @@
         }, 500);
       });
 
+    function updateStats() {
+      const articlesCount = itemsData.length;
+      const guidesCount = itemsData.filter(item => item.tag.toLowerCase().includes('guide') || item.title.toLowerCase().includes('guide')).length;
+      const categories = [...new Set(itemsData.map(item => item.tag))];
+      const categoriesCount = categories.length;
+      
+      document.getElementById('articlesCount').textContent = articlesCount;
+      document.getElementById('guidesCount').textContent = guidesCount;
+      document.getElementById('categoriesCount').textContent = categoriesCount;
+      
+      const statItems = document.querySelectorAll('.stat-item');
+      statItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.add('animate-in');
+        }, 200 * index);
+      });
+    }
+    
     function renderItems(items) {
       const grid = document.getElementById('itemGrid');
 
@@ -397,7 +965,6 @@
       grid.innerHTML = '';
 
       items.forEach((item, index) => {
-        // Ads replaced with a placeholder
         if (!isProUser && index > 0 && index % (Math.floor(Math.random() * 3) + 5) === 0) {
           const adElement = document.createElement('div');
           adElement.className = 'item-card';
@@ -419,8 +986,11 @@
         const itemElement = document.createElement('div');
         itemElement.className = 'item-card';
         itemElement.style.animationDelay = `${index * 0.1}s`;
-
-        const formattedContent = item.content.replace(/\n/g, '<br>');
+        
+        let shortContent = item.content;
+        if (item.content.length > 200) {
+          shortContent = item.content.substring(0, 200) + '...';
+        }
 
         itemElement.innerHTML = `
           <div class="item-header">
@@ -428,12 +998,179 @@
             <span class="item-tag">${item.tag}</span>
           </div>
           <p class="item-description">${item.description}</p>
-          <div class="item-content">${formattedContent}</div>
+          <div class="item-content-limited">${shortContent}</div>
+          <div class="read-more">Read more</div>
         `;
+        
+        itemElement.addEventListener('click', function(e) {
+          if (!e.target.classList.contains('read-more')) {
+            openArticleModal(item);
+          }
+        });
+        
+        const readMore = itemElement.querySelector('.read-more');
+        if (readMore) {
+          readMore.addEventListener('click', function() {
+            openArticleModal(item);
+          });
+        }
 
         grid.appendChild(itemElement);
       });
+      
+      updateStats();
     }
+    
+    function formatContent(content) {
+      const lines = content.split('\n');
+      
+      let formattedContent = '';
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        
+        if (line === '') {
+          continue; 
+        }
+        
+        if (line.includes(':') && /^[A-Z]/.test(line)) {
+          const colonIndex = line.indexOf(':');
+          const header = line.substring(0, colonIndex);
+          const value = line.substring(colonIndex + 1).trim();
+          
+          formattedContent += `<div class="item-property"><span class="property-key">${header}:</span> <span class="property-value">${value}</span></div>`;
+        } else {
+          formattedContent += `<p>${line}</p>`;
+        }
+      }
+      
+      return formattedContent;
+    }
+    
+    function openArticleModal(item) {
+      document.getElementById('modalTitle').textContent = item.title;
+      document.getElementById('modalCategory').textContent = item.tag;
+      document.getElementById('modalDescription').textContent = item.description;
+      document.getElementById('modalContent').innerHTML = formatContent(item.content);
+      
+      const imageContainer = document.getElementById('modalImageContainer');
+      const imageElement = document.getElementById('modalImage');
+      
+      if (item.image) {
+        imageElement.src = item.image;
+        imageContainer.style.display = 'block';
+      } else {
+        imageContainer.style.display = 'none';
+      }
+      
+      document.getElementById('articleModal').style.display = 'block';
+    }
+    
+    document.getElementById('closeArticleModal').addEventListener('click', function() {
+      document.getElementById('articleModal').style.display = 'none';
+    });
+    
+    document.getElementById('closeGuidesModal').addEventListener('click', function() {
+      document.getElementById('guidesModal').style.display = 'none';
+    });
+    
+    window.addEventListener('click', function(event) {
+      const articleModal = document.getElementById('articleModal');
+      const guidesModal = document.getElementById('guidesModal');
+      
+      if (event.target === articleModal) {
+        articleModal.style.display = 'none';
+      }
+      
+      if (event.target === guidesModal) {
+        guidesModal.style.display = 'none';
+      }
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      const exploreBtn = document.getElementById('exploreBtn');
+      const guidesBtn = document.getElementById('guidesBtn');
+      
+      if (exploreBtn) {
+        exploreBtn.addEventListener('click', function() {
+          document.querySelector('.header').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+      
+      if (guidesBtn) {
+        guidesBtn.addEventListener('click', function() {
+          showGuidesModal();
+        });
+      }
+    });
+    
+    function showGuidesModal() {
+      const guidesContent = document.getElementById('guidesContent');
+      
+      guidesContent.innerHTML = '<div style="text-align: center; padding: 40px 20px;"><h3 style="color: #f78c5a; margin-bottom: 20px;">Coming Soon</h3><p style="color: #bbb; font-size: 1.1rem;">Guides section will be available in a future update.</p></div>';
+      
+      document.getElementById('guidesModal').style.display = 'block';
+    }
+    
+    function getArticleOfTheDay(items) {
+      if (!items || items.length === 0) return null;
+      
+      const today = new Date();
+      const dateStr = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+      
+      let hash = 0;
+      for (let i = 0; i < dateStr.length; i++) {
+        const char = dateStr.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; 
+      }
+      
+     
+      const index = Math.abs(hash) % items.length;
+      return items[index];
+    }
+    
+    function displayArticleOfTheDay() {
+      const articleOfTheDayContent = document.getElementById('articleOfTheDayContent');
+      
+      if (itemsData && itemsData.length > 0) {
+        const articleOfTheDay = getArticleOfTheDay(itemsData);
+        
+        if (articleOfTheDay) {
+          let shortContent = articleOfTheDay.content;
+          if (articleOfTheDay.content.length > 150) {
+            shortContent = articleOfTheDay.content.substring(0, 150) + '...';
+          }
+          
+          articleOfTheDayContent.innerHTML = `
+            <div class="aot-item">
+              <div class="aot-header">
+                <h3 class="aot-title-item">${articleOfTheDay.title}</h3>
+                <span class="aot-tag">${articleOfTheDay.tag}</span>
+              </div>
+              <p class="aot-description">${articleOfTheDay.description}</p>
+              <div class="aot-content">${shortContent}</div>
+            </div>
+          `;
+        }
+      } else {
+        articleOfTheDayContent.innerHTML = '<p style="text-align: center; color: #888; padding: 20px;">No articles available.</p>';
+      }
+    }
+    
+    function initArticleOfTheDay() {
+      if (itemsData && itemsData.length > 0) {
+        displayArticleOfTheDay();
+      } else {
+        const checkData = setInterval(() => {
+          if (itemsData && itemsData.length > 0) {
+            clearInterval(checkData);
+            displayArticleOfTheDay();
+          }
+        }, 100);
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', initArticleOfTheDay);
   </script>
 </body>
 
