@@ -7,7 +7,8 @@
   <meta name="description"
     content="Facet is a powerful Bloxd launcher with creator tools, workshop installs, dev utilities, and quality-of-life upgrades in one place.">
   <meta name="theme-color" content="#ff5e2e">
-  <title>Facet/Bloxd v5.7</title>
+  <title>Facet/Bloxd v5.8</title>
+  <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
 
@@ -228,7 +229,7 @@
       color: #9c9898;
     }
 
-    
+
     .testimonial {
       background: linear-gradient(145deg, #121111, #0f0e0e);
       border: 1px solid #2a2828;
@@ -280,7 +281,7 @@
       color: #999;
     }
 
-    
+
     .scroll-hint {
       position: absolute;
       bottom: -190px;
@@ -306,7 +307,7 @@
       100% { transform: translateX(-50%) translateY(0); }
     }
 
-    
+
     .creator-layer {
       background: #0c0b0b;
       display: flex;
@@ -638,44 +639,6 @@
       margin-top: 1rem;
     }
 
-    .site-toast {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      transform: translateY(16px);
-      width: min(92vw, 430px);
-      background: rgba(17, 15, 15, 0.9);
-      border: 1px solid #2e2a2a;
-      border-radius: 12px;
-      backdrop-filter: blur(6px);
-      padding: 0.7rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-      z-index: 2000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    .site-toast.show {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .site-toast-close {
-      border: 1px solid #3a3330;
-      background: #211d1d;
-      color: #e6e0dc;
-      border-radius: 999px;
-      padding: 0.3rem 0.65rem;
-      font-size: 0.74rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
     @media (max-width: 900px) {
       .hero-main {
         grid-template-columns: 1fr;
@@ -752,7 +715,7 @@
       <div class="hero-container">
         <!-- Hero header: version + creators -->
         <div class="hero-header">
-          <span class="version-pill">v5.7 Facet/Bloxd</span>
+          <span class="version-pill">v5.8 Facet/Bloxd</span>
           <span class="made-by"><i class="fas fa-bolt"></i> By AIX, GEORGECR</span>
         </div>
         <div class="hero-main">
@@ -865,11 +828,6 @@
           <h3>texture editor</h3>
           <p>Simple to use, with templates.</p>
         </div>
-        <div class="grid-item">
-          <i class="fas fa-mobile-alt"></i>
-          <h3>Mobile support</h3>
-          <p>A PWA app for mobile, clean and simple.</p>
-        </div>
       </div>
     </div>
   </section>
@@ -884,7 +842,7 @@
       <div class="split-card facet">
         <h2>Facet</h2>
         <p>A launcher, with everything. QoL, dev tools, and community features.</p>
-        <div class="version-tag">v5.7</div>
+        <div class="version-tag">v5.8</div>
       </div>
       <div class="split-card bloxdforge">
         <h2>BloxdForge</h2>
@@ -894,26 +852,8 @@
     </div>
   </section>
 
-  <div class="site-toast" id="site-toast">
-    <div class="site-toast-copy"><span class="site-toast-dot"></span>
-      <p><strong>Facet Update:</strong> Mobile is now part of the main Facet site. There is no separate mobile version
-        anymore.</p>
-    </div>
-    <button class="site-toast-close" id="site-toast-close">Got it</button>
-  </div>
-
   <script>
     (function () {
-      const toast = document.getElementById('site-toast');
-      const closeBtn = document.getElementById('site-toast-close');
-      if (toast && closeBtn && !localStorage.getItem('facet_main_site_announcement_seen_v1')) {
-        setTimeout(() => toast.classList.add('show'), 1200);
-        closeBtn.addEventListener('click', function () {
-          toast.classList.remove('show');
-          localStorage.setItem('facet_main_site_announcement_seen_v1', '1');
-        });
-      }
-
       const creatorSection = document.getElementById('creatorLayer');
       const titleCard = document.getElementById('titleCard');
       const tiltCard = document.getElementById('tiltCard');

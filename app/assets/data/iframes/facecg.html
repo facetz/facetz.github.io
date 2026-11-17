@@ -35,7 +35,7 @@
     .sidebar {
       background: linear-gradient(180deg, #1b1a1a 0%, #191818 100%);
       border: 1px solid #2c2b2b;
-      border-radius: 35px;
+      border-radius: 14px;
       padding: 24px 20px;
       width: 320px;
       display: flex;
@@ -101,7 +101,7 @@
       padding: 20px;
       background: linear-gradient(180deg, #1b1a1a 0%, #191818 100%);
       border: 1px solid #2c2b2b;
-      border-radius: 35px;
+      border-radius: 14px;
       width: 100%;
       max-width: 1200px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -135,7 +135,7 @@
     .grid-item {
       background: linear-gradient(180deg, #1b1a1a 0%, #191818 100%);
       border: 1px solid #2c2b2b;
-      border-radius: 35px;
+      border-radius: 14px;
       padding: 24px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       display: flex;
@@ -184,7 +184,7 @@
       padding: 20px;
       background: linear-gradient(180deg, #1b1a1a 0%, #191818 100%);
       border: 1px solid #2c2b2b;
-      border-radius: 35px;
+      border-radius: 14px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       overflow-y: auto;
     }
@@ -441,7 +441,7 @@
       box-shadow: 0 8px 10px rgba(43, 43, 43, 0.329);
     }
 
-    /* Tooltip styling */
+
     .tooltip {
       position: relative;
       display: inline-block;
@@ -473,7 +473,7 @@
       opacity: 1;
     }
 
-    /* Arrow for tooltip */
+
     .tooltip .tooltip-text::after {
       content: "";
       position: absolute;
@@ -508,7 +508,7 @@
       min-height: 0;
       transition: min-height 0.2s ease;
     }
-    
+
     #selectedModuleDisplay.has-content {
       min-height: 60px;
     }
@@ -520,7 +520,7 @@
       font-style: italic;
     }
 
-    /* Modal styles */
+
     .modal {
       display: none;
       position: fixed;
@@ -537,7 +537,7 @@
       margin: 2% auto;
       padding: 0;
       border: 1px solid #2c2b2b;
-      border-radius: 35px;
+      border-radius: 14px;
       width: 90%;
       max-width: 1000px;
       max-height: 90vh;
@@ -551,7 +551,7 @@
       align-items: center;
       padding: 20px 30px;
       border-bottom: 1px solid #2c2b2b;
-      border-radius: 35px 35px 0 0;
+      border-radius: 14px 14px 0 0;
     }
 
     .modal-header h2 {
@@ -664,12 +664,12 @@
         transform: translateY(0);
       }
     }
-    
+
     ::-webkit-scrollbar {
       width: 0px;
       background: transparent;
     }
-    
+
     * {
       scrollbar-width: none;
     }
@@ -714,7 +714,7 @@
         <div class="grid-item output-area" style="flex: 1; display: flex; flex-direction: column;">
           <h3><i class="fas fa-code"></i> Generated CSS</h3>
           <textarea id="cssOutput" readonly
-            style="flex: 1; min-height: 200px; font-size: 0.85rem;">/* CSS will appear here */</textarea>
+            style="flex: 1; min-height: 200px; font-size: 0.85rem;">                          </textarea>
           <button onclick="copyCSS()" style="margin-top: 12px; padding: 12px;">
             <i class="fas fa-copy"></i> Copy CSS
           </button>
@@ -758,7 +758,7 @@
       </div>
 
       <div class="modules-container"
-        style="flex: 1 1 auto; display: flex; flex-direction: column; background: linear-gradient(180deg, #1b1a1a 0%, #191818 100%); border: 1px solid #2c2b2b; border-radius: 35px; padding: 24px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); height: 100%; min-height: 0;">
+        style="flex: 1 1 auto; display: flex; flex-direction: column; background: linear-gradient(180deg, #1b1a1a 0%, #191818 100%); border: 1px solid #2c2b2b; border-radius: 14px; padding: 24px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); height: 100%; min-height: 0;">
         <div
           style="background: linear-gradient(90deg, #262525 0%, #242323 100%); border: 1px solid #3a3939; border-radius: 18px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center;">
           <h3 style="margin: 0; color: #e8e8e8; flex-shrink: 0; display: flex; align-items: center; gap: 10px;"><i
@@ -1253,7 +1253,7 @@
       activeModules = [];
       renderActiveModulesGrid();
       generateCSS();
-      
+
       const displayElement = document.getElementById('selectedModuleDisplay');
       displayElement.innerHTML = '';
       displayElement.classList.remove('has-content');
@@ -1343,10 +1343,10 @@
           <div class="active-module-name">${cleanName}</div>
           <div class="active-module-controls">
             <button class="config-btn" onclick="openConfigModal(${moduleData.id})">
-              <i class="fas fa-cog"></i> 
+              <i class="fas fa-cog"></i>
             </button>
             <button class="config-btn" onclick="removeModule(${moduleData.id})" style="color: #ff4757;">
-              <i class="fas fa-trash"></i> 
+              <i class="fas fa-trash"></i>
             </button>
           </div>
         `;
@@ -1384,10 +1384,10 @@
           const inputElement = `
             <div class="input-group">
               <label for="${inputId}">${input.label}</label>
-              <input 
+              <input
                 id="${inputId}"
-                type="${input.type}" 
-                data-index="${index}" 
+                type="${input.type}"
+                data-index="${index}"
                 placeholder="${input.placeholder || ''}"
                 value="${currentValue}"
                 ${input.step ? `step="${input.step}"` : ''}
@@ -1506,7 +1506,7 @@
       const config = FEATURE_CONFIG[currentEditingModule.type];
       const inputs = document.querySelectorAll('#configModalContent input');
 
-      // Update module values
+
       inputs.forEach(input => {
         const index = input.dataset.index;
         currentEditingModule.values[index] = input.value;
@@ -1515,7 +1515,7 @@
       closeConfigModal();
       generateCSS();
 
-      // Show success message
+
       const saveBtn = document.querySelector('#configModal .modal-body button:first-child');
       const originalText = saveBtn.innerHTML;
       saveBtn.innerHTML = '<i class="fas fa-check"></i> Saved!';
@@ -1635,17 +1635,17 @@ ${config.selector} {
       }
 
       const zip = new JSZip();
-      
+
       const cssFolder = zip.folder('css');
       cssFolder.file('style.css', cssContent);
-      
+
       zip.generateAsync({type: 'blob'})
         .then(function(content) {
           const link = document.createElement('a');
           link.href = URL.createObjectURL(content);
           link.download = 'FaceCG_Instapack.zip';
           link.click();
-          
+
           setTimeout(() => URL.revokeObjectURL(link.href), 100);
         });
     }
@@ -1770,12 +1770,12 @@ ${config.selector} {
 
       const confirmationHtml = `
         <div style="
-          text-align: center; 
-          font-size: 0.9rem; 
-          color: #4CAF50; 
-          padding: 15px; 
-          border: 1px solid #4CAF50; 
-          border-radius: 18px; 
+          text-align: center;
+          font-size: 0.9rem;
+          color: #4CAF50;
+          padding: 15px;
+          border: 1px solid #4CAF50;
+          border-radius: 18px;
           background: linear-gradient(90deg, #262525 0%, #242323 100%);
           animation: fadeIn 0.3s ease-in;
         ">

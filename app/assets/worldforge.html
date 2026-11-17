@@ -41,7 +41,7 @@
 
     .iframe-container {
       flex: 1;
-      border-radius: 35px;
+      border-radius: 14px;
       border: 1.5px solid #2c2b2b;
       background: #000;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -57,7 +57,7 @@
     .sidebar {
       background: linear-gradient(180deg, #1b1a1a 0%, #191818 100%);
       border: 1px solid #2c2b2b;
-      border-radius: 35px;
+      border-radius: 14px;
       padding: 24px 20px;
       width: 30vh;
       display: flex;
@@ -177,7 +177,7 @@
       position: absolute;
       background: linear-gradient(180deg, #1b1a1a 0%, #191818 100%);
       border: 1px solid #2c2b2b;
-      border-radius: 35px;
+      border-radius: 14px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       z-index: 100;
       display: none;
@@ -197,7 +197,7 @@
       background: linear-gradient(180deg, #1b1a1a 0%, #191818 100%);
       border-bottom: 1px solid #2c2b2b;
       padding: 15px;
-      border-radius: 35px 35px 0 0;
+      border-radius: 14px 14px 0 0;
       cursor: move;
       display: flex;
       justify-content: space-between;
@@ -545,7 +545,7 @@
   <div class="container">
     <div class="main-content">
       <div class="iframe-container">
-        <iframe src="https://bloxd.io" title="Main Content"></iframe>
+        <iframe data-src="https://bloxd.io" src="about:blank" title="Main Content" allow="autoplay; clipboard-read; clipboard-write; gamepad; pointer-lock"></iframe>
       </div>
     </div>
 
@@ -554,32 +554,32 @@
         <h2 class="section-title">Quick commands</h2>
         <div class="grid-container">
           <div class="grid-category-header">Selection Tools</div>
-          <div class="grid-item" data-text="//pos1 (coords)">//pos1</div>
-          <div class="grid-item" data-text="//pos2 (coords)">//pos2</div>
-          <div class="grid-item" data-text="//shift [coords]">//shift</div>
-          <div class="grid-item" data-text="//stack [count] [axis]">//stack</div>
+          <div class="grid-item" data-text="//pos1 (coords)">
+          <div class="grid-item" data-text="//pos2 (coords)">
+          <div class="grid-item" data-text="//shift [coords]">
+          <div class="grid-item" data-text="//stack [count] [axis]">
 
           <div class="grid-category-header">Block Manipulation</div>
-          <div class="grid-item" data-text="//set [blockName]">//set</div>
-          <div class="grid-item" data-text="//replace [fromBlock] [toBlock]">//replace</div>
-          <div class="grid-item" data-text="//cut">//cut</div>
-          <div class="grid-item" data-text="//copy">//copy</div>
-          <div class="grid-item" data-text="//paste (coords)">//paste</div>
-          <div class="grid-item" data-text="//clear">//clear</div>
-          <div class="grid-item" data-text="//naturalize">//naturalize</div>
+          <div class="grid-item" data-text="//set [blockName]">
+          <div class="grid-item" data-text="//replace [fromBlock] [toBlock]">
+          <div class="grid-item" data-text="//cut">
+          <div class="grid-item" data-text="//copy">
+          <div class="grid-item" data-text="//paste (coords)">
+          <div class="grid-item" data-text="//clear">
+          <div class="grid-item" data-text="//naturalize">
 
           <div class="grid-category-header">Clipboard Tools</div>
-          <div class="grid-item" data-text="//rotate [angle]">//rotate</div>
-          <div class="grid-item" data-text="//flip [axis]">//flip</div>
+          <div class="grid-item" data-text="//rotate [angle]">
+          <div class="grid-item" data-text="//flip [axis]">
 
           <div class="grid-category-header">Schematics & Export</div>
-          <div class="grid-item" data-text="//schematic save">//schematic save</div>
-          <div class="grid-item" data-text="//schematic load">//schematic load</div>
-          <div class="grid-item" data-text="//schematic list">//schematic list</div>
-          <div class="grid-item" data-text="//exportworld">//exportworld</div>
+          <div class="grid-item" data-text="//schematic save">
+          <div class="grid-item" data-text="//schematic load">
+          <div class="grid-item" data-text="//schematic list">
+          <div class="grid-item" data-text="//exportworld">
 
           <div class="grid-category-header">Utilities</div>
-          <div class="grid-item" data-text="//wand">//wand</div>
+          <div class="grid-item" data-text="//wand">
         </div>
       </div>
 

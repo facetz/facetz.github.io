@@ -59,7 +59,7 @@
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 25px;
     }
-    
+
     @media (min-width: 1000px) {
       .creator-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -74,7 +74,7 @@
       font-weight: bold;
       font-size: 1.5rem;
       padding: 20px;
-      border-radius: 20px;
+      border-radius: 12px;
       cursor: pointer;
       height: 20vh;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -111,7 +111,7 @@
       grid-column: span 2;
       background: linear-gradient(145deg, #262525, #212020);
       border: 1px solid #3a3939;
-      border-radius: 20px;
+      border-radius: 12px;
       padding: 20px;
       display: flex;
       flex-direction: column;
@@ -237,7 +237,7 @@
     .big-btn {
       background: linear-gradient(145deg, #262525, #212020);
       border: 1px solid #3a3939;
-      border-radius: 20px;
+      border-radius: 12px;
       padding: 20px;
       display: flex;
       flex-direction: column;
@@ -665,7 +665,7 @@
   <iframe class="fullscreen-frame"></iframe>
 
   <div id="esc-instruction"
-    style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(145deg, #262525, #212020); border: 1px solid #3a3939; color: #e8e8e8; padding: 15px 30px; border-radius: 20px; z-index: 100; font-size: 1.1rem; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); font-weight: 500;">
+    style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(145deg, #262525, #212020); border: 1px solid #3a3939; color: #e8e8e8; padding: 15px 30px; border-radius: 12px; z-index: 100; font-size: 1.1rem; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); font-weight: 500;">
     Press ESC to close this app
   </div>
 
@@ -757,7 +757,6 @@
             "We've been expecting you.",
             "Im not alive or anything.",
             "Welcome back, creator.",
-            "The workshop remembers you."
           ];
           const randomMessage = spookyMessages[Math.floor(Math.random() * spookyMessages.length)];
           welcomeMessage.textContent = randomMessage;

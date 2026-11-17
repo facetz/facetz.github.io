@@ -1,7 +1,7 @@
 {
   "name": "Facet",
   "short_name": "Facet",
-  "description": "Facet mobile app",
+  "description": "Facet - Bloxd tools and utilities",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

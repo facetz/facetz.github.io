@@ -118,7 +118,7 @@
             flex: 1;
             background: #262525;
             border: 1px solid #3a3939;
-            border-radius: 25px;
+            border-radius: 12px;
             padding: 12px 20px;
             color: white;
             font-size: 0.9rem;
@@ -268,9 +268,9 @@
         </div>
 
         <div class="input-container">
-            <textarea 
-                id="messageInput" 
-                class="message-input" 
+            <textarea
+                id="messageInput"
+                class="message-input"
                 placeholder="Ask me about..."
                 rows="1"
             ></textarea>
@@ -289,7 +289,7 @@
                 this.sendButton = document.getElementById('sendButton');
                 this.typingIndicator = document.getElementById('typingIndicator');
                 this.wikiData = null;
-                
+
                 this.initializeEvents();
                 this.loadWikiData();
                 this.testPuterConnection();
@@ -338,14 +338,14 @@
             addMessage(content, isUser = false) {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-                
+
                 const avatarDiv = document.createElement('div');
                 avatarDiv.className = 'message-avatar';
                 avatarDiv.innerHTML = isUser ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
-                
+
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'message-content';
-                
+
                 let textContent = '';
                 if (typeof content === 'string') {
                     textContent = content;
@@ -363,17 +363,17 @@
                 } else {
                     textContent = 'Empty response received';
                 }
-                
+
                 contentDiv.innerHTML = textContent.replace(/\n/g, '<br>');
-                
+
                 messageDiv.appendChild(avatarDiv);
                 messageDiv.appendChild(contentDiv);
-                
+
                 const welcomeMsg = this.messagesContainer.querySelector('.welcome-message');
                 if (welcomeMsg) {
                     welcomeMsg.remove();
                 }
-                
+
                 this.messagesContainer.appendChild(messageDiv);
                 this.scrollToBottom();
             }
@@ -397,30 +397,30 @@
                 if (!this.wikiData || this.wikiData.length === 0) {
                     return [];
                 }
-                
+
                 const lowerMessage = userMessage.toLowerCase();
                 const keywords = lowerMessage.split(/\s+/).filter(word => word.length > 2);
-                
+
                 const relevantItems = this.wikiData.filter(item => {
                     const itemText = `${item.title} ${item.description} ${item.content} ${item.tag}`.toLowerCase();
-                    
+
                     if (itemText.includes(lowerMessage)) {
                         return true;
                     }
-                    
+
                     const allKeywordsMatch = keywords.every(keyword => itemText.includes(keyword));
                     if (allKeywordsMatch && keywords.length > 1) {
                         return true;
                     }
-                    
+
                     return keywords.some(keyword => itemText.includes(keyword));
                 }).slice(0, 15);
-                
+
                 console.log('Search query:', lowerMessage);
                 console.log('Keywords:', keywords);
                 console.log('Found relevant items:', relevantItems.length);
                 console.log('Relevant items:', relevantItems.map(item => item.title));
-                
+
                 if (relevantItems.length === 0) {
                     const categories = ['Tool', 'Weapon', 'Armor', 'Food', 'Natural Block'];
                     const samples = [];
@@ -433,29 +433,29 @@
                     console.log('No matches found, using category samples:', samples.map(item => item.title));
                     return samples;
                 }
-                
+
                 return relevantItems;
             }
 
             createSystemPrompt(userMessage, useFullWiki = false, relevantWikiData = []) {
                 let wikiContext;
                 let contextDescription;
-                
+
                 if (useFullWiki) {
-                    wikiContext = this.wikiData && this.wikiData.length > 0 ? 
+                    wikiContext = this.wikiData && this.wikiData.length > 0 ?
                         JSON.stringify(this.wikiData, null, 2) : 'No wiki data available.';
                     contextDescription = 'Here is the COMPLETE Bloxd.io wiki database:';
                 } else {
-                    wikiContext = relevantWikiData.length > 0 ? 
+                    wikiContext = relevantWikiData.length > 0 ?
                         JSON.stringify(relevantWikiData, null, 2) : 'No specific wiki data found for your query.';
                     contextDescription = 'Here is relevant Bloxd.io wiki information for the user\'s question:';
                 }
-                
+
                 return [
                     {
                         role: 'system',
                         content: `You are Facet Agent, an AI assistant specialized in helping users with Bloxd.io.
-                        
+
 ${contextDescription}
 ${wikiContext}
 
@@ -489,7 +489,7 @@ Guidelines:
                 this.sendButton.disabled = true;
 
                 this.addMessage(message, true);
-                
+
                 this.messageInput.value = '';
                 this.messageInput.style.height = 'auto';
 
@@ -499,41 +499,41 @@ Guidelines:
                     if (typeof puter === 'undefined') {
                         throw new Error('Puter is not loaded');
                     }
-                    
+
                     if (!puter.ai) {
                         throw new Error('Puter AI is not available');
                     }
-                    
+
                     console.log('Puter AI available, sending request...');
                     console.log('Wiki data loaded:', this.wikiData ? this.wikiData.length : 0, 'items');
-                    
+
                     let response;
                     let messages;
-                    
+
                     try {
                         console.log('Attempting to use full wiki database...');
                         messages = this.createSystemPrompt(message, true);
                         console.log('Sending full wiki messages:', messages.length, 'messages');
                         response = await puter.ai.chat(messages);
                         console.log('Full wiki request successful!');
-                        
+
                     } catch (fullWikiError) {
                         console.log('Full wiki failed, trying filtered approach:', fullWikiError.message);
-                        
+
                         const relevantWikiData = this.getRelevantWikiData(message);
                         messages = this.createSystemPrompt(message, false, relevantWikiData);
                         console.log('Sending filtered messages:', messages.length, 'messages, items:', relevantWikiData.length);
                         response = await puter.ai.chat(messages);
                         console.log('Filtered wiki request successful!');
                     }
-                    
+
                     console.log('Got response:', response);
                     console.log('Response type:', typeof response);
                     console.log('Response structure:', JSON.stringify(response, null, 2));
-                    
+
                     this.hideTyping();
                     this.addMessage(response);
-                    
+
                 } catch (error) {
                     console.error('Detailed AI Error:', {
                         message: error.message,
@@ -542,7 +542,7 @@ Guidelines:
                         puterAiAvailable: typeof puter !== 'undefined' && !!puter.ai
                     });
                     this.hideTyping();
-                    
+
                     let errorMsg = "Sorry, I'm having trouble connecting to my AI brain right now. ";
                     if (typeof puter === 'undefined') {
                         errorMsg += "Puter library is not loaded. ";
@@ -551,7 +551,7 @@ Guidelines:
                     } else {
                         errorMsg += "Please try again in a moment! Error: " + error.message;
                     }
-                    
+
                     this.addMessage(errorMsg, false);
                 }
 

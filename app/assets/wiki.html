@@ -36,7 +36,7 @@
       padding: 16px 24px;
       background: linear-gradient(90deg, #262525 0%, #242323 100%);
       border: 1px solid #3a3939;
-      border-radius: 24px;
+      border-radius: 12px;
       margin-bottom: 10px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     }
@@ -69,7 +69,7 @@
     #searchInput {
       padding: 14px 20px 14px 48px;
       font-size: 1rem;
-      border-radius: 40px;
+      border-radius: 14px;
       border: none;
       background: #1f1e1e;
       color: #e0e0e0;
@@ -118,7 +118,7 @@
     .category-btn {
       background: linear-gradient(145deg, #262525, #212020);
       border: 1px solid #444343;
-      border-radius: 24px;
+      border-radius: 12px;
       padding: 12px 24px;
       font-size: 1rem;
       color: #d8d8d8;
@@ -156,7 +156,7 @@
     .item-card {
       background: linear-gradient(145deg, #262525, #212020);
       border: 1px solid #3a3939;
-      border-radius: 24px;
+      border-radius: 12px;
       padding: 24px;
       color: #d8d8d8;
       display: flex;
@@ -222,36 +222,36 @@
       flex-grow: 1;
       padding: 8px 0;
     }
-    
-    /* Enhanced styling for item content to better format structured data */
+
+
     .item-content p {
       margin: 8px 0;
       line-height: 1.6;
     }
-    
+
     .item-content strong {
       color: #f78c5a;
       font-weight: 600;
     }
-    
-    /* Better spacing for key-value pairs in item content */
+
+
     .item-content br {
       line-height: 1.8;
     }
-    
-    /* Style for specific item properties */
+
+
     .item-property {
       display: flex;
       justify-content: space-between;
       margin: 5px 0;
       padding: 4px 0;
     }
-    
+
     .property-key {
       font-weight: bold;
       color: #f78c5a;
     }
-    
+
     .property-value {
       color: #d8d8d8;
       text-align: right;
@@ -358,13 +358,13 @@
     .item-card {
       animation: fadeIn 0.5s ease forwards;
     }
-    
+
     .hero-showcase {
       display: flex;
       gap: 32px;
       background: linear-gradient(135deg, #262525 0%, #242323 100%);
       border: 1px solid #3a3939;
-      border-radius: 24px;
+      border-radius: 12px;
       padding: 40px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
       margin-bottom: 20px;
@@ -378,12 +378,12 @@
       justify-content: center;
       gap: 24px;
     }
-    
+
     .article-of-day {
-      flex: 0 0 400px; 
+      flex: 0 0 400px;
       background: linear-gradient(145deg, #2a2929, #262525);
       border: 1px solid #444343;
-      border-radius: 24px;
+      border-radius: 12px;
       padding: 24px;
       margin-right: 40px;
       display: flex;
@@ -392,7 +392,7 @@
       height: fit-content;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-    
+
     .aot-title {
       color: #f78c5a;
       font-size: 1.4rem;
@@ -402,20 +402,20 @@
       border-bottom: 1px solid #3a3939;
       padding-bottom: 12px;
     }
-    
+
     .aot-item {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
-    
+
     .aot-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 12px;
     }
-    
+
     .aot-title-item {
       margin: 0;
       font-size: 1.3rem;
@@ -423,7 +423,7 @@
       font-weight: 600;
       line-height: 1.3;
     }
-    
+
     .aot-tag {
       font-size: 0.85rem;
       background: linear-gradient(90deg, #ff6b39, #ff8c5a);
@@ -434,7 +434,7 @@
       font-weight: 500;
       flex-shrink: 0;
     }
-    
+
     .aot-description {
       font-size: 1rem;
       color: #c0bebe;
@@ -442,7 +442,7 @@
       font-weight: 500;
       margin: 0;
     }
-    
+
     .aot-content {
       font-size: 0.9rem;
       color: #bbb;
@@ -455,7 +455,7 @@
       -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
     }
-    
+
     .aot-read-more {
       color: #ff6b39;
       cursor: pointer;
@@ -463,7 +463,7 @@
       margin-top: 10px;
       text-align: center;
     }
-    
+
     .aot-read-more:hover {
       text-decoration: underline;
     }
@@ -561,7 +561,7 @@
 
     .hero-btn {
       padding: 14px 28px;
-      border-radius: 24px;
+      border-radius: 12px;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
@@ -594,7 +594,7 @@
       transform: translateY(-3px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-    
+
     @media (max-width: 968px) {
       .hero-showcase {
         flex-direction: column;
@@ -617,8 +617,8 @@
         justify-content: center;
       }
     }
-    
-    /* Modal Styles */
+
+
     .modal {
       display: none;
       position: fixed;
@@ -630,19 +630,19 @@
       background-color: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(5px);
     }
-    
+
     .modal.display-flex {
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    
+
     .modal-content {
       background: linear-gradient(145deg, #262525, #212020);
-      margin: 0;  
+      margin: 0;
       padding: 0;
       border: 1px solid #3a3939;
-      border-radius: 24px;
+      border-radius: 12px;
       width: 90%;
       max-width: 800px;
       max-height: 85vh;
@@ -652,19 +652,19 @@
       flex-direction: column;
       animation: modalopen 0.3s ease;
     }
-    
+
     @keyframes modalopen {
       from {
         opacity: 0;
         transform: translateY(-60px);
       }
-      
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-    
+
     .modal-header {
       display: flex;
       justify-content: space-between;
@@ -673,14 +673,14 @@
       border-bottom: 1px solid #3a3939;
       flex-shrink: 0;
     }
-    
+
     .modal-header h2 {
       margin: 0;
       color: #f78c5a;
       font-size: 1.8rem;
       font-weight: 700;
     }
-    
+
     .close {
       color: #888;
       font-size: 2rem;
@@ -696,12 +696,12 @@
       justify-content: center;
       border-radius: 50%;
     }
-    
+
     .close:hover {
       color: #ff6b39;
       background: rgba(255, 107, 57, 0.1);
     }
-    
+
     .modal-body {
       padding: 24px;
       max-height: calc(85vh - 120px);
@@ -710,11 +710,11 @@
       display: flex;
       flex-direction: column;
     }
-    
+
     .modal-category {
       margin-bottom: 15px;
     }
-    
+
     .modal-description {
       font-size: 1.05rem;
       color: #c0bebe;
@@ -722,7 +722,7 @@
       font-weight: 500;
       margin-bottom: 20px;
     }
-    
+
     .modal-content#modalContent {
       font-size: 0.95rem;
       color: #bbb;
@@ -732,95 +732,95 @@
       border-top: 1px solid #3a3939;
       margin-top: 15px;
     }
-    
+
     .modal-content#modalContent p {
       margin: 10px 0;
     }
-    
+
     .modal-content#modalContent br {
       line-height: 1.8;
     }
-    
-    /* Specific formatting for structured content */
+
+
     .modal-content#modalContent strong {
       color: #f78c5a;
       font-weight: 600;
     }
-    
+
     .modal-content#modalContent ul, .modal-content#modalContent ol {
       padding-left: 20px;
       margin: 10px 0;
     }
-    
+
     .modal-content#modalContent li {
       margin: 5px 0;
     }
-    
-    /* AI Assistant Modal with 9:16 aspect ratio - Phone-like appearance */
+
+
     #aiAssistantModal .modal-content {
-      width: 300px; /* 9:16 aspect ratio with 533px height */
-      height: 533px; /* 9:16 aspect ratio when width is 300px (300*16/9) */
-      margin: 0 auto; /* Center the modal */
-      border-radius: 30px; /* More phone-like rounded corners */
-      overflow: hidden; /* Ensure content fits within rounded corners */
+      width: 300px;
+      height: 533px;
+      margin: 0 auto;
+      border-radius: 14px;
+      overflow: hidden;
       position: relative;
     }
-    
-    /* Add phone-like status bar */
+
+
     #aiAssistantModal .modal-header {
       padding: 15px 20px 10px 20px;
       background: linear-gradient(90deg, #262525, #212020);
-      border-radius: 30px 30px 0 0;
+      border-radius: 14px 14px 0 0;
       border-bottom: 1px solid #3a3939;
-      position: relative; /* Ensure proper stacking */
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    
-    /* Ensure modal body takes remaining space */
+
+
     #aiAssistantModal .modal-body {
-      height: calc(100% - 60px); /* Account for header height */
+      height: calc(100% - 60px);
       position: relative;
       padding: 0;
       margin: 0;
     }
-    
+
     #aiAssistantModal .modal-header h2 {
       font-size: 1.1rem;
       text-align: center;
       margin: 0;
-      flex: 1; /* Allow title to take available space */
+      flex: 1;
     }
-    
+
     #aiAssistantModal .close {
       position: static;
       font-size: 1.5rem;
-      margin-left: auto; /* Push to the right */
+      margin-left: auto;
       cursor: pointer;
     }
-    
-    /* For different screen sizes, maintain aspect ratio */
+
+
     @media (min-width: 768px) {
       #aiAssistantModal .modal-content {
-        width: 360px; /* 9:16 aspect ratio with 640px height */
+        width: 360px;
         height: 640px;
-        border-radius: 35px;
+        border-radius: 14px;
       }
-      
+
       #aiAssistantModal .modal-header {
-        border-radius: 35px 35px 0 0;
+        border-radius: 14px 14px 0 0;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      
+
       #aiAssistantModal .modal-body {
         height: calc(100% - 60px);
       }
     }
-    
-    /* Limited text in card */
+
+
     .item-content-limited {
       display: -webkit-box;
       -webkit-line-clamp: 3;
@@ -831,7 +831,7 @@
       flex-grow: 1;
       padding: 8px 0;
     }
-    
+
     .read-more {
       color: #ff6b39;
       cursor: pointer;
@@ -839,12 +839,12 @@
       margin-top: 10px;
       display: inline-block;
     }
-    
+
     .read-more:hover {
       text-decoration: underline;
     }
-    
-    /* Search highlighting */
+
+
     .highlight-search {
       background-color: rgba(255, 179, 64, 0.3);
       padding: 2px 4px;
@@ -852,14 +852,14 @@
       font-weight: 600;
       color: #ffd58f;
     }
-    
-    /* Additional modal styles for guides */
+
+
     #guidesModal .modal-content {
       background: linear-gradient(145deg, #262525, #212020);
       margin: 5% auto;
       padding: 0;
       border: 1px solid #3a3939;
-      border-radius: 24px;
+      border-radius: 12px;
       width: 90%;
       max-width: 900px;
       max-height: 85vh;
@@ -870,7 +870,7 @@
       animation: modalopen 0.3s ease;
     }
   </style>
-  
+
   <!-- AI Assistant Modal -->
   <div id="aiAssistantModal" class="modal">
     <div class="modal-content">
@@ -882,7 +882,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Article Details Modal -->
   <div id="articleModal" class="modal">
     <div class="modal-content">
@@ -906,7 +906,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Guides Modal -->
   <div id="guidesModal" class="modal">
     <div class="modal-content">
@@ -921,7 +921,7 @@
       </div>
     </div>
   </div>
-  
+
 </head>
 
 <body>
@@ -1011,117 +1011,117 @@
 
         setTimeout(() => {
           renderItems(itemsData);
-          initArticleOfTheDay(); 
+          initArticleOfTheDay();
 
           const searchInput = document.getElementById('searchInput');
           let searchTimeout;
-          
+
           searchInput.addEventListener('input', e => {
             const searchTerm = e.target.value;
-            
-            // Clear previous timeout
+
+
             clearTimeout(searchTimeout);
-            
-            // Add a small delay to prevent excessive filtering while typing
+
+
             searchTimeout = setTimeout(() => {
               const filteredItems = performSearch(searchTerm);
               renderItems(filteredItems, searchTerm);
             }, 150);
           });
-          
-          // Cache for search results to improve performance
+
+
           let searchCache = {};
-          
-          // Fuzzy search function
+
+
           function performSearch(searchTerm) {
             if (!searchTerm) return itemsData;
-            
+
             const term = searchTerm.toLowerCase().trim();
             if (!term) return itemsData;
-            
-            // Check if we already have results for this search term
+
+
             if (searchCache[term]) {
               return searchCache[term];
             }
-            
-            // Calculate fuzzy match scores for each item
+
+
             const scoredItems = itemsData.map(item => {
               let score = 0;
-              
-              // Title matching gets higher score
+
+
               if (item.title) {
                 const titleMatch = fuzzyMatch(item.title.toLowerCase(), term);
-                if (titleMatch.score > 0) score += titleMatch.score * 3; // Weight title matches higher
+                if (titleMatch.score > 0) score += titleMatch.score * 3;
               }
-              
-              // Tag matching
+
+
               if (item.tag) {
                 const tagMatch = fuzzyMatch(item.tag.toLowerCase(), term);
-                if (tagMatch.score > 0) score += tagMatch.score * 2; // Weight tag matches medium
+                if (tagMatch.score > 0) score += tagMatch.score * 2;
               }
-              
-              // Description matching
+
+
               if (item.description) {
                 const descMatch = fuzzyMatch(item.description.toLowerCase(), term);
                 if (descMatch.score > 0) score += descMatch.score;
               }
-              
-              // Content matching (only for shorter content to improve performance)
+
+
               if (item.content) {
-                // Limit content search to first 500 characters to improve performance
+
                 const contentToSearch = item.content.length > 500 ? item.content.substring(0, 500) : item.content;
                 const contentMatch = fuzzyMatch(contentToSearch.toLowerCase(), term);
-                if (contentMatch.score > 0) score += contentMatch.score * 0.5; // Weight content matches lower
+                if (contentMatch.score > 0) score += contentMatch.score * 0.5;
               }
-              
+
               return { item, score };
             });
-            
-            // Filter items with score > 0 and sort by score
+
+
             const results = scoredItems
               .filter(result => result.score > 0)
               .sort((a, b) => b.score - a.score)
               .map(result => result.item);
-              
-            // Cache the results (limit cache size to prevent memory issues)
+
+
             if (Object.keys(searchCache).length > 50) {
-              // Clear cache if it gets too large
+
               searchCache = {};
             }
             searchCache[term] = results;
-            
+
             return results;
           }
-          
-          // Fuzzy matching algorithm
+
+
           function fuzzyMatch(str, pattern) {
             if (!pattern || !str) return { score: 0, matchedIndices: [] };
-            
+
             let score = 0;
             let patternIdx = 0;
             let strIdx = 0;
             let matches = [];
             let consecutiveMatches = 0;
-            
+
             while (strIdx < str.length && patternIdx < pattern.length) {
               const strChar = str[strIdx];
               const patternChar = pattern[patternIdx];
-              
+
               if (strChar === patternChar) {
                 matches.push(strIdx);
-                score += 1 + consecutiveMatches; // Bonus for consecutive matches
+                score += 1 + consecutiveMatches;
                 consecutiveMatches++;
                 patternIdx++;
               } else {
-                consecutiveMatches = 0; // Reset consecutive counter
+                consecutiveMatches = 0;
               }
-              
+
               strIdx++;
             }
-            
-            // Only return a score if we matched the entire pattern
-            return patternIdx === pattern.length 
-              ? { score: score, matchedIndices: matches } 
+
+
+            return patternIdx === pattern.length
+              ? { score: score, matchedIndices: matches }
               : { score: 0, matchedIndices: [] };
           }
         }, 500);
@@ -1132,11 +1132,11 @@
       const guidesCount = itemsData.filter(item => item.tag.toLowerCase().includes('guide') || item.title.toLowerCase().includes('guide')).length;
       const categories = [...new Set(itemsData.map(item => item.tag))];
       const categoriesCount = categories.length;
-      
+
       document.getElementById('articlesCount').textContent = articlesCount;
       document.getElementById('guidesCount').textContent = guidesCount;
       document.getElementById('categoriesCount').textContent = categoriesCount;
-      
+
       const statItems = document.querySelectorAll('.stat-item');
       statItems.forEach((item, index) => {
         setTimeout(() => {
@@ -1144,7 +1144,7 @@
         }, 200 * index);
       });
     }
-    
+
     function renderItems(items, searchTerm = '') {
       const grid = document.getElementById('itemGrid');
 
@@ -1177,18 +1177,18 @@
         const itemElement = document.createElement('div');
         itemElement.className = 'item-card';
         itemElement.style.animationDelay = `${index * 0.1}s`;
-        
-        // Highlight search terms in content
+
+
         let shortContent = item.content;
         if (item.content.length > 200) {
           shortContent = item.content.substring(0, 200) + '...';
         }
-        
-        // Highlight search terms if applicable
+
+
         let highlightedTitle = item.title;
         let highlightedDescription = item.description;
         let highlightedContent = shortContent;
-        
+
         if (searchTerm) {
           highlightedTitle = highlightSearchTerms(item.title, searchTerm);
           highlightedDescription = highlightSearchTerms(item.description, searchTerm);
@@ -1204,13 +1204,13 @@
           <div class="item-content-limited">${highlightedContent}</div>
           <div class="read-more">Read more</div>
         `;
-        
+
         itemElement.addEventListener('click', function(e) {
           if (!e.target.classList.contains('read-more')) {
             openArticleModal(item, searchTerm);
           }
         });
-        
+
         const readMore = itemElement.querySelector('.read-more');
         if (readMore) {
           readMore.addEventListener('click', function() {
@@ -1220,171 +1220,171 @@
 
         grid.appendChild(itemElement);
       });
-      
+
       updateStats();
     }
-    
+
     function formatContent(content) {
       const lines = content.split('\n');
-      
+
       let formattedContent = '';
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i].trim();
-        
+
         if (line === '') {
-          continue; 
+          continue;
         }
-        
+
         if (line.includes(':') && /^[A-Z]/.test(line)) {
           const colonIndex = line.indexOf(':');
           const header = line.substring(0, colonIndex);
           const value = line.substring(colonIndex + 1).trim();
-          
+
           formattedContent += `<div class="item-property"><span class="property-key">${header}:</span> <span class="property-value">${value}</span></div>`;
         } else {
           formattedContent += `<p>${line}</p>`;
         }
       }
-      
+
       return formattedContent;
     }
-    
-    // Function to highlight search terms in text
+
+
     function highlightSearchTerms(text, searchTerm) {
       if (!searchTerm || !text) return text;
-      
-      // Escape special regex characters in the search term
+
+
       const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\$&');
-      
-      // Create a case-insensitive regex to find the search term
+
+
       const regex = new RegExp(`(${escapedTerm})`, 'gi');
-      
-      // Replace matches with highlighted spans
+
+
       return text.replace(regex, '<span class="highlight-search">$1</span>');
     }
-    
+
     function openArticleModal(item, searchTerm = '') {
-      // Highlight search terms in the modal if a search term is provided
+
       const modalTitle = searchTerm ? highlightSearchTerms(item.title, searchTerm) : item.title;
       const modalDescription = searchTerm ? highlightSearchTerms(item.description, searchTerm) : item.description;
       const modalContent = searchTerm ? highlightSearchTerms(formatContent(item.content), searchTerm) : formatContent(item.content);
-      
+
       document.getElementById('modalTitle').innerHTML = modalTitle;
       document.getElementById('modalCategory').textContent = item.tag;
       document.getElementById('modalDescription').innerHTML = modalDescription;
       document.getElementById('modalContent').innerHTML = modalContent;
-      
+
       const imageContainer = document.getElementById('modalImageContainer');
       const imageElement = document.getElementById('modalImage');
-      
+
       if (item.image) {
         imageElement.src = item.image;
         imageContainer.style.display = 'block';
       } else {
         imageContainer.style.display = 'none';
       }
-      
+
       document.getElementById('articleModal').style.display = 'block';
     }
-    
+
     document.getElementById('closeArticleModal').addEventListener('click', function() {
       const modal = document.getElementById('articleModal');
       modal.style.display = 'none';
       modal.classList.remove('display-flex');
     });
-    
+
     document.getElementById('closeGuidesModal').addEventListener('click', function() {
       const modal = document.getElementById('guidesModal');
       modal.style.display = 'none';
       modal.classList.remove('display-flex');
     });
-    
-    // AI Assistant Modal Event Listeners
+
+
     document.getElementById('closeAiAssistantModal').addEventListener('click', function() {
       const modal = document.getElementById('aiAssistantModal');
       modal.style.display = 'none';
       modal.classList.remove('display-flex');
     });
-    
+
     window.addEventListener('click', function(event) {
       const articleModal = document.getElementById('articleModal');
       const guidesModal = document.getElementById('guidesModal');
       const aiAssistantModal = document.getElementById('aiAssistantModal');
-      
+
       if (event.target === articleModal) {
         articleModal.style.display = 'none';
         articleModal.classList.remove('display-flex');
       }
-      
+
       if (event.target === guidesModal) {
         guidesModal.style.display = 'none';
         guidesModal.classList.remove('display-flex');
       }
-      
+
       if (event.target === aiAssistantModal) {
         aiAssistantModal.style.display = 'none';
         aiAssistantModal.classList.remove('display-flex');
       }
     });
-    
+
     document.addEventListener('DOMContentLoaded', function() {
       const exploreBtn = document.getElementById('exploreBtn');
       const guidesBtn = document.getElementById('guidesBtn');
-      
+
       if (exploreBtn) {
         exploreBtn.addEventListener('click', function() {
-          // Open the AI assistant modal
+
           const modal = document.getElementById('aiAssistantModal');
           modal.style.display = 'flex';
           modal.classList.add('display-flex');
         });
       }
-      
+
       if (guidesBtn) {
         guidesBtn.addEventListener('click', function() {
           showGuidesModal();
         });
       }
     });
-    
+
     function showGuidesModal() {
       const guidesContent = document.getElementById('guidesContent');
-      
+
       guidesContent.innerHTML = '<div style="text-align: center; padding: 40px 20px;"><h3 style="color: #f78c5a; margin-bottom: 20px;">Coming Soon</h3><p style="color: #bbb; font-size: 1.1rem;">Guides section will be available in a future update.</p></div>';
-      
+
       document.getElementById('guidesModal').style.display = 'block';
     }
-    
+
     function getArticleOfTheDay(items) {
       if (!items || items.length === 0) return null;
-      
+
       const today = new Date();
       const dateStr = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-      
+
       let hash = 0;
       for (let i = 0; i < dateStr.length; i++) {
         const char = dateStr.charCodeAt(i);
         hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; 
+        hash = hash & hash;
       }
-      
-     
+
+
       const index = Math.abs(hash) % items.length;
       return items[index];
     }
-    
+
     function displayArticleOfTheDay() {
       const articleOfTheDayContent = document.getElementById('articleOfTheDayContent');
-      
+
       if (itemsData && itemsData.length > 0) {
         const articleOfTheDay = getArticleOfTheDay(itemsData);
-        
+
         if (articleOfTheDay) {
           let shortContent = articleOfTheDay.content;
           if (articleOfTheDay.content.length > 150) {
             shortContent = articleOfTheDay.content.substring(0, 150) + '...';
           }
-          
+
           articleOfTheDayContent.innerHTML = `
             <div class="aot-item">
               <div class="aot-header">
@@ -1400,7 +1400,7 @@
         articleOfTheDayContent.innerHTML = '<p style="text-align: center; color: #888; padding: 20px;">No articles available.</p>';
       }
     }
-    
+
     function initArticleOfTheDay() {
       if (itemsData && itemsData.length > 0) {
         displayArticleOfTheDay();
@@ -1413,8 +1413,8 @@
         }, 100);
       }
     }
-    
-    // Debounced search function for performance
+
+
     function debounce(func, wait) {
       let timeout;
       return function executedFunction(...args) {
@@ -1426,7 +1426,7 @@
         timeout = setTimeout(later, wait);
       };
     }
-    
+
     document.addEventListener('DOMContentLoaded', initArticleOfTheDay);
   </script>
 </body>

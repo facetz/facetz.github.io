@@ -19,11 +19,11 @@
       min-height: 100vh;
       padding: 20px;
     }
-    
+
     .card {
       background: linear-gradient(145deg, #262525, #212020);
       border: 1px solid #3a3939;
-      border-radius: 20px;
+      border-radius: 12px;
       padding: 25px;
       margin-bottom: 25px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
@@ -91,7 +91,7 @@
     .content-area {
       background: linear-gradient(145deg, #262525, #212020);
       border: 1px solid #3a3939;
-      border-radius: 20px;
+      border-radius: 12px;
       padding: 25px;
       min-height: 500px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
@@ -183,7 +183,7 @@
       border: 1px solid #3a3939;
       color: white;
       padding: 12px 20px 12px 45px;
-      border-radius: 25px;
+      border-radius: 12px;
       font-size: 1rem;
       transition: all 0.3s ease;
     }
@@ -276,7 +276,7 @@
       padding: 40px;
       font-size: 1.1rem;
     }
-    
+
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -292,16 +292,16 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
-    
+
     .modal-overlay.active {
       opacity: 1;
       pointer-events: all;
     }
-    
+
     .search-modal {
       background: linear-gradient(145deg, #262525, #212020);
       border: 1px solid #3a3939;
-      border-radius: 20px;
+      border-radius: 12px;
       width: 90%;
       max-width: 1000px;
       max-height: 80vh;
@@ -311,11 +311,11 @@
       transform: scale(0.9);
       transition: transform 0.3s ease;
     }
-    
+
     .modal-overlay.active .search-modal {
       transform: scale(1);
     }
-    
+
     .modal-header {
       padding: 20px;
       border-bottom: 1px solid #3a3939;
@@ -323,7 +323,7 @@
       justify-content: space-between;
       align-items: center;
     }
-    
+
     .modal-title {
       color: #ff8c5a;
       font-size: 1.5rem;
@@ -331,7 +331,7 @@
       align-items: center;
       gap: 10px;
     }
-    
+
     .modal-close {
       background: none;
       border: 1px solid #3a3939;
@@ -345,19 +345,19 @@
       justify-content: center;
       transition: all 0.3s ease;
     }
-    
+
     .modal-close:hover {
       background: rgba(255, 107, 57, 0.2);
       border-color: #ff6b39;
       color: #ff6b39;
     }
-    
+
     .modal-content {
       padding: 20px;
       overflow-y: auto;
       flex: 1;
     }
-    
+
     .search-result-item {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid #3a3939;
@@ -366,20 +366,20 @@
       margin-bottom: 15px;
       transition: all 0.3s ease;
     }
-    
+
     .search-result-item:hover {
       background: rgba(255, 255, 255, 0.05);
       border-color: #4a4949;
       transform: translateY(-2px);
     }
-    
+
     .result-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
     }
-    
+
     .result-file {
       display: flex;
       align-items: center;
@@ -387,12 +387,12 @@
       color: #ff8c5a;
       font-weight: 500;
     }
-    
+
     .result-line {
       color: #a0a0a0;
       font-size: 0.9rem;
     }
-    
+
     .result-content {
       font-family: 'Courier New', monospace;
       font-size: 0.95rem;
@@ -404,7 +404,7 @@
       margin-top: 10px;
       overflow-x: auto;
     }
-    
+
     .view-button {
       background: linear-gradient(45deg, #ff6b39, #ff8c5a);
       border: none;
@@ -418,12 +418,12 @@
       align-items: center;
       gap: 5px;
     }
-    
+
     .view-button:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(255, 107, 57, 0.4);
     }
-    
+
     .modal-footer {
       padding: 15px 20px;
       border-top: 1px solid #3a3939;
@@ -437,13 +437,13 @@
         flex-direction: column;
         align-items: center;
       }
-      
+
       .tab {
         width: 100%;
         max-width: 300px;
         justify-content: center;
       }
-      
+
       .content-area {
         padding: 15px;
       }
@@ -500,7 +500,7 @@
       <div id="content-container">
       </div>
     </div>
-    
+
     <div id="searchModal" class="modal-overlay">
       <div class="search-modal">
         <div class="modal-header">
@@ -524,7 +524,7 @@
       tab.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        
+
         const tabName = tab.dataset.tab;
         loadContent(tabName);
       });
@@ -533,7 +533,7 @@
     const searchInput = document.getElementById('searchInput');
     const searchStats = document.getElementById('search-stats');
     let allFilesContent = {};
-    
+
     async function loadAllFiles() {
       const files = [
         {name: 'main', file: 'main.md'},
@@ -544,7 +544,7 @@
         {name: 'particles', file: 'PARTICLES.md'},
         {name: 'sounds', file: 'SOUND_NAMES.md'}
       ];
-      
+
       for (const fileInfo of files) {
         try {
           const response = await fetch(`../Bloxd API/${fileInfo.file}`);
@@ -555,16 +555,16 @@
         }
       }
     }
-    
+
     loadAllFiles();
-    
+
     searchInput.addEventListener('input', debounce(function() {
       const searchTerm = this.value.trim();
       if (searchTerm.length === 0) {
         searchStats.style.display = 'none';
       }
     }, 300));
-    
+
     searchInput.addEventListener('keypress', function(e) {
       if (e.key === 'Enter' && this.value.trim().length > 0) {
         e.preventDefault();
@@ -587,7 +587,7 @@
     async function loadContent(tabName) {
       const container = document.getElementById('content-container');
       container.innerHTML = '<div class="no-results">Loading...</div>';
-      
+
       try {
         let fileName;
         switch(tabName) {
@@ -615,12 +615,12 @@
           default:
             fileName = 'main.md';
         }
-        
+
         const response = await fetch(`../Bloxd API/${fileName}`);
         const markdown = await response.text();
         const html = convertMarkdownToHTML(markdown);
         container.innerHTML = html;
-        
+
         container.dataset.originalContent = html;
       } catch (error) {
         container.innerHTML = `<div class="no-results">Failed to load content: ${error.message}</div>`;
@@ -629,26 +629,26 @@
 
     function convertMarkdownToHTML(markdown) {
       let html = markdown;
-      
+
       html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
       html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
       html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
-      
+
       html = html.replace(/```js([\s\S]*?)```/g, '<pre><code class="language-js">$1</code></pre>');
       html = html.replace(/```text([\s\S]*?)```/g, '<pre><code class="language-text">$1</code></pre>');
       html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-      
+
       html = html.replace(/`(.*?)`/g, '<code>$1</code>');
-      
+
       html = html.replace(/^\* (.*$)/gm, '<li>$1</li>');
       html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
-      
+
       html = html.replace(/^\n/gm, '</p><p>');
       html = '<p>' + html + '</p>';
       html = html.replace(/<p><\/p>/g, '');
-      
+
       html = html.replace(/\n/g, '<br>');
-      
+
       return `<div class="api-content">${html}</div>`;
     }
 
@@ -656,16 +656,16 @@
       const container = document.getElementById('content-container');
       const results = [];
       const searchTerms = searchTerm.toLowerCase().split(' ').filter(term => term.length > 0);
-      
+
       Object.keys(allFilesContent).forEach(fileName => {
         const content = allFilesContent[fileName];
         if (!content) return;
-        
+
         const lines = content.split('\n');
         lines.forEach((line, lineNumber) => {
           const lineLower = line.toLowerCase();
           const matchesAllTerms = searchTerms.every(term => lineLower.includes(term));
-          
+
           if (matchesAllTerms && line.trim().length > 0) {
             results.push({
               fileName: fileName,
@@ -676,17 +676,17 @@
           }
         });
       });
-      
+
       displaySearchResults(results, searchTerm);
-      
+
       searchStats.textContent = `Found ${results.length} matches across all files`;
       searchStats.style.display = results.length > 0 ? 'block' : 'block';
     }
-    
+
     function displaySearchResults(results, searchTerm) {
       const container = document.getElementById('content-container');
       const searchTerms = searchTerm.toLowerCase().split(' ').filter(term => term.length > 0);
-      
+
       if (results.length === 0) {
         container.innerHTML = `
           <div class="no-results">
@@ -697,7 +697,7 @@
         `;
         return;
       }
-      
+
       const groupedResults = {};
       results.forEach(result => {
         if (!groupedResults[result.fileName]) {
@@ -705,17 +705,17 @@
         }
         groupedResults[result.fileName].push(result);
       });
-      
+
       let html = `
         <div class="api-content">
           <h1><i class="fas fa-search"></i> Search Results for "${searchTerm}"</h1>
           <p style="color: #a0a0a0; margin-bottom: 25px;">${results.length} matches found across ${Object.keys(groupedResults).length} files</p>
       `;
-      
+
       Object.keys(groupedResults).forEach(fileName => {
         const fileResults = groupedResults[fileName];
         const tabName = getTabDisplayName(fileName);
-        
+
         html += `
           <div class="method-card" style="margin-bottom: 30px;">
             <h2 style="color: #ff8c5a; display: flex; align-items: center; gap: 10px;">
@@ -724,19 +724,19 @@
               <span style="font-size: 1rem; color: #a0a0a0; font-weight: normal;">(${fileResults.length} matches)</span>
             </h2>
         `;
-        
+
         fileResults.forEach(result => {
           let highlightedContent = result.content;
           searchTerms.forEach(term => {
             const regex = new RegExp(`(${term})`, 'gi');
             highlightedContent = highlightedContent.replace(regex, '<mark style="background: #ff6b39; color: white; padding: 2px 4px; border-radius: 3px;">$1</mark>');
           });
-          
+
           html += `
             <div class="method-card" style="margin: 15px 0; background: rgba(255,255,255,0.03); border-left: 3px solid #ff6b39;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <span class="param-name">Line ${result.lineNumber}</span>
-                <button onclick="switchToFile('${fileName}')" 
+                <button onclick="switchToFile('${fileName}')"
                         style="background: #ff6b39; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;">
                   View in ${tabName}
                 </button>
@@ -747,14 +747,14 @@
             </div>
           `;
         });
-        
+
         html += `</div>`;
       });
-      
+
       html += `</div>`;
       container.innerHTML = html;
     }
-    
+
     function getTabDisplayName(fileName) {
       const names = {
         'main': 'Main API',
@@ -767,7 +767,7 @@
       };
       return names[fileName] || fileName;
     }
-    
+
     function getTabIcon(fileName) {
       const icons = {
         'main': 'fa-book',
@@ -780,7 +780,7 @@
       };
       return icons[fileName] || 'fa-file';
     }
-    
+
     function switchToFile(fileName) {
       document.querySelectorAll('.tab').forEach(tab => {
         tab.classList.remove('active');
@@ -788,58 +788,58 @@
           tab.classList.add('active');
         }
       });
-      
+
       loadContent(fileName);
-      
+
       searchInput.value = '';
       searchStats.style.display = 'none';
     }
-    
+
     window.switchToFile = switchToFile;
 
     window.searchAcrossFiles = searchAcrossFiles;
-    
+
     const modal = document.getElementById('searchModal');
     const modalClose = document.getElementById('modalClose');
     const modalContent = document.getElementById('modalContent');
     const modalTitle = document.getElementById('modalTitle');
     const modalFooter = document.getElementById('modalFooter');
-    
+
     function showSearchModal(searchTerm) {
       const results = searchAcrossFilesInternal(searchTerm);
       displayModalResults(results, searchTerm);
       modal.classList.add('active');
-      
+
       modal.addEventListener('keydown', handleModalKeydown);
       document.body.style.overflow = 'hidden';
     }
-    
+
     function closeModal() {
       modal.classList.remove('active');
       modal.removeEventListener('keydown', handleModalKeydown);
       document.body.style.overflow = '';
       searchInput.focus();
     }
-    
+
     function handleModalKeydown(e) {
       if (e.key === 'Escape') {
         closeModal();
       }
     }
-    
+
     function searchAcrossFilesInternal(searchTerm) {
       const results = [];
       const searchTerms = searchTerm.toLowerCase().split(' ').filter(term => term.length > 0);
-      
+
       Object.keys(allFilesContent).forEach(fileName => {
         const content = allFilesContent[fileName];
         if (!content) return;
-        
+
         const lines = content.split('\n');
         lines.forEach((line, lineNumber) => {
           const lineLower = line.toLowerCase();
           const matchesAllTerms = searchTerms.every(term => lineLower.includes(term));
-          
+
           if (matchesAllTerms && line.trim().length > 0) {
             results.push({
               fileName: fileName,
@@ -850,13 +850,13 @@
           }
         });
       });
-      
+
       return results;
     }
-    
+
     function displayModalResults(results, searchTerm) {
       const searchTerms = searchTerm.toLowerCase().split(' ').filter(term => term.length > 0);
-      
+
       if (results.length === 0) {
         modalTitle.innerHTML = `<i class="fas fa-search"></i> No Results Found`;
         modalContent.innerHTML = `
@@ -869,7 +869,7 @@
         modalFooter.innerHTML = '';
         return;
       }
-      
+
       const groupedResults = {};
       results.forEach(result => {
         if (!groupedResults[result.fileName]) {
@@ -877,16 +877,16 @@
         }
         groupedResults[result.fileName].push(result);
       });
-      
+
       modalTitle.innerHTML = `<i class="fas fa-search"></i> Search Results for "${searchTerm}"`;
-      
+
       let html = '';
-      
+
       Object.keys(groupedResults).forEach(fileName => {
         const fileResults = groupedResults[fileName];
         const tabName = getTabDisplayName(fileName);
         const iconClass = getTabIcon(fileName);
-        
+
         html += `
           <div style="margin-bottom: 25px;">
             <h3 style="color: #ff8c5a; display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #3a3939;">
@@ -895,14 +895,14 @@
               <span style="font-size: 1rem; color: #a0a0a0; font-weight: normal;">(${fileResults.length} matches)</span>
             </h3>
         `;
-        
+
         fileResults.forEach(result => {
           let highlightedContent = result.content;
           searchTerms.forEach(term => {
             const regex = new RegExp(`(${term})`, 'gi');
             highlightedContent = highlightedContent.replace(regex, '<mark style="background: #ff6b39; color: white; padding: 2px 4px; border-radius: 3px;">$1</mark>');
           });
-          
+
           html += `
             <div class="search-result-item">
               <div class="result-header">
@@ -924,29 +924,29 @@
             </div>
           `;
         });
-        
+
         html += `</div>`;
       });
-      
+
       modalContent.innerHTML = html;
       modalFooter.innerHTML = `${results.length} matches found across ${Object.keys(groupedResults).length} files`;
     }
-    
+
     function viewResultInTab(fileName) {
       closeModal();
       switchToFile(fileName);
     }
-    
+
     window.showSearchModal = showSearchModal;
     window.viewResultInTab = viewResultInTab;
-    
+
     modalClose.addEventListener('click', closeModal);
     modal.addEventListener('click', function(e) {
       if (e.target === modal) {
         closeModal();
       }
     });
-    
+
     loadContent('main');
   </script>
 </body>

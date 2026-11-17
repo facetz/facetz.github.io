@@ -1,13 +1,13 @@
 <!-- Coordinate Saver - App Section -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-    /* App-integrated styling */
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
+
     .coords-app {
       width: 100%;
       height: 100%;
@@ -24,7 +24,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      height: calc(100% - 30px); /* Account for padding */
+      height: calc(100% - 30px);
     }
 
     .coords-header {
@@ -55,11 +55,11 @@
     .coords-form-container {
       background: linear-gradient(145deg, #262525, #212020);
       border: 1px solid #3a3939;
-      border-radius: 20px;
+      border-radius: 12px;
       padding: 20px;
       margin-bottom: 20px;
     }
-    
+
     .coords-header {
       background: linear-gradient(90deg, #2e2d2d, #2a2a2a);
       border: 1px solid #444343;
@@ -68,7 +68,7 @@
       margin-bottom: 20px;
       text-align: center;
     }
-    
+
     .coords-header h1 {
       font-size: 1.4rem;
       margin-bottom: 6px;
@@ -81,7 +81,7 @@
       justify-content: center;
       gap: 8px;
     }
-    
+
     .coords-header p {
       color: #a0a0a0;
       font-size: 0.85rem;
@@ -176,7 +176,7 @@
       box-shadow: none;
     }
 
-    /* Remove modal styling since we're in an app context */
+
     .coords-modal {
       width: 100%;
       height: 100%;
@@ -375,16 +375,16 @@
       .form-grid {
         grid-template-columns: 1fr;
       }
-      
+
       .button-group {
         grid-template-columns: 1fr;
       }
-      
+
       .coord-values {
         flex-direction: column;
         gap: 5px;
       }
-      
+
       .action-buttons {
         flex-direction: column;
       }
@@ -411,7 +411,7 @@
   <div class="coords-app">
     <div class="coords-content">
 
-      
+
       <div class="coords-form-container">
         <div class="form-grid">
           <div class="form-group">
@@ -449,7 +449,7 @@
         <div id="coordsList" style="flex: 1; overflow-y: auto; margin-top: 15px;"></div>
       </div>
     </div>
-    
+
     <div class="notification" id="notification"></div>
   </div>
 
@@ -461,11 +461,11 @@
     const closeModal = document.getElementById('closeModal');
     const notification = document.getElementById('notification');
 
-    // Show notification function
+
     function showNotification(message, type = 'success') {
       notification.textContent = message;
       notification.className = `notification ${type} show`;
-      
+
       setTimeout(() => {
         notification.classList.remove('show');
       }, 3000);
@@ -474,7 +474,7 @@
     function loadCoords() {
       coordsList.innerHTML = '';
       const coords = JSON.parse(localStorage.getItem('coords') || '[]');
-      
+
       if (coords.length === 0) {
         coordsList.innerHTML = `
           <div class="empty-state">
@@ -485,11 +485,11 @@
         `;
         return;
       }
-      
+
       coords.forEach((c, index) => {
         const div = document.createElement('div');
         div.className = 'coord-item';
-        
+
         div.innerHTML = `
           <div class="coord-info">
             <div class="coord-name">${c.name}</div>
@@ -504,16 +504,16 @@
             <button class="action-btn delete-btn">Delete</button>
           </div>
         `;
-        
-        // Add event listener to delete button
+
+
         div.querySelector('.delete-btn').addEventListener('click', () => {
           coords.splice(index, 1);
           localStorage.setItem('coords', JSON.stringify(coords));
           loadCoords();
           showNotification('Location deleted successfully', 'success');
         });
-        
-        // Add event listener to copy button
+
+
         div.querySelector('.copy-btn').addEventListener('click', () => {
           const coordsText = `${c.x}, ${c.y}, ${c.z}`;
           navigator.clipboard.writeText(coordsText).then(() => {
@@ -523,7 +523,7 @@
             console.error('Failed to copy: ', err);
           });
         });
-        
+
         coordsList.appendChild(div);
       });
     }
@@ -547,7 +547,7 @@
       document.getElementById('coordX').value = '';
       document.getElementById('coordY').value = '';
       document.getElementById('coordZ').value = '';
-      
+
       showNotification('Location saved successfully', 'success');
     });
 
@@ -556,30 +556,30 @@
       document.querySelector('.coords-form-container').style.display = 'none';
       modal.style.display = 'flex';
     });
-    
-    // Add functionality to return to the main form
+
+
     closeModal.addEventListener('click', () => {
       modal.style.display = 'none';
       document.querySelector('.coords-form-container').style.display = 'block';
     });
-    
-    // Also handle the 'Escape' key to return to main form
+
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.style.display === 'flex') {
         modal.style.display = 'none';
         document.querySelector('.coords-form-container').style.display = 'block';
       }
     });
-    
-    // Handle clicking outside the modal to return to main form
+
+
     modal.addEventListener('click', e => {
       if (e.target === modal) {
         modal.style.display = 'none';
         document.querySelector('.coords-form-container').style.display = 'block';
       }
     });
-    
-    // Prevent modal from closing when clicking inside the content
+
+
     document.querySelector('.coords-modal').addEventListener('click', (e) => {
       e.stopPropagation();
     });
