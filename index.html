@@ -1,924 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <meta name="description"
-    content="Facet is a powerful Bloxd launcher with creator tools, workshop installs, dev utilities, and quality-of-life upgrades in one place.">
-  <meta name="theme-color" content="#ff5e2e">
-  <title>Facet/Bloxd v5.8</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Facet - tools that feel like toys.">
+  <meta name="theme-color" content="#141313">
+  <title>Facet</title>
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg: #0f0f0f;
+      --surface: #181818;
+      --border: #2a2a2a;
+      --text: #f2f0ed;
+      --muted: #9a9894;
+      --accent: #ff784d;
+      --accent-soft: rgba(255, 120, 77, 0.12);
     }
-
-    html {
-      scroll-snap-type: y proximity;
-      overflow-y: scroll;
-      height: 100vh;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
     body {
-      background: #0c0c0c;
-      border: 1px solid rgba(255, 110, 45, 0.12);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      color: #fff;
-    }
-
-    .snap-section {
-      scroll-snap-align: start;
-      min-height: 100vh;
-      height: auto;
-      width: 100%;
-      position: relative;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, sans-serif;
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(255,120,77,0.08), transparent 60%),
+        radial-gradient(700px 400px at 85% 90%, rgba(255,120,77,0.05), transparent 55%),
+        var(--bg);
+      color: var(--text);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem 1rem;
+      padding: 32px 20px;
     }
-
-    .btn {
-      padding: 0.9rem 2rem;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1);
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: #ff5e2e;
-      color: white;
-      box-shadow: 0 15px 25px -10px #ff5e2e80;
-      padding: 1.5rem 3rem;
-      border-radius: 25px;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 25px 30px -2px #ff5f2e77;
-    }
-
-    .btn-outline {
-      border: 1px solid #3a3838;
-      color: #ececec;
-      background: #141313;
-    }
-
-    .btn-outline:hover {
-      border-color: #ff5e2e;
-      background: #1e1c1c;
-      transform: translateY(-4px);
-    }
-
-
-    .hero {
-      background: radial-gradient(ellipse 80% 80% at 50% 30%, #1a1a1a, #0a0a0a);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      box-shadow: inset -120px -100px 220px rgba(255, 110, 45, 0.12);
-      pointer-events: none;
-    }
-
-    .hero-box {
-      background: #111;
-      border: 2px solid rgba(70, 70, 70, 0.2);
-      border-radius: 80px;
-      margin: 80px;
-      padding: 4rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .wrap {
       width: 100%;
-    }
-
-    .version-pill {
-      background: #1e1c1c;
-      border: 0.5px solid #ff4d2e40;
-      border-radius: 40px;
-      padding: 0.4rem 1.2rem;
-      font-size: 0.8rem;
-      color: #ff8a5c;
-      letter-spacing: 0.3px;
-      font-weight: 500;
-      backdrop-filter: blur(4px);
-    }
-
-    .made-by {
-      color: #5c5a5a;
-      font-size: 0.8rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .made-by i {
-      color: #ff5e2e;
-    }
-
-    .hero-main {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .hero-container {
+      max-width: 680px;
       display: flex;
       flex-direction: column;
-      gap: 3.5rem;
-      position: relative;
-      z-index: 1;
+      align-items: flex-start;
+      gap: 28px;
     }
-
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      gap: 1.8rem;
-    }
-
-    .hero-title {
-      font-size: clamp(3.2rem, 8vw, 4.8rem);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      background: linear-gradient(to right, #ffffff, #ffb293);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-desc {
-      font-size: 1.2rem;
-      color: #b0aeae;
-      max-width: 90%;
-      font-weight: 380;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      margin-top: 0.8rem;
-      flex-wrap: wrap;
-    }
-
-    .hero-right {
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    .teaser-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-
-    .teaser-item {
-      background: linear-gradient(145deg, #121111, #0f0e0e);
-      border: 1px solid #2a2828;
-      border-radius: 32px;
-      padding: 1.3rem 0.8rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 0.5rem;
-      box-shadow: 0 20px 35px -15px black;
-      transition: 0.2s ease;
-    }
-
-    .teaser-item:hover {
-      border-color: #ff5e2e60;
-    }
-
-    .teaser-icon {
-      font-size: 1.8rem;
-      color: #ff7e4a;
-    }
-
-    .teaser-label {
-      font-weight: 600;
+    .tag {
       font-size: 0.85rem;
-      color: #ddd;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
-
-    .teaser-subtitle {
-      font-size: 0.72rem;
-      color: #9c9898;
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 4.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      color: var(--text);
     }
-
-
-    .testimonial {
-      background: linear-gradient(145deg, #121111, #0f0e0e);
-      border: 1px solid #2a2828;
-      border-radius: 24px;
-      padding: 1.8rem 1.8rem;
+    .sub {
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: var(--muted);
+      max-width: 38ch;
+    }
+    .quote {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
-      box-shadow: 0 20px 35px -15px black;
+      gap: 14px;
     }
-
-    .testimonial-text {
-      font-size: 1rem;
-      color: #cfcdcd;
-      font-style: italic;
+    .quote p {
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: #ddd9d4;
     }
-
-    .testimonial-text i {
-      color: #ff7e4a;
+    .quote p i {
+      color: var(--accent);
       margin-right: 6px;
+      font-size: 0.95rem;
     }
-
-    .testimonial-author {
+    .author {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-
-    .author-avatar {
-      width: 44px;
-      height: 44px;
-      background: #2c2725;
-      border-radius: 100%;
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ff8c5a;
-      font-weight: bold;
-      border: 1px solid #ff5e2e70;
-    }
-
-    .author-info h5 {
       font-weight: 700;
       font-size: 0.95rem;
+      border: 1px solid rgba(255,120,77,0.25);
+      flex: 0 0 auto;
     }
-
-    .author-info span {
-      font-size: 0.75rem;
-      color: #999;
-    }
-
-
-    .scroll-hint {
-      position: absolute;
-      bottom: -190px;
-      left: 50%;
-      transform: translateX(-50%);
+    .author-text {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      color: #777;
-      font-size: 0.8rem;
-      animation: float 2.2s infinite;
+      gap: 2px;
     }
-
-    .scroll-hint i {
-      color: #ff7e4a;
-      font-size: 1.2rem;
-    }
-
-    @keyframes float {
-      0% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-6px); }
-      100% { transform: translateX(-50%) translateY(0); }
-    }
-
-
-    .creator-layer {
-      background: #0c0b0b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .creator-container {
-      max-width: 1400px;
-      width: 100%;
-      display: flex;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    .creator-left {
-      flex: 1.2;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      transform-style: preserve-3d;
-    }
-
-    .title-card {
-      background: #1a1818;
-      border: 1px solid #3a3535;
-      border-radius: 60px;
-      padding: 0.7rem 2rem;
-      font-size: 1.2rem;
+    .author-text strong {
+      font-size: 0.95rem;
       font-weight: 600;
-      letter-spacing: 1px;
-      color: #ffb8a0;
-      width: fit-content;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 8px 14px rgba(0, 0, 0, 0.5);
-      transition: transform 0.1s ease-out;
-      transform-style: preserve-3d;
-      will-change: transform;
+      color: var(--text);
     }
-
-    .tilt-card {
-      background: linear-gradient(145deg, #181616, #121111);
-      border: 1px solid #3a3330;
-      border-radius: 48px;
-      padding: 2.2rem;
-      box-shadow: 0 30px 40px -20px black;
-      transition: transform 0.1s ease-out;
-      transform-style: preserve-3d;
-      will-change: transform;
-      max-width: 550px;
+    .author-text span {
+      font-size: 0.85rem;
+      color: var(--muted);
     }
-
-    .tilt-card p {
-      font-size: 1.5rem;
-      line-height: 1.4;
-      color: #ececec;
-      font-weight: 350;
-    }
-
-    .tilt-card .creator-desc-highlight {
-      color: #ffa07a;
-      font-weight: 500;
-    }
-
-    .mini-preview {
-      margin-top: 1.5rem;
-      display: flex;
+    .cta {
+      display: inline-flex;
       align-items: center;
-      gap: 0.8rem;
-      color: #b0a8a8;
-      font-size: 0.9rem;
-      flex-wrap: wrap;
-    }
-
-    .mini-preview i {
-      color: #ff9e7a;
-    }
-
-    .creator-right {
-      flex: 0.8;
-      position: relative;
-      height: 400px;
-    }
-
-    .floating-icon {
-      position: absolute;
-      font-size: 2.8rem;
-      color: #ff8a5c;
-      filter: drop-shadow(0 0 15px #ff5e2e80);
-      animation: bob 7s infinite ease-in-out;
-      opacity: 0.8;
-    }
-
-    .floating-icon:nth-child(1) {
-      top: 5%;
-      left: 10%;
-      animation-delay: 0s;
-    }
-
-    .floating-icon:nth-child(2) {
-      top: 30%;
-      right: 5%;
-      animation-delay: 1.2s;
-      font-size: 3.5rem;
-    }
-
-    .floating-icon:nth-child(3) {
-      bottom: 15%;
-      left: 20%;
-      animation-delay: 2.4s;
-    }
-
-    .floating-icon:nth-child(4) {
-      top: 50%;
-      right: 20%;
-      animation-delay: 3.6s;
-      font-size: 3rem;
-    }
-
-    .floating-icon:nth-child(5) {
-      bottom: 25%;
-      right: 15%;
-      animation-delay: 0.8s;
-    }
-
-    @keyframes bob {
-      0% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(4deg); }
-      100% { transform: translateY(0px) rotate(0deg); }
-    }
-
-    .features-layer {
-      background: #0a0909;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-
-    .features-container {
-      max-width: 1300px;
-      width: 100%;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.2rem;
-      grid-auto-rows: minmax(140px, auto);
-    }
-
-    .grid-item {
-      background: linear-gradient(145deg, #141313, #0f0e0e);
-      border: 1px solid #2e2a2a;
-      border-radius: 32px;
-      padding: 1.8rem 1.2rem;
-      transition: 0.2s;
-      backdrop-filter: blur(4px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      box-shadow: 0 15px 30px -15px black;
-    }
-
-    .grid-item:hover {
-      border-color: #ff5e2e80;
-      transform: translateY(-3px);
-    }
-
-    .grid-item.large {
-      grid-column: span 2;
-      grid-row: span 1;
-      background: radial-gradient(ellipse at top left, #1f1b1a, #0f0e0e);
-    }
-
-    .grid-item.wide {
-      grid-column: span 2;
-    }
-
-    .grid-item.tall {
-      grid-row: span 2;
-    }
-
-    .grid-item i {
-      font-size: 2rem;
-      color: #ff7e4a;
-      margin-bottom: 0.8rem;
-    }
-
-    .grid-item h3 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-      background: linear-gradient(to right, #fff, #ffd0bb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .grid-item p {
-      color: #b9b5b5;
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-
-    .grid-item .emph {
-      color: #ffbc9a;
-      font-weight: 500;
-    }
-
-    .stat-badge {
-      background: #2a2626;
-      border-radius: 40px;
-      padding: 0.4rem 1rem;
-      font-size: 0.8rem;
-      color: #ffa880;
-      display: inline-block;
-      margin-top: 0.8rem;
-      width: fit-content;
-    }
-
-    .split-layer {
-      background: #0c0b0b;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem 2rem 2rem;
-      position: relative;
-      min-height: 100vh;
-      gap: 1.5rem;
-    }
-
-    .split-header {
-      text-align: center;
-      max-width: 780px;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .split-header h3 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .split-header p {
-      color: #b9b5b5;
+      gap: 10px;
+      margin-top: 4px;
+      padding: 14px 22px;
+      border-radius: 12px;
+      background: #2d2624;
+      color: #ff784d;
+      border: 1px solid rgba(255,120,77,0.35);
+      text-decoration: none;
+      font-weight: 600;
       font-size: 1rem;
+      transition: all 0.18s ease;
+      box-shadow: inset 0 0 0 1px rgba(255,120,77,0.08);
+    }
+    .cta:hover {
+      background: #352c29;
+      border-color: rgba(255,120,77,0.5);
+      color: #ff8f69;
+      transform: translateY(-1px);
+    }
+    @media (max-width: 520px) {
+      .wrap { gap: 22px; }
+      .sub {
+      font-size: 1.05rem;
       line-height: 1.5;
+      color: var(--muted);
+      max-width: 38ch;
     }
-
-    .split-pretitle {
-      text-transform: uppercase;
-      letter-spacing: 0.3em;
-      font-size: 0.75rem;
-      color: #7f7b7b;
-    }
-
-    .split-container {
-      max-width: 1200px;
-      width: 100%;
-      display: flex;
-      gap: 2rem;
-      align-items: flex-start;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .split-card {
-      background: #121111;
-      border-radius: 48px;
-      padding: 1.75rem 2rem;
-      border: 1px solid #3a3330;
-      flex: 1 1 300px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 20px 35px -20px black;
-      transition: transform 0.2s;
-      min-height: 0;
-    }
-
-    .split-card:hover {
-      transform: scale(1.02);
-      border-color: #ff5e2e60;
-    }
-
-    .split-card.facet {
-      background: radial-gradient(circle at 70% 20%, #2a1e18, #121111);
-    }
-
-    .split-card.bloxdforge {
-      background: radial-gradient(circle at 30% 80%, #1e1a18, #121111);
-    }
-
-    .split-card h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    .split-card.facet h2 {
-      color: #ffae8a;
-    }
-
-    .split-card.bloxdforge h2 {
-      color: #cfa392;
-    }
-
-    .split-card p {
-      font-size: 0.95rem;
-      color: #b1acac;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-
-    .version-tag {
-      display: inline-block;
-      background: #2a2626;
-      border-radius: 60px;
-      padding: 0.5rem 1.5rem;
-      font-size: 0.9rem;
-      border: 1px solid #4a4340;
-      color: #ffc7b0;
-      margin-top: 1rem;
-    }
-
-    @media (max-width: 900px) {
-      .hero-main {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      .hero-box {
-        margin: 40px;
-        border-radius: 60px;
-      }
-
-      .creator-container {
-        flex-direction: column;
-      }
-
-      .creator-right {
-        height: 300px;
-        width: 100%;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-      }
-
-      .grid-item.large,
-      .grid-item.wide,
-      .grid-item.tall {
-        grid-column: span 1;
-        grid-row: span 1;
-      }
-
-      .split-container {
-        flex-direction: column;
-        gap: 1rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .hero-box {
-        margin: 20px;
-        padding: 2rem;
-        border-radius: 40px;
-      }
-
-      .btn-primary {
-        padding: 20px 30px;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .title-card {
-        font-size: 1rem;
-        padding: 0.5rem 1.2rem;
-      }
-
-      .tilt-card p {
-        font-size: 1.2rem;
-      }
-
-      .mini-preview {
-        font-size: 0.75rem;
-      }
+    .quote { padding: 16px 16px; border-radius: 12px; }
+      .cta { width: 100%; justify-content: center; }
     }
   </style>
 </head>
-
 <body>
+  <main class="wrap">
+    <div class="tag">Facet</div>
+    <h1>tools that<br>feel like toys.</h1>
+    <p class="sub">A lightweight launcher and toolkit for Bloxd, simple, fast, and easy to pick up.</p>
 
-  <section class="snap-section hero">
-    <div class="hero-box">
-      <div class="hero-container">
-        <!-- Hero header: version + creators -->
-        <div class="hero-header">
-          <span class="version-pill">v5.8 Facet/Bloxd</span>
-          <span class="made-by"><i class="fas fa-bolt"></i> By AIX, GEORGECR</span>
-        </div>
-        <div class="hero-main">
-          <div class="hero-left">
-            <h1 class="hero-title">tools that<br>feel like toys.</h1>
-            <p class="hero-desc">Facet is a launcher for Bloxd with<br> everything you need in one place.</p>
-            <div class="hero-buttons">
-              <a class="btn btn-primary" href="./app/">Launch</a>
-              <a class="btn btn-outline" href="https://discord.com/invite/nVgUe4qrhr" target="_blank"
-                rel="noopener noreferrer">Discord</a>
-            </div>
-          </div>
-          <div class="hero-right">
-            <div class="teaser-grid">
-              <div class="teaser-item"><i class="fas fa-toolbox teaser-icon"></i><span
-                  class="teaser-label">Workshop</span><span class="teaser-subtitle">Browse and install packs fast.</span>
-              </div>
-              <div class="teaser-item"><i class="fas fa-gamepad teaser-icon"></i><span class="teaser-label">in game
-                  menu</span><span class="teaser-subtitle">Ton of features!</span></div>
-              <div class="teaser-item"><i class="fas fa-paint-brush teaser-icon"></i><span
-                  class="teaser-label">Creator</span><span class="teaser-subtitle">Everything you need for
-                  creating.</span></div>
-            </div>
-            <div class="testimonial">
-              <div class="testimonial-text"><i class="fas fa-quote-left"></i> wow, this is actually good.</div>
-              <div class="testimonial-author">
-                <div class="author-avatar">O</div>
-                <div class="author-info">
-                  <h5>Oliver</h5><span>Bloxd.io dev</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="scroll-hint"><i class="fas fa-chevron-down"></i><span>MORE BELOW</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="snap-section creator-layer" id="creatorLayer">
-    <div class="creator-container">
-      <div class="creator-left">
-        <div class="title-card" id="titleCard">CREATOR STUDIO</div>
-        <div class="tilt-card" id="tiltCard">
-          <p>
-            <span class="creator-desc-highlight">Build anything,<br></span>
-            from textures to 3D models and UI.<br>
-            <span class="creator-desc-highlight">EVERYTHING</span> you need.
-          </p>
-          <div class="mini-preview">
-            <i class="fas fa-cube"></i> <span>Voxel Editor </span><i class="fas fa-paint-brush"></i> <span>Tpack editor
-            </span><i class="fas fa-image"></i> <span>Img to Bloxd </span><i class="fas fa-palette"></i> <span>UI
-              maker</span>
-          </div>
-        </div>
-      </div>
-      <div class="creator-right">
-        <i class="fas fa-cube floating-icon"></i>
-        <i class="fas fa-paint-brush floating-icon"></i>
-        <i class="fas fa-crop-alt floating-icon"></i>
-        <i class="fas fa-layer-group floating-icon"></i>
-        <i class="fas fa-upload floating-icon"></i>
-      </div>
-    </div>
-  </section>
-
-  <section class="snap-section features-layer">
-    <div class="features-container">
-      <div class="features-grid">
-        <div class="grid-item large">
-          <i class="fas fa-shield-halved"></i>
-          <h3>100% client‑side</h3>
-          <p><span class="emph">Facet never touches the game</span>, all processing happens locally. Your account stays
-            safe, no injections, no server mods.</p>
-          <div class="stat-badge">+ isolated sandbox</div>
-        </div>
-        <div class="grid-item wide">
-          <i class="fas fa-sync-alt"></i>
-          <h3>actively maintained</h3>
-          <p>Weekly updates, new creator features, and quick fixes. We’re in discord every day.</p>
-        </div>
-        <div class="grid-item">
-          <i class="fas fa-cubes"></i>
-          <h3>workshop</h3>
-          <p>One‑click installs, auto‑updates, community packs.</p>
-        </div>
-        <div class="grid-item">
-          <i class="fas fa-code"></i>
-          <h3>dev utilities</h3>
-          <p>API explorer, script publisher, AI assistant.</p>
-        </div>
-        <div class="grid-item tall">
-          <i class="fas fa-robot"></i>
-          <h3>AI wiki</h3>
-          <p>Ask anything about Bloxd, get instant answers. Trained on game data.</p>
-          <div class="stat-badge">fully free*</div>
-        </div>
-        <div class="grid-item">
-          <i class="fas fa-moon"></i>
-          <h3>dark mode etc.</h3>
-          <p>Sepia, contrast, Filters.</p>
-        </div>
-        <div class="grid-item">
-          <i class="fas fa-gamepad"></i>
-          <h3>in-game menu</h3>
-          <p>quick toggles, coord manager, recorder</p>
-        </div>
-        <div class="grid-item">
-          <i class="fas fa-palette"></i>
-          <h3>texture editor</h3>
-          <p>Simple to use, with templates.</p>
+    <div class="quote">
+      <p><i class="fas fa-quote-left"></i>wow, this is actually good.</p>
+      <div class="author">
+        <div class="avatar">O</div>
+        <div class="author-text">
+          <strong>Oliver</strong>
+          <span>Bloxd.io dev</span>
         </div>
       </div>
     </div>
-  </section>
 
-  <section class="snap-section split-layer">
-    <div class="split-header">
-      <span class="split-pretitle">Facet vs BloxdForge</span>
-      <h3>Two different things.</h3>
-      <p>Facet and BloxdForge were the same back then now they are separate apps.</p>
-    </div>
-    <div class="split-container">
-      <div class="split-card facet">
-        <h2>Facet</h2>
-        <p>A launcher, with everything. QoL, dev tools, and community features.</p>
-        <div class="version-tag">v5.8</div>
-      </div>
-      <div class="split-card bloxdforge">
-        <h2>BloxdForge</h2>
-        <p>Less of a launcher more like a tool.</p>
-        <div class="version-tag">v1.17.1</div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    (function () {
-      const creatorSection = document.getElementById('creatorLayer');
-      const titleCard = document.getElementById('titleCard');
-      const tiltCard = document.getElementById('tiltCard');
-
-      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
-
-      if (creatorSection && titleCard && tiltCard && !isTouch) {
-        let rafId = null;
-        let currentX = 0.5;
-        let currentY = 0.5;
-
-        const updateTilt = () => {
-          if (!creatorSection) return;
-          const normX = (currentX - 0.5) * 2;
-          const normY = (currentY - 0.5) * 2;
-
-          const rotateY = normX * 8;
-          const rotateX = normY * -6;
-          tiltCard.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-
-          const titleRotateY = normX * 4;
-          const titleRotateX = normY * -3;
-          titleCard.style.transform = `perspective(300px) rotateX(${titleRotateX}deg) rotateY(${titleRotateY}deg) scale3d(1.01, 1.01, 1.01)`;
-
-          rafId = null;
-        };
-
-        const onMouseMove = (e) => {
-          const rect = creatorSection.getBoundingClientRect();
-          let x = (e.clientX - rect.left) / rect.width;
-          let y = (e.clientY - rect.top) / rect.height;
-          x = Math.min(1, Math.max(0, x));
-          y = Math.min(1, Math.max(0, y));
-
-          currentX = x;
-          currentY = y;
-
-          if (!rafId) {
-            rafId = requestAnimationFrame(updateTilt);
-          }
-        };
-
-        const onMouseLeave = () => {
-          tiltCard.style.transform = 'perspective(500px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
-          titleCard.style.transform = 'perspective(300px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
-          if (rafId) {
-            cancelAnimationFrame(rafId);
-            rafId = null;
-          }
-        };
-
-        creatorSection.addEventListener('mousemove', onMouseMove);
-        creatorSection.addEventListener('mouseleave', onMouseLeave);
-      } else {
-        if (titleCard) titleCard.style.transform = 'none';
-        if (tiltCard) tiltCard.style.transform = 'none';
-      }
-
-      const motionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if (motionMedia.matches) {
-        if (titleCard) titleCard.style.transition = 'none';
-        if (tiltCard) tiltCard.style.transition = 'none';
-      }
-    })();
-  </script>
+    <a class="cta" href="/app/">Check it out yourself <i class="fas fa-arrow-right"></i></a>
+  </main>
 </body>
-
 </html>
